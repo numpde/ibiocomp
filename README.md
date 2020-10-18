@@ -1,2 +1,14 @@
-# ibiocomp
-2020-HS Intro to Biological Computers (Project)
+# Intro to Biological Computers
+
+## Team
+
+ - RA
+ - HH
+
+## About
+
+
+
+--
+
+Oct 2020 -- Feb 2021
