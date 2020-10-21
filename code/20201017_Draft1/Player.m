@@ -26,7 +26,7 @@ classdef Player
 		
 		function self = process(self, input)
 			assert(length(input) == 5)
-			shared_constants;
+			constants = load('shared_constants');
 			
 			b1 = input(1);
 			
@@ -117,7 +117,7 @@ classdef Player
 				% Need to wait until those are zero
 				% because they will switch on faster 
 				% than target1 when returning an answer.
-				target1 = (self.response2 > ALMOST_ZERO) || (self.response3 > ALMOST_ZERO);
+				target1 = (self.response2 > constants.ALMOST_ZERO) || (self.response3 > constants.ALMOST_ZERO);
 				
 				target = [target1, [0, 0]];
 			end
