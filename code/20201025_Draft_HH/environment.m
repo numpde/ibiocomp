@@ -36,7 +36,7 @@ function environment
 		
 
 	function player_took = ask(player, sticks)
-		disp(['ENV: Waiting for player ' char(player.name) ' to initalize.']);
+		disp(['ENV: Waiting for player ' char(player.name) ' to initialize.']);
 		
 		checkpoint(nan);
 		
@@ -59,7 +59,7 @@ function environment
 		env_bits(1) = constants.ATTENTION;
 		checkpoint();
 		%
-		disp(['ENV: Sending stick status to player ' char(player.name) ' and waiting for the reponse.']);
+		disp(['ENV: Sending stick status to player ' char(player.name) ' and waiting for the response.']);
 		%
 		while (player.response1 < constants.ALMOST_ONE)
 			player.process(env_bits);

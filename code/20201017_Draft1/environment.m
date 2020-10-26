@@ -68,6 +68,10 @@ function environment
 		disp(['ENV: There were ' num2str(sticks) ' stick/s. Player TOOK ' num2str(player_took) ' STICK/S.']);
 
 	end
+	
+	for i = (1 : 100)
+		checkpoint()
+	end
 
 	imagesc([history_envmnt, history_player]);
 end
