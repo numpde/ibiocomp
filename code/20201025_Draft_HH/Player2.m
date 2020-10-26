@@ -44,14 +44,18 @@ classdef Player2 < handle
             %   0   0   1   1
             %   1   1   1   0
             
-			if  b2*b3*b4*b5 > 0 && b1>0
-                % make sure there are sticks
-                r2 = (b4 == b5);
-                r3 = 1 - (b4*b5);
+			if b2+b3+b4+b5 > 0 && b1>0
+               % make sure there are sticks
+               r2 = (b4 == b5);
+               r3 = 1 - (b4*b5);
+                
             else
+                
                 r2 = 0;
                 r3 = 0;
             end
+            
+           
             
 			
 			% Ready flag
