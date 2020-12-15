@@ -1,0 +1,173 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage[svgnames]{xcolor}
+\usepackage{datetime2}
+\usepackage{epstopdf}
+\usepackage[colorlinks=true, citecolor={red}, urlcolor={DarkBlue}]{hyperref}
+\usepackage{amssymb} 
+
+\usepackage{fullpage}
+\setlength{\parindent}{0cm}
+
+% For editing purposes:
+%\usepackage[margin=10pt]{geometry}
+
+
+% https://latex.org/forum/viewtopic.php?t=10456
+\usepackage{titlesec}
+\titleformat{\subsubsection}[runin]% runin puts it in the same paragraph
+{\normalfont\bfseries}% formatting commands to apply to the whole heading
+{\thesubsubsection}% the label and number
+{}% space between label/number and subsection title
+{}% formatting commands applied just to subsection title
+[.]% punctuation or other commands following subsection title
+
+
+\newcommand{\cbra}[1]{{\color{gray}\ensuremath{#1}}}
+\newcommand{\signal}[1]{\ensuremath{\cbra{\langle}\mathrm{#1}\cbra{\rangle}}}
+\newcommand{\protein}[1]{\ensuremath{\cbra{(}\mathrm{#1}\cbra{)}}}
+\newcommand{\promoter}[1]{\ensuremath{\cbra{[}\mathrm{#1}\cbra{]}}}
+
+% https://tex.stackexchange.com/questions/543953/arrow-with-blunted-end-head-in-math-mode
+\newcommand{\act}{\ensuremath{\to}}
+\newcommand{\rep}{\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}}
+
+\def\[#1\]{\begin{align}\textstyle#1\end{align}}
+
+% https://tex.stackexchange.com/questions/114113/how-to-label-text-with-equation-number
+\newcommand{\eqnum}{\leavevmode\hfill\refstepcounter{equation}\textup{{(\theequation)}}}
+
+
+
+\begin{document}
+
+\clearpage
+
+\section{Introduction}
+
+\subsection{The game of 15 sticks}
+
+...
+
+
+\section{Sensors}
+
+\subsubsection*{3OC5/LuxR}
+
+\[
+	\signal{3OC5} \act \protein{LuxR} \act \promoter{P_{Lux}} \act \protein{Output}
+\]
+
+ 
+The transcription activator \protein{LuxR}
+occurs in Gram-negative bacteria,
+incl.~\emph{Vibrio fischeri}.
+%
+The bacterium is permeable to the (auto)inducer,
+here \signal{3OC5}.
+%
+The inducer binds to the N-terminal of \protein{LuxR},
+which otherwise inhibits its
+functional C-terminal \cite{StevensDolanGreenberg1994}.
+%
+%
+The purified C-terminal binds 
+upstream of the \emph{lux} box 
+(which is centered at $-42.5$bp \cite{EglandGreenberg1999});
+however, 
+together with the RNA Pol,
+it protects the \emph{lux} box and the \emph{lux} operon
+promoter
+\cite{StevensDolanGreenberg1994}.
+%
+%
+%
+Let $\protein{LuxR^\star}$ denote 
+the activated form
+$\signal{3OC5}:\protein{LuxR}$.
+%
+%
+We assume the mechanism:
+%
+\begin{subequations}
+\[
+	\signal{3OC5} + \protein{LuxR}
+	& \longleftrightarrow
+	\protein{LuxR^\star}
+	\\
+	\protein{LuxR^\star} + \protein{Pol} + \promoter{Lux}
+	& \longleftrightarrow
+	\protein{LuxR^\star} + \protein{Pol} : \promoter{Lux}
+	\\
+	\protein{Pol} : \promoter{Lux}
+	& \longrightarrow
+	\protein{Pol} + \promoter{Lux} + \protein{Output}
+	.
+\]
+\end{subequations}
+% https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
+
+
+\subsubsection*{Sal/NahR}
+
+\[
+	\signal{Sal} \act \protein{NahR} \act \promoter{P_{Sal}} \act \protein{Output}
+\]
+
+% http://2013.igem.org/Team:Peking/Project/BioSensors/NahR
+
+
+According to 
+\cite{SchellWender1986},
+the transcription activator \protein{NahR}
+binds to its recognition site
+$-83$ to $-45$,
+and does so without the inducer \cite[p.10837]{HuangSchell1991}.
+%
+The inducer
+(here \signal{Sal})
+controls the contact near $-35$,
+and
+enables transcription.
+%
+%
+In \cite{SchellBrownRaju1990},
+it was suggested 
+that the active \protein{NahR} is a tetramer,
+while \cite{ParkLimShin2005}
+reported that 
+there could be three different complexes
+\protein{NahR} : \promoter{P_{Sal}}.
+%
+%
+Following \cite{Peking2013},
+we suppose
+that 
+$4 \times \protein{NahR}$ bind to the DNA,
+and
+transcription starts
+once
+a $\signal{Sal}$
+bind to each \protein{NahR}.
+%
+%
+Mechanism:
+\[
+	--
+\]
+
+
+
+\footnotesize
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\leavevmode\vfill{\tiny\color{lightgray}\hfill{Intro Bio Comp (\DTMnow)}}
+\end{document}
+
+
+
+
+
