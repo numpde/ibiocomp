@@ -52,12 +52,22 @@
 ...
 
 
-\section{Sensors}
+\section{Genetic toolbox}
+
+
+\subsection{Transducers}
+
+--
+
+
+\subsection{Sensors}
 
 \subsubsection*{3OC5/LuxR}
 
+Pathway:
 \[
 	\signal{3OC5} \act \protein{LuxR} \act \promoter{P_{Lux}} \act \protein{Output}
+	.
 \]
 
  
@@ -112,15 +122,17 @@ We assume the mechanism:
 
 \subsubsection*{Sal/NahR}
 
+Pathway:
+%
 \[
 	\signal{Sal} \act \protein{NahR} \act \promoter{P_{Sal}} \act \protein{Output}
+	.
 \]
 
-% http://2013.igem.org/Team:Peking/Project/BioSensors/NahR
-
+%
 
 According to 
-\cite{SchellWender1986},
+\cite{SchellWender1986, HuangSchell1991},
 the transcription activator \protein{NahR}
 binds to its recognition site
 $-83$ to $-45$,
@@ -135,11 +147,11 @@ enables transcription.
 %
 In \cite{SchellBrownRaju1990},
 it was suggested 
-that the active \protein{NahR} is a tetramer,
+that the active configuration of \protein{NahR} is a tetramer,
 while \cite{ParkLimShin2005}
 reported that 
 there could be three different complexes
-\protein{NahR} : \promoter{P_{Sal}}.
+$\protein{NahR}:\promoter{P_{Sal}}$.
 %
 %
 Following \cite{Peking2013},
@@ -149,14 +161,51 @@ $4 \times \protein{NahR}$ bind to the DNA,
 and
 transcription starts
 once
-a $\signal{Sal}$
-bind to each \protein{NahR}.
+one $\signal{Sal}$
+binds to each \protein{NahR}.
 %
 %
 Mechanism:
 \[
 	--
 \]
+
+
+\subsubsection*{pC/rpaR}
+
+Pathway:
+%
+\[
+	\signal{pC} \act \protein{RpaR} \act \promoter{P_{rpa}}
+	\act 
+	\protein{Output}
+	.
+\]
+
+The \emph{Rhodopseudomonas palustris} transcriptional regulator
+\protein{RpaR},
+when purified,
+binds an inverted repeat element 
+centered at $-48.5$bp
+of its promoter
+\cite{HirakawaETAL2011}.
+%
+%
+Transcription depends on the inducer 
+\emph{p}-coumaroyl-homoserine lactone,
+or \signal{pC} for short.
+%
+%
+%There is
+%pC-HSL-RpaR-activated antisense transcription of \protein{rpaR}.
+%
+%
+The complex 
+$\signal{pC} : \protein{RpaR}$
+when bound to the promoter
+activates transcription
+\cite[Discussion]{HirakawaETAL2011}.
+
 
 
 
