@@ -54,6 +54,9 @@
 \newcommand{\eqnum}{\leavevmode\hfill\refstepcounter{equation}\textup{{(\theequation)}}}
 
 
+\newcommand{\hh}[1]{{\color{Purple}#1}}
+\newcommand{\ra}[1]{{\color{Blue}#1}}
+
 
 \begin{document}
 
@@ -83,6 +86,11 @@ The last to take a stick loses.
 \TODO{MoA}
 
 \cite{JakobyETAL2000}
+
+\ra{working on this}
+
+
+\subsubsection*{...}
 
 
 \subsection{Sensors}
@@ -158,6 +166,16 @@ We assume the mechanism:
 	.
 \]
 \end{subequations}
+
+%=======
+%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{P_{Lux}}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{P_{Lux}}
+%	\\
+%	\protein{RNApol} : \promoter{P_{Lux}}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{P_{Lux}} + \protein{Output}
+%>>>>>>> c8a0f57bdb0a7b80747263819cbb64562e087765
 %\TODO{
 %\[
 %	\signal{3OC6} + \protein{LuxR}
@@ -236,7 +254,7 @@ In combination, we have
 \]
 
 
-\subsubsection*{Sal/NahR}
+\subsubsection*{Salicylate/NahR}
 
 Pathway:
 %
@@ -250,15 +268,11 @@ Pathway:
 According to 
 \cite{SchellWender1986, HuangSchell1991},
 the transcription activator \protein{NahR}
-binds to its recognition site
+binds to the recognition site of \promoter{Sal} at
 $-83$ to $-45$,
 and does so without the inducer \cite[p.10837]{HuangSchell1991}.
-%
-The inducer
-(here \signal{Sal})
-controls the contact near $-35$,
-and
-enables transcription.
+The \protein{NahR} hence activate the expression of \promoter{Sal}.
+
 %
 %
 In \cite{SchellBrownRaju1990},
@@ -267,7 +281,21 @@ that the active configuration of \protein{NahR} is a tetramer,
 while \cite{ParkLimShin2005}
 reported that 
 there could be three different complexes
-$\protein{NahR}:\promoter{Sal}$.
+%
+$\protein{NahR} \with \promoter{Sal}$.
+
+\TODO{check coherence of this paragraph}
+
+\hh{
+Nevertheless, the configuration changes 
+then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{Sal}).
+%
+%
+The inducer
+(here \signal{Sal}) can induce the conformation change of \protein{NahR},
+and activates the promoter \promoter{Sal}.
+}
+
 %
 %
 Following \cite{Peking2013},
@@ -319,8 +347,22 @@ Mechanism:
 		->
 		\promoter{Sal^\star} + \protein{Output}
 	}
-	.
 \]
+%Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
+%\[
+%	\signal{Sal} + \protein{NahR}
+%	& \longleftrightarrow
+%	\protein{NahR^\star}
+%	 \\
+%	 \protein{NahR^\star} + \protein{RNApol} + \promoter{P_{Sal}}
+%	& \longleftrightarrow
+%	\protein{NahR^\star} + \protein{RNApol} : \promoter{P_{Sal}}
+%	\\
+%	\protein{RNApol} : \promoter{P_{Sal}}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
+%	.
+%\]
 \end{subequations}
 %
 %
@@ -337,9 +379,10 @@ We implement the mechanism as follows:
 	\promoter{Sal}_\text{total}
 \]
 
+\ra{[this is an opportunity to use Hill kinetics]}
 
 
-\subsubsection*{pC/rpaR}
+\subsubsection*{pC-HSL/rpaR}
 
 Pathway:
 %
@@ -350,6 +393,18 @@ Pathway:
 	.
 \]
 
+\hh{
+The p-coumaroyl-HSL -- RpaR system 
+(\signal{pC\text{-}HSL})
+works similarly to AHL/LuxR
+\TODO{use `protein`?}.
+%
+However, as they come from an anoxygenic phototrophic soil bacterium strain, 
+the luxIR-type pair, rpaI and rpaR shows good orthogonality to many
+QS signals in use \cite{SchaeferETAL2008}.
+}
+
+\ra{
 The \emph{Rhodopseudomonas palustris} transcriptional regulator
 \protein{RpaR},
 when purified,
@@ -374,6 +429,7 @@ $\signal{pC} : \protein{RpaR}$
 when bound to the promoter
 activates transcription
 \cite[Discussion]{HirakawaETAL2011}.
+}
 
 
 
