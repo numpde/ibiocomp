@@ -62,11 +62,11 @@
 
 \subsection{Sensors}
 
-\subsubsection*{3OC5/LuxR}
+\subsubsection*{3OC6-HSL/LuxR}
 
 Pathway:
 \[
-	\signal{3OC5} \act \protein{LuxR} \act \promoter{P_{Lux}} \act \protein{Output}
+	\signal{3OC6-HSL} \act \protein{LuxR} \act \promoter{P_{Lux}} \act \protein{Output}
 	.
 \]
 
@@ -76,7 +76,7 @@ occurs in Gram-negative bacteria,
 incl.~\emph{Vibrio fischeri}.
 %
 The bacterium is permeable to the (auto)inducer,
-here \signal{3OC5}.
+here \signal{3OC6-HSL}.
 %
 The inducer binds to the N-terminal of \protein{LuxR},
 which otherwise inhibits its
@@ -96,24 +96,24 @@ promoter
 %
 Let $\protein{LuxR^\star}$ denote 
 the activated form
-$\signal{3OC5}:\protein{LuxR}$.
+$\signal{3OC6}:\protein{LuxR}$.
 %
 %
 We assume the mechanism:
 %
 \begin{subequations}
 \[
-	\signal{3OC5} + \protein{LuxR}
+	\signal{3OC6} + \protein{LuxR}
 	& \longleftrightarrow
 	\protein{LuxR^\star}
 	\\
-	\protein{LuxR^\star} + \protein{Pol} + \promoter{Lux}
+	\protein{LuxR^\star} + \protein{RNApol} + \promoter{Lux}
 	& \longleftrightarrow
-	\protein{LuxR^\star} + \protein{Pol} : \promoter{Lux}
+	\protein{LuxR^\star} + \protein{RNApol} : \promoter{Lux}
 	\\
-	\protein{Pol} : \promoter{Lux}
+	\protein{RNApol} : \promoter{Lux}
 	& \longrightarrow
-	\protein{Pol} + \promoter{Lux} + \protein{Output}
+	\protein{RNApol} + \promoter{Lux} + \protein{Output}
 	.
 \]
 \end{subequations}
