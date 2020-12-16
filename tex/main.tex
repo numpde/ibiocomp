@@ -120,7 +120,7 @@ We assume the mechanism:
 % https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
 
 
-\subsubsection*{Sal/NahR}
+\subsubsection*{Salicylat/NahR}
 
 Pathway:
 %
@@ -134,15 +134,11 @@ Pathway:
 According to 
 \cite{SchellWender1986, HuangSchell1991},
 the transcription activator \protein{NahR}
-binds to its recognition site
+binds to the recognition site of \promoter{P_{Sal}} at
 $-83$ to $-45$,
 and does so without the inducer \cite[p.10837]{HuangSchell1991}.
-%
-The inducer
-(here \signal{Sal})
-controls the contact near $-35$,
-and
-enables transcription.
+The \protein{NahR} hence activate the expression of \promoter{P_{Sal}}.
+
 %
 %
 In \cite{SchellBrownRaju1990},
@@ -152,6 +148,14 @@ while \cite{ParkLimShin2005}
 reported that 
 there could be three different complexes
 $\protein{NahR}:\promoter{P_{Sal}}$.
+Nevertheless, the configuration changes 
+then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{P_{Sal}}
+%
+%
+The inducer
+(here \signal{Sal}) can induce the conformation change of \protein{NahR},
+and activates promoter \promoter{P_{Sal}}.
+
 %
 %
 Following \cite{Peking2013},
@@ -165,9 +169,21 @@ one $\signal{Sal}$
 binds to each \protein{NahR}.
 %
 %
-Mechanism:
+Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
 \[
-	--
+	\signal{Sal} + \protein{NahR}
+	& \longleftrightarrow
+	\protein{NahR^\star}
+	 \\
+	 \protein{NahR^\star} + \protein{RNApol} + \promoter{P_{Sal}}
+	& \longleftrightarrow
+	\protein{NahR^\star} + \protein{RNApol} : \promoter{P_{Sal}}
+	\\
+	\protein{RNApol} : \promoter{P_{Sal}}
+	& \longrightarrow
+	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
+	
+	
 \]
 
 
