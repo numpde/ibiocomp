@@ -63,24 +63,35 @@
 
 \subsection{The game of 15 sticks}
 
-...
+Two players start with 15 sticks.
+Each player takes 1, 2 or 3 sticks.
+The last to take a stick loses.
+
 
 
 \section{Genetic toolbox}
 
 
+\TODO{Specify initial conditions}
+
+
 \subsection{Transducers}
 
---
+
+\subsubsection*{AmtR}
+
+\TODO{MoA}
+
+\cite{JakobyETAL2000}
 
 
 \subsection{Sensors}
 
-\subsubsection*{3OC5/LuxR}
+\subsubsection*{3OC6-HSL/LuxR}
 
 Pathway:
 \[
-	\signal{3OC5} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
+	\signal{3OC6\text{-}HSL} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
 	.
 \]
 
@@ -90,7 +101,7 @@ occurs in Gram-negative bacteria
 such as \emph{Vibrio fischeri}.
 %
 The bacterium is permeable to the (auto)inducer,
-here \signal{3OC5}.
+here \signal{3OC6\text{-}HSL}.
 %
 The inducer binds to the N-terminal of \protein{LuxR},
 which otherwise inhibits its
@@ -109,9 +120,15 @@ promoter
 %
 %
 We abbreviate
-$\protein{LuxR^\star} := \signal{3OC5} \with \protein{LuxR}$
+$\protein{LuxR^\star} := \signal{3OC6\text{-}HSL} \with \protein{LuxR}$
 and
 $\promoter{Lux^\star} := \protein{LuxR^\star} \with \promoter{Lux}$.
+%
+%\TODO{
+%Let $\protein{LuxR^\star}$ denote 
+%the activated form
+%$\signal{3OC6}:\protein{LuxR}$.
+%}
 %
 %
 We assume the mechanism:
@@ -120,7 +137,7 @@ We assume the mechanism:
 \[
 	\label{e:LuxR_Act}
 	\cee{
-		\signal{3OC5} + \protein{LuxR}
+		\signal{3OC6\text{-}HSL} + \protein{LuxR}
 		& <=>>
 		\protein{LuxR^\star}
 	}
@@ -141,6 +158,21 @@ We assume the mechanism:
 	.
 \]
 \end{subequations}
+%\TODO{
+%\[
+%	\signal{3OC6} + \protein{LuxR}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star}
+%	\\
+%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{Lux}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{Lux}
+%	\\
+%	\protein{RNApol} : \promoter{Lux}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{Lux} + \protein{Output}
+%\]
+%}
 % https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
 
 
@@ -150,13 +182,13 @@ Kinetics:
 	\protein{LuxR^\star} 
 	& =
 	\frac{
-		\signal{3OC5}
+		\signal{3OC6\text{-}HSL}
 	}{
-		k_{\ref{e:LuxR_Act}} + \signal{3OC5}
+		k_{\ref{e:LuxR_Act}} + \signal{3OC6\text{-}HSL}
 	}
 	\protein{LuxR}_\text{total},
-	\TEXT{initially}
-	\protein{LuxR^\star} = 0
+%	\TEXT{initially}
+%	\protein{LuxR^\star} = 0
 	,
 	%
 	\\
@@ -169,8 +201,9 @@ Kinetics:
 		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
 	}
 	\promoter{Lux}_\text{total},
-	\TEXT{initially}
-	\promoter{Lux^\star} = 0
+%	\TEXT{initially}
+%	\promoter{Lux^\star} = 0
+	,
 	%
 	\\
 	%
@@ -181,9 +214,8 @@ Kinetics:
 	.
 \]
 \end{subequations}
-
 %
-
+%
 In combination, we have
 \[
 	\tfrac{\d}{\d{t}}
@@ -250,7 +282,7 @@ binds to each \protein{NahR}.
 %
 For the sensors we assume an abundance
 of \protein{NahR}
-\TODO{constitutive promoter},
+\TODO{describe constitutive promoter},
 hence the inactive form of the promoter
 is $\protein{NahR}_4 \with \promoter{Sal}$.
 %
