@@ -1,19 +1,24 @@
 \documentclass[12pt]{article}
 
-\usepackage{amsmath, amsfonts}
+
+\usepackage{amsmath, amsfonts, amssymb}
 \usepackage{graphicx}
 \usepackage[svgnames]{xcolor}
 \usepackage{datetime2}
 \usepackage{epstopdf}
-\usepackage[colorlinks=true, citecolor={red}, urlcolor={DarkBlue}]{hyperref}
-\usepackage{amssymb} 
+\usepackage[
+	colorlinks=true, 
+	citecolor={DarkRed}, urlcolor={DarkBlue}, linkcolor={DarkBlue},
+]{hyperref}
+
+% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/mhchem/mhchem.pdf
+\usepackage[version=3]{mhchem}
 
 \usepackage{fullpage}
 \setlength{\parindent}{0cm}
 
 % For editing purposes:
 %\usepackage[margin=10pt]{geometry}
-
 
 % https://latex.org/forum/viewtopic.php?t=10456
 \usepackage{titlesec}
@@ -25,6 +30,15 @@
 [.]% punctuation or other commands following subsection title
 
 
+\newcommand{\TODO}[1]{\textrm{\color{red}TODO: #1}}
+\input{todomech}
+
+
+\renewcommand{\d}{\mathrm{d}}
+
+\newcommand{\TEXT}[1]{\quad\text{#1}\quad}
+\newcommand{\with}{\text{ $:$ }}
+
 \newcommand{\cbra}[1]{{\color{gray}\ensuremath{#1}}}
 \newcommand{\signal}[1]{\ensuremath{\cbra{\langle}\mathrm{#1}\cbra{\rangle}}}
 \newcommand{\protein}[1]{\ensuremath{\cbra{(}\mathrm{#1}\cbra{)}}}
@@ -34,7 +48,7 @@
 \newcommand{\act}{\ensuremath{\to}}
 \newcommand{\rep}{\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}}
 
-\def\[#1\]{\begin{align}\textstyle#1\end{align}}
+\def\[#1\]{\begin{align}#1\end{align}}
 
 % https://tex.stackexchange.com/questions/114113/how-to-label-text-with-equation-number
 \newcommand{\eqnum}{\leavevmode\hfill\refstepcounter{equation}\textup{{(\theequation)}}}
@@ -66,14 +80,14 @@
 
 Pathway:
 \[
-	\signal{3OC5} \act \protein{LuxR} \act \promoter{P_{Lux}} \act \protein{Output}
+	\signal{3OC5} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
 	.
 \]
 
  
 The transcription activator \protein{LuxR}
-occurs in Gram-negative bacteria,
-incl.~\emph{Vibrio fischeri}.
+occurs in Gram-negative bacteria
+such as \emph{Vibrio fischeri}.
 %
 The bacterium is permeable to the (auto)inducer,
 here \signal{3OC5}.
@@ -94,30 +108,100 @@ promoter
 %
 %
 %
-Let $\protein{LuxR^\star}$ denote 
-the activated form
-$\signal{3OC5}:\protein{LuxR}$.
+We abbreviate
+$\protein{LuxR^\star} := \signal{3OC5} \with \protein{LuxR}$
+and
+$\promoter{Lux^\star} := \protein{LuxR^\star} \with \promoter{Lux}$.
 %
 %
 We assume the mechanism:
 %
 \begin{subequations}
 \[
-	\signal{3OC5} + \protein{LuxR}
-	& \longleftrightarrow
-	\protein{LuxR^\star}
+	\label{e:LuxR_Act}
+	\cee{
+		\signal{3OC5} + \protein{LuxR}
+		& <=>>
+		\protein{LuxR^\star}
+	}
 	\\
-	\protein{LuxR^\star} + \protein{Pol} + \promoter{Lux}
-	& \longleftrightarrow
-	\protein{LuxR^\star} + \protein{Pol} : \promoter{Lux}
+	\label{e:P_Lux_Act}
+	\cee{
+		\protein{LuxR^\star} + \promoter{Lux}
+		& <=>>
+		\promoter{Lux^\star}
+	}
 	\\
-	\protein{Pol} : \promoter{Lux}
-	& \longrightarrow
-	\protein{Pol} + \promoter{Lux} + \protein{Output}
+	\label{e:P_Lux_Out}
+	\cee{
+		\promoter{Lux^\star}
+		& ->
+		\promoter{Lux^\star} + \protein{Output}
+	}
 	.
 \]
 \end{subequations}
 % https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
+
+
+Kinetics:
+\begin{subequations}
+\[
+	\protein{LuxR^\star} 
+	& =
+	\frac{
+		\signal{3OC5}
+	}{
+		k_{\ref{e:LuxR_Act}} + \signal{3OC5}
+	}
+	\protein{LuxR}_\text{total},
+	\TEXT{initially}
+	\protein{LuxR^\star} = 0
+	,
+	%
+	\\
+	%%
+	\promoter{Lux^\star} 
+	& =
+	\frac{
+		\protein{LuxR^\star}
+	}{
+		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
+	}
+	\promoter{Lux}_\text{total},
+	\TEXT{initially}
+	\promoter{Lux^\star} = 0
+	%
+	\\
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	& =
+	k_{\ref{e:P_Lux_Out}} \promoter{Lux^\star}
+	.
+\]
+\end{subequations}
+
+%
+
+In combination, we have
+\[
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	=
+	k_{\ref{e:P_Lux_Out}}
+	\promoter{Lux}_\text{total}
+	\frac{
+		\signal{} \promoter{}_\text{total}
+	}{
+		k_{\ref{e:LuxR_Act}} k_{\ref{e:P_Lux_Act}}
+		+
+		k_{\ref{e:P_Lux_Act}} \signal{}
+		+
+		\signal{} \promoter{}_\text{total}
+	}
+	.
+\]
 
 
 \subsubsection*{Sal/NahR}
@@ -125,7 +209,7 @@ We assume the mechanism:
 Pathway:
 %
 \[
-	\signal{Sal} \act \protein{NahR} \act \promoter{P_{Sal}} \act \protein{Output}
+	\signal{Sal} \act \protein{NahR} \act \promoter{Sal} \act \protein{Output}
 	.
 \]
 
@@ -151,7 +235,7 @@ that the active configuration of \protein{NahR} is a tetramer,
 while \cite{ParkLimShin2005}
 reported that 
 there could be three different complexes
-$\protein{NahR}:\promoter{P_{Sal}}$.
+$\protein{NahR}:\promoter{Sal}$.
 %
 %
 Following \cite{Peking2013},
@@ -164,11 +248,63 @@ once
 one $\signal{Sal}$
 binds to each \protein{NahR}.
 %
+For the sensors we assume an abundance
+of \protein{NahR}
+\TODO{constitutive promoter},
+hence the inactive form of the promoter
+is $\protein{NahR}_4 \with \promoter{Sal}$.
+%
+%
+We write
+$
+	\promoter{Sal^\star} :=
+	\signal{Sal}_4 \with \protein{NahR}_4 \with \promoter{Sal}
+$
+for the active form.
+%
 %
 Mechanism:
+\begin{subequations}
 \[
-	--
+	\label{e:NahR_Act}
+	%
+	\cee{
+		\signal{Sal} + 
+		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
+		& <=>>
+		\signal{Sal}_k \with \protein{NahR}_4 \with \promoter{Sal}
+	}
+	,
+	\quad \text{k} = 1, 2, 3, 4,
+	%
+	\\
+	%
+	\label{e:NahR_Out}
+	%
+	\cee{
+		\promoter{Sal^\star}
+		&
+		->
+		\promoter{Sal^\star} + \protein{Output}
+	}
+	.
 \]
+\end{subequations}
+%
+%
+%
+We implement the mechanism as follows:
+\[
+	\promoter{Sal^\star}
+	=
+	\frac{
+		\signal{}^{n_{\ref{e:NahR_Act}}}
+	}{
+		k_{\ref{e:NahR_Act}} + \signal{}^{n_{\ref{e:NahR_Act}}}
+	}
+	\promoter{Sal}_\text{total}
+\]
+
 
 
 \subsubsection*{pC/rpaR}
@@ -176,7 +312,7 @@ Mechanism:
 Pathway:
 %
 \[
-	\signal{pC} \act \protein{RpaR} \act \promoter{P_{rpa}}
+	\signal{pC} \act \protein{RpaR} \act \promoter{rpa}
 	\act 
 	\protein{Output}
 	.
@@ -191,7 +327,8 @@ of its promoter
 \cite{HirakawaETAL2011}.
 %
 %
-Transcription depends on the inducer 
+Transcription depends on 
+the inducer 
 \emph{p}-coumaroyl-homoserine lactone,
 or \signal{pC} for short.
 %
@@ -209,9 +346,13 @@ activates transcription
 
 
 
+
+
 \footnotesize
 \bibliographystyle{unsrt}
 \bibliography{refs}
+
+\SHOWTODOS
 
 \leavevmode\vfill{\tiny\color{lightgray}\hfill{Intro Bio Comp (\DTMnow)}}
 \end{document}
