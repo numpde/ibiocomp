@@ -83,9 +83,88 @@ The last to take a stick loses.
 
 \subsubsection*{AmtR}
 
-\TODO{MoA}
+The TetR family member AmtR is 
+the central regulator of nitrogen starvation response
+in 
+the Gram-positive bacterium
+\emph{Corynebacterium glutamicum}
+\cite{JakobyETAL2000}.
+%
+This repressor is released
+by
+the trimeric adenylylated $\mathrm{P_{II}}$-type 
+signal-transduction protein GlnK
+\cite{BeckersETAL2005, SevvanaETAL2017},
+which is present upon
+nitrogen starvation. 
+%
+The AmtR box and the regulon is 
+characterized in 
+\cite{BeckersETAL2005},
+and
+several variants are compared 
+in \cite{MuhlETAL2009}.
+%
+%
+\TODO{Do we need the GlnK release mechanism?}
+%
+It seems clear that 
+AmtR sits on the DNA as a dimer
+\cite{SevvanaETAL2017},
+\cite[\S3.4.2]{Schwab2019}.
+%
+%
+We therefore assume
+the mechanism
+\begin{subequations}
+\[
+	\cee{
+		2 \protein{AmtR} + \promoter{AmtR}
+		& <=>>
+		\protein{AmtR}_2 \with \promoter{AmtR}
+	}
+	%
+	\\
+	%
+	\cee{
+		\promoter{AmtR} 
+		& ->
+		\promoter{AmtR} + \protein{Output}
+	}
+\]
+\end{subequations}
+and
+the kinetics:
+\begin{subequations}
+\[
+	\label{e:AmtR_Act}
+	%
+	\promoter{AmtR} 
+	& =
+	\frac{1}{1 + k_{\ref{e:AmtR_Act}} \protein{AmtR}^{n_{\ref{e:AmtR_Act}}}}
+	\promoter{AmtR}_\text{total}
+	%
+	% here, k = forward / backward
+	%
+	,
+	\\
+	%
+	\label{e:AmtR_Out}
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output} 
+	& =
+	k_{\ref{e:AmtR_Out}}
+	\promoter{AmtR}
+	.
+\]
+\end{subequations}
+%
+%
 
-\cite{JakobyETAL2000}
+% Further literature
+%\cite{MuhlETAL2009}
+%\cite{BuchingerETAL2009}
 
 \ra{working on this}
 
@@ -143,21 +222,18 @@ We assume the mechanism:
 %
 \begin{subequations}
 \[
-	\label{e:LuxR_Act}
 	\cee{
 		\signal{3OC6\text{-}HSL} + \protein{LuxR}
 		& <=>>
 		\protein{LuxR^\star}
 	}
 	\\
-	\label{e:P_Lux_Act}
 	\cee{
 		\protein{LuxR^\star} + \promoter{Lux}
 		& <=>>
 		\promoter{Lux^\star}
 	}
 	\\
-	\label{e:P_Lux_Out}
 	\cee{
 		\promoter{Lux^\star}
 		& ->
@@ -166,7 +242,7 @@ We assume the mechanism:
 	.
 \]
 \end{subequations}
-
+%
 %=======
 %	\protein{LuxR^\star} + \protein{RNApol} + \promoter{P_{Lux}}
 %	& \longleftrightarrow
@@ -192,11 +268,15 @@ We assume the mechanism:
 %\]
 %}
 % https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
-
-
-Kinetics:
+%
+%
+%
+and the kinetics:
+%
 \begin{subequations}
 \[
+	\label{e:LuxR_Act}
+	%
 	\protein{LuxR^\star} 
 	& =
 	\frac{
@@ -204,13 +284,15 @@ Kinetics:
 	}{
 		k_{\ref{e:LuxR_Act}} + \signal{3OC6\text{-}HSL}
 	}
-	\protein{LuxR}_\text{total},
+	\protein{LuxR}_\text{total}
 %	\TEXT{initially}
 %	\protein{LuxR^\star} = 0
 	,
 	%
 	\\
 	%%
+	\label{e:P_Lux_Act}
+	%
 	\promoter{Lux^\star} 
 	& =
 	\frac{
@@ -218,12 +300,14 @@ Kinetics:
 	}{
 		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
 	}
-	\promoter{Lux}_\text{total},
+	\promoter{Lux}_\text{total}
 %	\TEXT{initially}
 %	\promoter{Lux^\star} = 0
 	,
 	%
 	\\
+	%
+	\label{e:P_Lux_Out}
 	%
 	\tfrac{\d}{\d{t}}
 	\protein{Output}
@@ -242,13 +326,13 @@ In combination, we have
 	k_{\ref{e:P_Lux_Out}}
 	\promoter{Lux}_\text{total}
 	\frac{
-		\signal{} \promoter{}_\text{total}
+		\signal{} \protein{}_\text{total}
 	}{
 		k_{\ref{e:LuxR_Act}} k_{\ref{e:P_Lux_Act}}
 		+
 		k_{\ref{e:P_Lux_Act}} \signal{}
 		+
-		\signal{} \promoter{}_\text{total}
+		\signal{} \protein{}_\text{total}
 	}
 	.
 \]
@@ -272,7 +356,7 @@ binds to the recognition site of \promoter{Sal} at
 $-83$ to $-45$,
 and does so without the inducer \cite[p.10837]{HuangSchell1991}.
 The \protein{NahR} hence activate the expression of \promoter{Sal}.
-
+%
 %
 %
 In \cite{SchellBrownRaju1990},
@@ -284,7 +368,7 @@ there could be three different complexes
 %
 $\protein{NahR} \with \promoter{Sal}$.
 
-\TODO{check coherence of this paragraph}
+\TODO{make coherent}
 
 \hh{
 Nevertheless, the configuration changes 
@@ -323,11 +407,10 @@ $
 for the active form.
 %
 %
-Mechanism:
+We assume the mechanism
+%
 \begin{subequations}
 \[
-	\label{e:NahR_Act}
-	%
 	\cee{
 		\signal{Sal} + 
 		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
@@ -337,9 +420,9 @@ Mechanism:
 	,
 	\quad \text{k} = 1, 2, 3, 4,
 	%
+	%
 	\\
 	%
-	\label{e:NahR_Out}
 	%
 	\cee{
 		\promoter{Sal^\star}
@@ -348,6 +431,8 @@ Mechanism:
 		\promoter{Sal^\star} + \protein{Output}
 	}
 \]
+\end{subequations}
+%
 %Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
 %\[
 %	\signal{Sal} + \protein{NahR}
@@ -363,23 +448,39 @@ Mechanism:
 %	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
 %	.
 %\]
-\end{subequations}
 %
 %
+which we implement as:
 %
-We implement the mechanism as follows:
+\begin{subequations}
 \[
+	\label{e:NahR_Act}
+	%
 	\promoter{Sal^\star}
-	=
+	& =
 	\frac{
 		\signal{}^{n_{\ref{e:NahR_Act}}}
 	}{
 		k_{\ref{e:NahR_Act}} + \signal{}^{n_{\ref{e:NahR_Act}}}
 	}
 	\promoter{Sal}_\text{total}
+	,
+	%
+	%
+	\\
+	%
+	%
+	\label{e:NahR_Out}
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	& =
+	k_{\ref{e:NahR_Out}} 
+	\promoter{Sal^\star}
+	.
 \]
+\end{subequations}
 
-\ra{[this is an opportunity to use Hill kinetics]}
 
 
 \subsubsection*{pC-HSL/rpaR}
@@ -426,7 +527,7 @@ or \signal{pC} for short.
 %
 The complex 
 $\signal{pC} : \protein{RpaR}$
-when bound to the promoter
+bound to the promoter
 activates transcription
 \cite[Discussion]{HirakawaETAL2011}.
 }
