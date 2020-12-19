@@ -34,7 +34,7 @@ for a = aa
 	end
 end
 
-for R = ["PhlF", "BetI", "DAPG"]
+for R = ["IV", "DAPG"]
 	figure;
 	surf(aa, bb, responses{index_of(R)}');
 	xlabel(A);
