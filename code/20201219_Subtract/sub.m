@@ -13,8 +13,8 @@ function sub
 	end
 
 	for n = 1:22
-		b = logical(rand(1, 5) > 0.5);
-		r = logical(rand(1, 5) > 0.5);
+		b = logical([0, rand(1, 4) > 0.5]);
+		r = logical([0, 0, 0, rand(1, 2) > 0.5]);
 
 		c(1:5) = false;
 		d(1:5) = false;
@@ -22,33 +22,28 @@ function sub
 		disp('SUBTRACTING')
 		print
 
+		disp('Digit 5')
 		d(5) = xor(b(5), r(5));
 		c(4) = r(5) > b(5);
-
-		disp('Digit 5')
 		print
-
-		d(4) = (c(4) == (b(4) == r(4)));
-		c(3) = (~c(4) && (r(4) > b(4))) || (c(4) && (r(4) >= b(4)));
 
 		disp('Digit 4');
+		d(4) = (c(4) == (b(4) == r(4)));
+		c(3) = (~c(4) && (r(4) > b(4))) || (c(4) && (r(4) >= b(4)));
 		print
-
-		d(3) = (c(3) == (b(3) == r(3)));
-		c(2) = (~c(3) && (r(3) > b(3))) || (c(3) && (r(3) >= b(3)));
 
 		disp('Digit 3');
+		d(3) = (c(3) == (b(3) == r(3)));
+		c(2) = (~c(3) && (r(3) > b(3))) || (c(3) && (r(3) >= b(3)));
 		print
-
-		d(2) = (c(2) == (b(2) == r(2)));
-		c(1) = (~c(2) && (r(2) > b(2))) || (c(2) && (r(2) >= b(2)));
 
 		disp('Digit 2');
+		d(2) = (c(2) == (b(2) == r(2)));
+		c(1) = (~c(2) && (r(2) > b(2))) || (c(2) && (r(2) >= b(2)));
 		print
 
-		d(1) = (c(1) == (b(1) == r(1)));
-
 		disp('Digit 1');
+		d(1) = (c(1) == (b(1) == r(1)));
 		print
 		
 		disp('Result:')
