@@ -41,6 +41,8 @@ function sub
 		d(2) = (c(2) == (b(2) == r(2)));
 		c(1) = (~c(2) && (r(2) > b(2))) || (c(2) && (r(2) >= b(2)));
 		print
+		
+		% Don't need the first digit (there is no b1)
 
 		disp('Digit 1');
 		d(1) = (c(1) == (b(1) == r(1)));
@@ -50,11 +52,11 @@ function sub
 		b = b2n(b);
 		r = b2n(r);
 		d = b2n(d);
-		disp([num2str(b) ' - ' num2str(r) ' = ' num2str(d) ' (mod 16)'])
-		assert(mod(b - r, 16) == d)
+		disp([num2str(b) ' - ' num2str(r) ' = ' num2str(d) ' (mod 32)'])
+		assert(mod(b - r, 32) == d)
 	end
 end
 
 function n = b2n(b)
-	n = dot(b(2:5), [8, 4, 2, 1]);
+	n = dot(b(1:5), [16, 8, 4, 2, 1]);
 end
