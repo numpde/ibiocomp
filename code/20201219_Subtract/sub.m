@@ -1,11 +1,15 @@
 % 2020-HS Intro Bio Computers
 % RA, 2020-12-19
+% RA, 2020-12-25
 
 % Compute  d = b - r  bit by bit
 
 function sub
-
 	function print
+		b = [b3 b2 b1 b0];
+		r = [[0 0] r1 r0];
+		d = [d3 d2 d1 d0];
+		c = [c3 c2 c1 c0];
 		disp(['b = ' num2str(b) ' = ' num2str(b2n(b))])
 		disp(['r = ' num2str(r) ' = ' num2str(b2n(r))])
 		disp(['d = ' num2str(d) ' = ' num2str(b2n(d))])
@@ -13,39 +17,36 @@ function sub
 	end
 
 	for n = 1:22
-		b = logical([0, rand(1, 4) > 0.5]);
-		r = logical([0, 0, 0, rand(1, 2) > 0.5]);
-
-		c(1:5) = false;
-		d(1:5) = false;
+		d3 = 0; d2 = 0; d1 = 0; d0 = 0;
+		c3 = 0; c2 = 0; c1 = 0; c0 = 0;
+	
+		b3 = (rand > 0.5);
+		b2 = (rand > 0.5);
+		b1 = (rand > 0.5);
+		b0 = (rand > 0.5);
+		r1 = (rand > 0.5);
+		r0 = (rand > 0.5);
 		
 		disp('SUBTRACTING')
 		print
 
-		disp('Digit 5')
-		d(5) = xor(b(5), r(5));
-		c(4) = r(5) > b(5);
+		disp('Digit 0')
+		d0 = xor(b0, r0);
+		c1 = (r0 && not(b0));
 		print
 
-		disp('Digit 4');
-		d(4) = (c(4) == (b(4) == r(4)));
-		c(3) = (~c(4) && (r(4) > b(4))) || (c(4) && (r(4) >= b(4)));
-		print
-
-		disp('Digit 3');
-		d(3) = (c(3) == (b(3) == r(3)));
-		c(2) = (~c(3) && (r(3) > b(3))) || (c(3) && (r(3) >= b(3)));
+		disp('Digit 1');
+		d1 = (c1 == (b1 == r1));
+		c2 = ((r1 && not(b1)) && not(c1)) || ((r1 || not(b1)) && c1);
 		print
 
 		disp('Digit 2');
-		d(2) = (c(2) == (b(2) == r(2)));
-		c(1) = (~c(2) && (r(2) > b(2))) || (c(2) && (r(2) >= b(2)));
+		d2 = xor(b2, c2);
+		c3 = (c2 && not(b2));
 		print
-		
-		% Don't need the first digit (there is no b1)
 
-		disp('Digit 1');
-		d(1) = (c(1) == (b(1) == r(1)));
+		disp('Digit 3');
+		d3 = xor(b3, c3);
 		print
 		
 		disp('Result:')
@@ -53,10 +54,10 @@ function sub
 		r = b2n(r);
 		d = b2n(d);
 		disp([num2str(b) ' - ' num2str(r) ' = ' num2str(d) ' (mod 32)'])
-		assert(mod(b - r, 32) == d)
+		assert(mod(b - r, 16) == d)
 	end
 end
 
 function n = b2n(b)
-	n = dot(b(1:5), [16, 8, 4, 2, 1]);
+	n = dot(b(1:4), [8, 4, 2, 1]);
 end
