@@ -31,29 +31,29 @@ function sub
 		print
 
 		disp('Digit 0')
-		d0 = xor(b0, r0);
+		d0 = (r0 == not(b0));
 		c1 = (r0 && not(b0));
 		print
 
 		disp('Digit 1');
-		d1 = (c1 == (b1 == r1));
-		c2 = ((r1 && not(b1)) && not(c1)) || ((r1 || not(b1)) && c1);
+		d1 = ((r1 == not(b1)) ~= c1);
+		c2 = (r1 && not(b1)) || (c1 && not(b1)) || (r1 && c1);
 		print
 
 		disp('Digit 2');
-		d2 = xor(b2, c2);
+		d2 = (c2 == not(b2));
 		c3 = (c2 && not(b2));
 		print
 
 		disp('Digit 3');
-		d3 = xor(b3, c3);
+		d3 = (c3 == not(b3));
 		print
 		
 		disp('Result:')
 		b = b2n(b);
 		r = b2n(r);
 		d = b2n(d);
-		disp([num2str(b) ' - ' num2str(r) ' = ' num2str(d) ' (mod 32)'])
+		disp([num2str(b) ' - ' num2str(r) ' = ' num2str(d) ' (mod 16)'])
 		assert(mod(b - r, 16) == d)
 	end
 end
