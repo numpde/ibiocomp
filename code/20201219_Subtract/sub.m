@@ -31,22 +31,22 @@ function sub
 		print
 
 		disp('Digit 0')
-		d0 = (r0 == not(b0));
+		d0 = (r0 && not(b0)) || (not(r0) && b0);
 		c1 = (r0 && not(b0));
 		print
 
 		disp('Digit 1');
-		d1 = ((r1 == not(b1)) ~= c1);
+		d1 = (r1 && not(b1) && not(c1)) || (not(r1) && b1 && not(c1)) || (r1 && b1 && c1) || (not(r1) && not(b1) && c1);
 		c2 = (r1 && not(b1)) || (c1 && not(b1)) || (r1 && c1);
 		print
 
 		disp('Digit 2');
-		d2 = (c2 == not(b2));
+		d2 = (c2 && not(b2)) || (not(c2) && b2);
 		c3 = (c2 && not(b2));
 		print
 
 		disp('Digit 3');
-		d3 = (c3 == not(b3));
+		d3 = (c3 && not(b3)) || (not(c3) && b3);
 		print
 		
 		disp('Result:')
