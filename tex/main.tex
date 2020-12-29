@@ -21,6 +21,8 @@
 \usepackage{graphicx}
 \graphicspath{{../images/}}
 
+\usepackage{booktabs}
+
 % For editing purposes:
 %\usepackage[margin=10pt]{geometry}
 
@@ -70,43 +72,117 @@
 
 \subsection{The game of 15 sticks}
 
-Two players start with 15 sticks.
-Each player takes 1, 2 or 3 sticks.
-The last to take a stick loses.
+Rules of the game:
+%
+\begin{quote}
+	Two players start with 15 sticks
+	and alternatingly 
+	take 1, 2 or 3 sticks.
+	\\
+	The last to take a stick loses.
+\end{quote}
 
+\TODO{winning strategy, refer to Table \ref{t:logical-playera}}
+
+\ra{[we may change the bibliography style later, but for the moment names are convenient]}
+
+\subsection{General design}
+
+\TODO{bit encoding}
+
+\TODO{players and subtractor}
+
+\TODO{signaling}
+
+\TODO{mention tubes/microfluidics if applicable}
+
+\TODO{manual intervention}
 
 
 \section{Logical circuits}
 
-\subsection{Player A}
+\subsection{The players}
 
-\begin{figure}
+\begin{table}[hpbt]
 	\centering
-	\includegraphics[width=0.3\linewidth]{circuits/Logical-PlayerA}
+
+	\begin{minipage}{0.3\linewidth}
+		\centering
+				
+		Winning strategy:
+		
+		{\ }
+		
+		\begin{tabular}{cccc|c}
+		\multicolumn{4}{c|}{Sticks left} & Take \\
+		\hline
+		15 & 11 & 7 & 3 & 2 \\
+		14 & 10 & 6 & 2 & 1 \\	
+		13 & 9  & 5 & 1 & 1 \\	
+		12 & 8  & 4 &   & 3 \\	
+		\end{tabular}
+	\end{minipage}
+	%
+	\qquad
+	%
+	\begin{minipage}{0.25\linewidth}
+		\centering
+		\begin{tabular}{ccc|cc}
+		\cee{w_A} &  \cee{s_1} &  \cee{s_0} &  \cee{r_1} &  \cee{r_0} \\
+		\hline
+		  0 &   0 &   0 &   0 &   0 \\
+		  0 &   0 &   1 &   0 &   0 \\
+		  0 &   1 &   0 &   0 &   0 \\
+		  0 &   1 &   1 &   0 &   0 \\
+		  1 &   0 &   0 &   1 &   1 \\
+		  1 &   0 &   1 &   0 &   1 \\
+		  1 &   1 &   0 &   0 &   1 \\
+		  1 &   1 &   1 &   1 &   0 \\
+		\end{tabular}
+	\end{minipage}
+	%
+	\qquad
+	%
+	\begin{minipage}{0.3\textwidth}
+		\includegraphics[width=\linewidth]{circuits/Logical-PlayerA}
+	\end{minipage}
+	
 	\caption{%
-		Logical circuit for Player A.
+		Logical circuit for {Player A}.
 		%
-		Input: 
+		The input is a
 		wake-up signal \cee{w_A}
-		and the lowest bits
-		\cee{s_1} and \cee{s_0}
-		from the current number of sticks.
+		and the bits
+		\cee{s_1}/\cee{s_0}
+		of the current number of sticks
+		(\cee{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
 		%
-		Output:
-		number of sticks that 
-		the player chooses to take
-		encoded as \cee{r_0 + 2 r_1}.
+		The output is
+		the number of sticks that 
+		the player chooses to take,
+		encoded as \cee{2 r_1 + r_0}.
 		%
 		Note that the output is cut off
 		when \cee{w_A} is absent.
-	}	
-	\label{f:logical-playera}
-\end{figure}
+		%
+		%
+		The circuit for {Player B}
+		is identical except
+		that it is woken up by \cee{w_B}.
+	}
+	
+	\label{t:logical-playera}
+	
+	% https://crcit.net/c/205b0db18f954c4585b3f87d69fced6c
+	% https://crcit.net/c/84159c89986c4330978603aeace14aa1
+\end{table}
 
 
 
 \section{Genetic toolbox}
 
+
+\TODO{mention 3-input boolean functions \cite{NielsenETAL2016}}
 
 \TODO{Specify initial conditions}
 
@@ -139,7 +215,7 @@ several variants are compared
 in \cite{MuhlETAL2009}.
 %
 %
-\TODO{Do we need the GlnK release mechanism?}
+\TODO{Do we need (to take care of) the GlnK release mechanism?}
 %
 It seems clear that 
 AmtR sits on the DNA as a dimer
@@ -206,6 +282,8 @@ the kinetics:
 
 
 \subsection{Sensors}
+
+\TODO{Explain intercellular signaling pathways from \cite{DuETAL2020}}
 
 \subsubsection*{3OC6-HSL/LuxR}
 
@@ -566,11 +644,43 @@ activates transcription
 }
 
 
+\subsubsection*{XX}
 
+
+
+\subsubsection*{XX}
+
+\ra{--}
+
+\subsubsection*{XX}
+
+
+
+\subsubsection*{XX}
+
+
+
+
+\subsection{Recombinases}
+
+\subsubsection*{Bxb1 integrase}
+
+\TODO{``recombinase addressable data'' from \cite{BonnetSubsoontornEndy2012}}
+
+\subsubsection*{XX}
+
+
+\subsubsection*{XX}
+
+
+
+\section{Discussion}
+
+\TODO{risks}
 
 
 \footnotesize
-\bibliographystyle{unsrt}
+\bibliographystyle{apalike}
 \bibliography{refs}
 
 \SHOWTODOS
