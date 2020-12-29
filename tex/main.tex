@@ -4,7 +4,6 @@
 % https://www.overleaf.com/project/5fdb880ef955c3369964d601
 
 \usepackage{amsmath, amsfonts, amssymb}
-\usepackage{graphicx}
 \usepackage[svgnames]{xcolor}
 \usepackage{datetime2}
 \usepackage{epstopdf}
@@ -18,6 +17,9 @@
 
 \usepackage{fullpage}
 \setlength{\parindent}{0cm}
+
+\usepackage{graphicx}
+\graphicspath{{../images/}}
 
 % For editing purposes:
 %\usepackage[margin=10pt]{geometry}
@@ -71,6 +73,35 @@
 Two players start with 15 sticks.
 Each player takes 1, 2 or 3 sticks.
 The last to take a stick loses.
+
+
+
+\section{Logical circuits}
+
+\subsection{Player A}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\linewidth]{circuits/Logical-PlayerA}
+	\caption{%
+		Logical circuit for Player A.
+		%
+		Input: 
+		wake up flag \cee{w_A}
+		and the lowest bits
+		\cee{s_1} and \cee{s_0}
+		from the current number of sticks.
+		%
+		Output:
+		number of sticks that 
+		the player chooses to take
+		encoded as \cee{r_0 + 2 r_1}.
+		%
+		Note that the output is cut off
+		when \cee{w_A} is absent.
+	}	
+	\label{f:logical-playera}
+\end{figure}
 
 
 
