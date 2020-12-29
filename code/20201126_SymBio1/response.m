@@ -1,6 +1,7 @@
 % 2020-HS Intro Bio Computers
 % RA, 2020-11-26
 
+clear all;
 close all;
 
 m1 = sbioloadproject("0x0E.sbproj").m1;
@@ -10,11 +11,11 @@ for i = 1 : length(m1.Species)
 	index_of(m1.Species(i).Name) = i;
 end
 
-m1.Species(index_of('Ara')).InitialAmount = 10;
+m1.Species(index_of('Ara')).InitialAmount = 1;
 
 
-aa = linspace(0, 20, 9);
-bb = linspace(0, 20, 10);
+aa = linspace(0, 1, 9);
+bb = linspace(0, 1, 10);
 
 A = "IPTG";
 B = "aTc";
@@ -30,11 +31,10 @@ for a = aa
 		for r = (1 : length(m1.Species))
 			responses{r}(a == aa, b == bb) = x(end, r);
 		end
-		disp([a, b, t(end)]);
 	end
 end
 
-for R = ["PhlF", "BetI", "YFP", "AmtR"]
+for R = ["PhlF", "BetI", "YFP"]
 	figure;
 	surf(aa, bb, responses{index_of(R)}');
 	xlabel(A);
