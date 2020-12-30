@@ -25,7 +25,8 @@
 \usepackage{graphicx}
 \graphicspath{{../images/}}
 
-% Tables
+% Tables (the order matters here)
+\usepackage{makecell}
 \usepackage{booktabs}
 \usepackage{arydshln}
 
@@ -126,6 +127,88 @@ Rules of the game:
 \TODO{Table \ref{t:subtractor1}}
 
 \input{t_subtractor1}
+
+The \emph{subtractor} multi-module
+keeps track of the number of sticks left.
+To appreciate the key design issue, suppose
+we manually transmit the response $\cee{r_1 r_0 = 01}$
+of a player
+into the medium the subtractor.
+It should compute the new number of the sticks,
+yet, it has to do so once
+and not keep subtracting the value $\cee{r_1 r_0}$
+that is still present.
+One solution is single-use subtractors,
+but then the result of each computation
+has to be imparted to an unused subtractor.
+Barring excessive manual intervention,
+a feasible design
+seems to require some separation of
+reading/storing the current state,
+computing the new state and communicating it
+--
+temporally or spatially.
+For our purposes,
+this may include
+modest parallelism in extracellular signaling
+(but not frequency encoding).
+%
+%
+We propose 
+a subtractor composed of two parts A and B,
+and
+a workflow 
+%of Phase A, Interphase, Phase B, Interphase, etc.,
+as shown in Table \ref{t:workflow}.
+%
+Thus,
+in Phase A characterized by the supply of 
+the signal \ce{w_A},
+Subtractor A
+emits the current state \ce{s},
+Player A responds with \ce{r},
+while
+Subtractor B
+reads \ce{s}/\ce{r}
+and
+computes the new state % \ce{s} 
+{silently}
+and remembers the result
+to emit it in the next Phase B.
+%
+The medium is cleared, before
+Phase B is initiated by
+supplying the signal \ce{w_B}.
+
+
+
+\begin{table}[hpbt]
+	\centering 
+	
+	% Table made by this script:
+	% https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
+	\begin{tabular}{llll}
+	\toprule
+	{} &                                Phase A &               Interphase &                                Phase B \\
+	\midrule
+	Experimenter &                        supply \ce{w_A} &  \makecell{clear medium} &                        supply \ce{w_B} \\
+	Player A     &                in: \ce{s}, out: \ce{r} &                       -- &                                     -- \\
+	Subtractor A &                        out: new \ce{s} &                       -- &  in: \ce{s}/\ce{r}; \makecell{compute} \\
+	Subtractor B &  in: \ce{s}/\ce{r}; \makecell{compute} &                       -- &                        out: new \ce{s} \\
+	Player B     &                                     -- &                       -- &                in: \ce{s}, out: \ce{r} \\
+	\bottomrule
+	\end{tabular}
+		
+	\TODO{caption}
+	
+	\caption{%
+		Workflow.
+	}
+	
+	\label{t:workflow}
+\end{table}  
+
+
 
 
 \section{Genetic toolbox}
