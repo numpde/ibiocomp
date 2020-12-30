@@ -64,8 +64,6 @@ for R = ["s0"]
 	surf(aa, bb, (responses{index_of(R)}'));
 	xlabel(A, 'Interpreter', 'none');
 	ylabel(B, 'Interpreter', 'none');
-	colormap(flipud(gray));
-	colorbar;
 	%title(R);
 	shading interp;
 	view(0, 90);
@@ -74,7 +72,10 @@ for R = ["s0"]
 	ax.XScale = 'log';
 	ax.YScale = 'log';
 	
+	colormap(flipud(gray));
+	colorbar;
+	
 	filename = ['response_' str2mat(R) '.png'];
-	disp(filename)
 	saveas(gcf, filename);
+	close all;
 end
