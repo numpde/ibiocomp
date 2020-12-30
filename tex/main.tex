@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,notitlepage]{article}
 
 % Overleaf project:
 % https://www.overleaf.com/project/5fdb880ef955c3369964d601
@@ -64,9 +64,17 @@
 \newcommand{\ra}[1]{{\color{Blue}#1}}
 
 
+\title{ibiocomp project}
+\author{RA \& HH}
+\date{\today}
+
+
 \begin{document}
 
-\clearpage
+\maketitle
+
+
+
 
 \section{Introduction}
 
@@ -102,6 +110,8 @@ Rules of the game:
 \section{Logical circuits}
 
 \subsection{The players}
+
+\TODO{Table \ref{t:logical-playera}}
 
 \begin{table}[hpbt]
 	\centering
@@ -180,6 +190,7 @@ Rules of the game:
 
 \subsection{Subtractor}
 
+\TODO{Table \ref{t:subtractor}}
 
 \begin{table}[hpbt]
 	\centering
@@ -208,9 +219,9 @@ Rules of the game:
 	\begin{minipage}{0.3\linewidth}
 		\centering
 				
-		Full subtractor:
-		
-		{\ }
+%		Full subtractor:
+%		
+%		{\ }
 		
 		\begin{tabular}{ccc|cc}
 		 \cee{s_1} &  \cee{r_1} &  \cee{c_1} &  \cee{d_1} &  \cee{c_2} \\
@@ -766,7 +777,7 @@ activates transcription
 
 \SHOWTODOS
 
-\leavevmode\vfill{\tiny\color{lightgray}\hfill{Intro Bio Comp (\DTMnow)}}
+\leavevmode\vfill{\tiny\color{lightgray}\hfill{\DTMnow}}
 \end{document}
 
 
