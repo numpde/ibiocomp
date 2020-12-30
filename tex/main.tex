@@ -25,7 +25,9 @@
 \usepackage{graphicx}
 \graphicspath{{../images/}}
 
+% Tables
 \usepackage{booktabs}
+\usepackage{arydshln}
 
 % For editing purposes:
 %\usepackage[margin=10pt]{geometry}
@@ -117,160 +119,13 @@ Rules of the game:
 
 \TODO{Table \ref{t:logical-playera}}
 
-\begin{table}[hpbt]
-	\centering
-
-	\begin{minipage}{0.3\linewidth}
-		\centering
-				
-		Winning strategy:
-		
-		{\ }
-		
-		\begin{tabular}{cccc|c}
-		\multicolumn{4}{c|}{Sticks left} & Take \\
-		\hline
-		15 & 11 & 7 & 3 & 2 \\
-		14 & 10 & 6 & 2 & 1 \\	
-		13 & 9  & 5 & 1 & 1 \\	
-		12 & 8  & 4 &   & 3 \\	
-		\end{tabular}
-	\end{minipage}
-	%
-	\qquad
-	%
-	\begin{minipage}{0.25\linewidth}
-		\centering
-		\begin{tabular}{ccc|cc}
-		\cee{w_A} &  \cee{s_1} &  \cee{s_0} &  \cee{r_1} &  \cee{r_0} \\
-		\hline
-		  0 &   0 &   0 &   0 &   0 \\
-		  0 &   0 &   1 &   0 &   0 \\
-		  0 &   1 &   0 &   0 &   0 \\
-		  0 &   1 &   1 &   0 &   0 \\
-		  1 &   0 &   0 &   1 &   1 \\
-		  1 &   0 &   1 &   0 &   1 \\
-		  1 &   1 &   0 &   0 &   1 \\
-		  1 &   1 &   1 &   1 &   0 \\
-		\end{tabular}
-	\end{minipage}
-	%
-	\qquad
-	%
-	\begin{minipage}{0.3\textwidth}
-		\includegraphics[width=\linewidth]{circuits/Logical-PlayerA}
-	\end{minipage}
-	
-	\caption{%
-		Logical circuit for {Player A}.
-		%
-		The input is a
-		wake-up signal \cee{w_A}
-		and the bits
-		\cee{s_1}/\cee{s_0}
-		of the current number of sticks
-		(\cee{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
-		%
-		The output is
-		the number of sticks that 
-		the player chooses to take,
-		encoded as \cee{2 r_1 + r_0}.
-		%
-		Note that the output is cut off
-		when \cee{w_A} is absent.
-		%
-		%
-		The circuit for {Player B}
-		is identical except
-		that it is woken up by \cee{w_B}.
-	}
-	
-	\label{t:logical-playera}
-	
-	% https://crcit.net/c/205b0db18f954c4585b3f87d69fced6c
-	% https://crcit.net/c/84159c89986c4330978603aeace14aa1
-\end{table}
-
+\input{t_logical-playera}
 
 \subsection{Subtractor}
 
-\TODO{Table \ref{t:subtractor}}
+\TODO{Table \ref{t:subtractor1}}
 
-\begin{table}[hpbt]
-	\centering
-	
-	\begin{minipage}{0.2\linewidth}
-		\centering
-				
-		Half-subtractor:
-		
-		{\ }
-		
-		\begin{tabular}{cc|cc}
-		 \cee{s_3} &  \cee{c_3} &  \cee{d_3} &   \\
-		 \cee{s_2} &  \cee{c_2} &  \cee{d_2} &  \cee{c_3} \\
-		 \cee{s_0} &  \cee{r_0} &  \cee{d_0} &  \cee{c_1} \\
-		\hline
-		         0 &          0 &          1 &          0 \\
-		         0 &          1 &          0 &          1 \\
-		         1 &          0 &          1 &          0 \\
-		         1 &          1 &          0 &          0 \\
-		\end{tabular}
-	\end{minipage}
-	%
-	\quad
-	%
-	\begin{minipage}{0.3\linewidth}
-		\centering
-				
-%		Full subtractor:
-%		
-%		{\ }
-		
-		\begin{tabular}{ccc|cc}
-		 \cee{s_1} &  \cee{r_1} &  \cee{c_1} &  \cee{d_1} &  \cee{c_2} \\
-		\hline
-		         0 &          0 &          0 &          0 &          0 \\
-		         0 &          0 &          1 &          1 &          1 \\
-		         0 &          1 &          0 &          1 &          1 \\
-		         0 &          1 &          1 &          0 &          1 \\
-		         1 &          0 &          0 &          1 &          0 \\
-		         1 &          0 &          1 &          0 &          0 \\
-		         1 &          1 &          0 &          0 &          0 \\
-		         1 &          1 &          1 &          1 &          1 \\
-		\end{tabular}
-	\end{minipage}
-	%
-	\quad
-	%
-	\begin{minipage}{0.3\linewidth}
-		\begin{align*}
-			\cee{& & 8 s_3 + 4 s_2 + 2 s_1 + s_0 &}
-			\\
-			- \cee{& & 2 r_1 + r_0 &}
-			\\
-			= \cee{& & 8 d_3 + 4 d_2 + 2 d_1 + d_0 &}
-		\end{align*}
-	\end{minipage}
-	
-	\caption{%
-		The subtractor computes
-		$\cee{d = s - r}$ (mod 16).
-		%
-		Since \cee{r} only has 
-		the two lowest bits, 
-		a half-subtractor
-		is sufficient for
-		the bits \cee{d_0}/\cee{d_2}/\cee{d_3}
-		and the carry flags \cee{c_1}/\cee{c_3},
-		and
-		only \cee{d_1}/\cee{c_2}
-		require the full subtractor.
-	}
-	
-	\label{t:subtractor}
-\end{table}
-
+\input{t_subtractor1}
 
 
 \section{Genetic toolbox}
