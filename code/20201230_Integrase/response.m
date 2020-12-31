@@ -37,8 +37,8 @@ set(getconfigset(m1, 'active'), 'Stoptime', T);
 
 %%
 
-aa = logspace(-2, 2, 9);
-bb = logspace(-2, 2, 10);
+aa = logspace(-2, 2, 19);
+bb = logspace(-2, 2, 20);
 
 A = "s0_in";
 B = "r0_in";
@@ -59,7 +59,7 @@ for a = aa
 	end
 end
 
-for R = ["s0"]
+for R = ["s0", "c1"]
 	figure;
 	surf(aa, bb, (responses{index_of(R)}'));
 	xlabel(A, 'Interpreter', 'none');
