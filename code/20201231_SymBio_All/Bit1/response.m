@@ -27,32 +27,46 @@ function response
 	%m1.Species(index_of(B)).InitialAmount = 0; % set by the loop
 
 	% Remove input
-	addevent(m1, "time >= 100", "wB_in = 0");
-	addevent(m1, "time >= 100", "s1_in = 0");
-	addevent(m1, "time >= 100", "r1_in = 0");
-	addevent(m1, "time >= 100", "c1_in = 0");
+	addevent(m1, "time >= 200", "wB_in = 0");
+	addevent(m1, "time >= 200", "s1_in = 0");
+	addevent(m1, "time >= 200", "r1_in = 0");
+	addevent(m1, "time >= 200", "c1_in = 0");
 
 	% Request output
-	addevent(m1, "time >= 300", "wA_in = 10");
+	addevent(m1, "time >= 400", "wA_in = 10");
 
 	% https://ch.mathworks.com/help/simbio/ref/sbiosimulate.html
 	% Set final time
-	T = 400;
+	T = 600;
 	set(getconfigset(m1, 'active'), 'Stoptime', T);
+	
 
-
-	m1.Species(index_of(A)).InitialAmount = 10;
-	m1.Species(index_of(B)).InitialAmount = 0;
-	m1.Species(index_of(C)).InitialAmount = 0;
-
-	[t, x] = sbiosimulate(m1);
-	close all
-	hold on
-	spp = ["Y", "Xis", "Int", "P1_forw"];
-	for sp = spp
-		plot(t, x(:, index_of(sp)))
-	end
-	legend(spp, 'Interpreter', 'none')
+	% Why the Dock?
+	%
+% 	addevent(m1, "time >= 600", "wA_in = 0");
+% 	
+% 	m1.Species(index_of(A)).InitialAmount = 10;
+% 	m1.Species(index_of(B)).InitialAmount = 10;
+% 	m1.Species(index_of(C)).InitialAmount = 10;
+% 	
+% 	addevent(m1, "time >= 800", "wB_in = 10");
+% 	addevent(m1, "time >= 800", "s1_in = 10");
+% 	addevent(m1, "time >= 800", "r1_in = 0");
+% 	addevent(m1, "time >= 800", "c1_in = 10");
+% 	
+% 	addevent(m1, "time >= 1000", "wB_in = 0");
+% 	
+% 	addevent(m1, "time >= 1200", "wA_in = 0");
+% 
+% 	[t, x] = sbiosimulate(m1);
+% 	close all
+% 	spp = ["Y", "DockY", "Xis", "Int", "P1_forw"];
+% 	for sp = spp
+% 		semilogy(t, x(:, index_of(sp)))
+% 		hold on
+% 		axis([0, T, 1e-2, 1e2]);
+% 	end
+% 	legend(spp, 'Interpreter', 'none')
 	
 
 	%%
