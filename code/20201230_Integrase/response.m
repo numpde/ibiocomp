@@ -9,7 +9,7 @@ close all;
 m1 = sbioloadproject("Integrase0.sbproj").m1;
 
 index_of = containers.Map();
-for i = 1 : length(m1.Species)
+for i = (1 : length(m1.Species))
 	index_of(m1.Species(i).Name) = i;
 end
 
@@ -18,9 +18,12 @@ end
 % Disable any events in the model
 set(m1.Events, 'Active', 0)
 
+A = "s0_in";
+B = "r0_in";
+
 m1.Species(index_of('wB_in')).InitialAmount = 10;
-%m1.Species(index_of('s0_in')).InitialAmount = 0; % set by the loop
-%m1.Species(index_of('r0_in')).InitialAmount = 0; % set by the loop
+%m1.Species(index_of(A)).InitialAmount = 0; % set by the loop
+%m1.Species(index_of(B)).InitialAmount = 0; % set by the loop
 
 % Remove input
 addevent(m1, "time >= 100", "wB_in = 0");
@@ -39,9 +42,6 @@ set(getconfigset(m1, 'active'), 'Stoptime', T);
 
 aa = logspace(-2, 2, 19);
 bb = logspace(-2, 2, 20);
-
-A = "s0_in";
-B = "r0_in";
 
 responses = {};
 
