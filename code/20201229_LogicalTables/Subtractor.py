@@ -7,6 +7,7 @@ import pandas as pd
 from numpy import logical_xor as XOR
 from numpy import logical_and as AND
 from numpy import logical_or as OR
+from numpy import logical_not as NOT
 
 ### BIT 0
 
@@ -15,14 +16,14 @@ f = pd.DataFrame(
         's0': [0, 0, 1, 1],
         'r0': [0, 1, 0, 1],
     }
-)
+).astype(bool)
 
 inputs = list(f.columns)
 
 # d0 = (r0 && not(s0)) || (not(r0) && s0)
-f = f.assign(d0=XOR(f.r0, ~f.s0))
+f = f.assign(d0=XOR(f.r0, f.s0))
 # c1 = (r0 && not(s0))
-f = f.assign(c1=AND(f.r0, ~f.s0))
+f = f.assign(c1=AND(f.r0, NOT(f.s0)))
 
 f = f.sort_values(by=inputs, ascending=True, ignore_index=True).astype(int)
 
@@ -38,7 +39,7 @@ f = pd.DataFrame(
         'r1': [0, 0, 1, 1, 0, 0, 1, 1],
         'c1': [0, 1, 0, 1, 0, 1, 0, 1],
     }
-)
+).astype(bool)
 
 inputs = list(f.columns)
 
@@ -60,14 +61,14 @@ f = pd.DataFrame(
         's2': [0, 0, 1, 1],
         'c2': [0, 1, 0, 1],
     }
-)
+).astype(bool)
 
 inputs = list(f.columns)
 
 # d2 = (c2 && not(s2)) || (not(c2) && s2)
-f = f.assign(d2=XOR(f.c2, ~f.s2))
+f = f.assign(d2=XOR(f.c2, f.s2))
 # c3 = (c2 && not(s2))
-f = f.assign(c3=AND(f.c2, ~f.s2))
+f = f.assign(c3=AND(f.c2, NOT(f.s2)))
 
 f = f.sort_values(by=inputs, ascending=True, ignore_index=True).astype(int)
 
