@@ -201,6 +201,14 @@ explicitly.
 
 %
 
+
+\TODO{
+\ra{Issure:} Can we have a resettable XOR with recombinases
+eg as theorized here in Fig.~2g?
+\url{https://www.nature.com/articles/s41598-017-07386-3/figures/2}
+}
+
+
 \ra{2-input \XOR with recombinase \cite{BonnetETAL2013}}
 \ra{theoretical 3-input Xor with recombinase \cite{ChiuJiang2017}}
 
@@ -864,6 +872,11 @@ discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
 
 
 
+
+\subsubsection*{XX}
+
+
+
 \subsubsection*{XX}
 
 
@@ -891,7 +904,11 @@ discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
 
-\TODO{\ra{Issue: how to implement this ``Dock'' (and a better name)}}
+\TODO{\ra{Issue: how to implement this ``Dock'' (and a better name)?}}
+\ra{%
+Note: This seems similar to
+\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007}.
+}
 %
 Consider bit 1 of Subtractor A.
 %
@@ -911,8 +928,7 @@ the amount of \ce{Y} is low,
 but
 around the timepoint when 
 \ce{w_B} is turned off
-and the inputs begin 
-change,
+and the inputs begin to change,
 \ce{Y} can experience a transient bump.
 %
 This is sufficient to produce \ce{Xis}
@@ -947,15 +963,9 @@ but a sustained signal
 will overflow the Dock and activate 
 transcription of \ce{Xis}.
 %
-\ra{%
-This seems similar to
-\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007}.
-}
 
 
 %
-
-
 
 \section{Discussion}
 
@@ -967,15 +977,12 @@ This seems similar to
 \bibliography{refs}
 
 
-
-\SHOWTODOS
-
-
-
 \section*{Appendix}
 
+\TODO{On Figure \ref{f:logical-halfsubtractor0}.}
+
 % https://www.circuit-diagram.org/editor/c/075f8cf9d084400b94f1384cc1c3ba96
-\begin{figure}
+\begin{figure}[phbt]
 \centering
 \includegraphics[width=0.5\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
 \caption{%
@@ -991,6 +998,14 @@ when the signal \ce{w_A} is present.
 }
 \label{f:logical-halfsubtractor0}
 \end{figure}
+
+
+
+
+\clearpage
+
+\SHOWTODOS
+
 
 
 
