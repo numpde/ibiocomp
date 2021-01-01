@@ -4,6 +4,6 @@ for i in *.svg
 do
 j="${i}.pdf"
 echo "${i}" "-->" "${j}"
-inkscape -D -z --file="${i}" --export-pdf="${j}"
+inkscape -D -z --file="${i}" --export-pdf="${j}" --export-margin=1
 done
 
