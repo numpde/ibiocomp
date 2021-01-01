@@ -34,7 +34,7 @@
 \begin{minipage}{0.25\linewidth}
 	\centering
 	\begin{tabular}{ccc|cc}
-		\cee{w_A} &  \cee{s_1} &  \cee{s_0} &  \cee{r_1} &  \cee{r_0} \\
+		\ce{w_A} &  \ce{s_1} &  \ce{s_0} &  \ce{r_1} &  \ce{r_0} \\
 		\hline
 		 0 &   0 &   0 &   0 &   0 \\
 		 0 &   0 &   1 &   0 &   0 \\
@@ -49,32 +49,32 @@
 %
 \qquad
 %
-\begin{minipage}{0.3\textwidth}
-	\includegraphics[width=\linewidth]{circuits/Logical-PlayerA}
+\begin{minipage}{0.25\textwidth}
+	\includegraphics[width=\linewidth]{circuits/Logical-PlayerA.svg.pdf}
 \end{minipage}
 
 \caption{%
 	Logical circuit for {Player A}.
 	%
 	The input is a
-	wake-up signal \cee{w_A}
+	wake-up signal \ce{w_A}
 	and the bits
-	\cee{s_1}/\cee{s_0}
+	\ce{s_1}/\ce{s_0}
 	of the current number of sticks
-	(\cee{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
+	(\ce{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
 	%
 	The output is
 	the number of sticks that 
 	the player chooses to take,
-	encoded as \cee{2 r_1 + r_0}.
+	encoded as \ce{2 r_1 + r_0}.
 	%
 	Note that the output is cut off
-	when \cee{w_A} is absent.
+	when \ce{w_A} is absent.
 	%
 	%
 	The circuit for {Player B}
 	is identical except
-	that it is controlled up by \cee{w_B}.
+	that it is controlled up by \ce{w_B}.
 }
 
 \label{t:logical-playera}

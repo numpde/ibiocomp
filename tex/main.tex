@@ -6,7 +6,6 @@
 % View-only link:
 % https://www.overleaf.com/read/hkybwqtbtvjb
 
-
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage[svgnames]{xcolor}
 \usepackage{datetime2}
@@ -16,11 +15,16 @@
 	citecolor={DarkRed}, urlcolor={DarkBlue}, linkcolor={DarkBlue},
 ]{hyperref}
 
-% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/mhchem/mhchem.pdf
-\usepackage[version=3]{mhchem}
+
+% 
+\usepackage[version=4]{mhchem}
 
 \usepackage{fullpage}
-\setlength{\parindent}{0cm}
+
+% Paragraph spacing
+\usepackage{parskip}
+
+\usepackage{xspace}
 
 \usepackage{graphicx}
 \graphicspath{{../images/}}
@@ -48,6 +52,11 @@
 
 
 \renewcommand{\d}{\mathrm{d}}
+
+\newcommand{\NOT}{\ensuremath{\mathop{\mathsf{not}}}\xspace}
+\newcommand{\AND}{\ensuremath{\mathop{\mathsf{and}}}\xspace}
+\newcommand{\OR}{\ensuremath{\mathop{\mathsf{or}}}\xspace}
+\newcommand{\XOR}{\ensuremath{\mathop{\mathsf{xor}}}\xspace}
 
 \newcommand{\TEXT}[1]{\quad\text{#1}\quad}
 \newcommand{\with}{\text{ $:$ }}
@@ -87,7 +96,7 @@
 
 \subsection{The game of 15 sticks}
 
-Rules of the game:
+Rules of the game: %
 %
 \begin{quote}
 	Two players start with 15 sticks
@@ -120,25 +129,102 @@ Rules of the game:
 
 \TODO{Table \ref{t:logical-playera}}
 
+In
+\cite{NielsenETAL2016}
+we find the gates
+$
+	\ce{r_0} = 
+	\mathop{\mathsf{0x0E}}
+	(\ce{s_0}, \ce{s_1}, \ce{w_A})
+$
+and
+$
+	\ce{r_1} =
+	\NOT
+	\mathop{\mathsf{0xF6}}
+	(\ce{s_0}, \ce{s_1}, \ce{w_A})
+$
+among those circuits that performed well.
+%
+
+
+%
+
+
+
 \input{t_logical-playera}
 
-\subsection{Subtractor}
+\subsection{Subtractor} \label{s:sub}
 
 \TODO{Table \ref{t:subtractor1}}
+
+The gates
+$
+	\ce{c_2} 
+%	=
+%	\mathop{\mathsf{0x4D}}
+%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
+	=
+	\mathop{\mathsf{0x4D}}
+	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
+%	=
+%	\NOT
+%	\mathop{\mathsf{0x8E}}
+%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x8E}}
+	(\ce{c_1}, \ce{r_1}, \ce{s_1})
+$,
+which are
+symmetric in \ce{r_1}/\ce{c_1},
+were successfully
+implemented in \cite{NielsenETAL2016}.
+%
+%
+However,
+we could not find
+$
+	\ce{d_1} 
+	= 
+	((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mod 2)
+	=
+	\mathop{\mathsf{0x69}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x96}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+$,
+a.k.a.~there-input \XOR,
+explicitly.
+
+%
+
+\ra{2-input \XOR with recombinase \cite{BonnetETAL2013}}
+\ra{theoretical 3-input Xor with recombinase \cite{ChiuJiang2017}}
+
+\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
+communicating \cite{AuslaenderETAL2017}}
+
+%
+
+
+
 
 \input{t_subtractor1}
 
 The \emph{subtractor} multi-module
 keeps track of the number of sticks left.
 To appreciate the key design issue, suppose
-we manually transmit the response $\cee{r_1 r_0 = 01}$
+we manually transmit the response \ce{r_1 r_0 = 01}
 of a player
-into the medium the subtractor.
+into the medium of the subtractor.
 It should compute the new number of the sticks,
 yet, it has to do so once
-and not keep subtracting the value $\cee{r_1 r_0}$
+and not keep subtracting the value \ce{r_1 r_0}
 that is still present.
-One solution is single-use subtractors,
+One solution is single-use subtractors
 but then the result of each computation
 has to be imparted to an unused subtractor.
 Barring excessive manual intervention,
@@ -148,7 +234,7 @@ reading/storing the current state,
 computing the new state and communicating it
 --
 temporally or spatially.
-For our purposes,
+For our purposes
 this may include
 modest parallelism in extracellular signaling
 (but not frequency encoding).
@@ -179,7 +265,20 @@ to emit it in the next Phase B.
 The medium is cleared, before
 Phase B is initiated by
 supplying the signal \ce{w_B}.
-
+%
+%
+In short,
+we require
+what could be called
+a ``gated memory module''
+or
+``delayed computation''.
+%
+Fig.~\ref{f:logical-halfsubtractor0}
+illustrates this principle
+for the half-subtractor,
+cf.~Table~\ref{t:subtractor1}.
+%
 
 
 \begin{table}[hpbt]
@@ -208,7 +307,7 @@ supplying the signal \ce{w_B}.
 	\label{t:workflow}
 \end{table}  
 
-
+asdfasdfalsdf
 
 
 \section{Genetic toolbox}
@@ -261,7 +360,7 @@ We therefore assume
 the mechanism
 \begin{subequations}
 \[
-	\cee{
+	\ce{
 		2 \protein{AmtR} + \promoter{AmtR}
 		& <=>>
 		\protein{AmtR}_2 \with \promoter{AmtR}
@@ -269,7 +368,7 @@ the mechanism
 	%
 	\\
 	%
-	\cee{
+	\ce{
 		\promoter{AmtR} 
 		& ->
 		\promoter{AmtR} + \protein{Output}
@@ -367,19 +466,19 @@ We assume the mechanism:
 %
 \begin{subequations}
 \[
-	\cee{
+	\ce{
 		\signal{3OC6\text{-}HSL} + \protein{LuxR}
 		& <=>>
 		\protein{LuxR^\star}
 	}
 	\\
-	\cee{
+	\ce{
 		\protein{LuxR^\star} + \promoter{Lux}
 		& <=>>
 		\promoter{Lux^\star}
 	}
 	\\
-	\cee{
+	\ce{
 		\promoter{Lux^\star}
 		& ->
 		\promoter{Lux^\star} + \protein{Output}
@@ -556,7 +655,7 @@ We assume the mechanism
 %
 \begin{subequations}
 \[
-	\cee{
+	\ce{
 		\signal{Sal} + 
 		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
 		& <=>>
@@ -569,7 +668,7 @@ We assume the mechanism
 	\\
 	%
 	%
-	\cee{
+	\ce{
 		\promoter{Sal^\star}
 		&
 		->
@@ -697,14 +796,164 @@ activates transcription
 
 \subsection{Recombinases}
 
-\subsubsection*{Bxb1 integrase}
+\subsubsection*{Bxb1}
 
-\TODO{``recombinase addressable data'' from \cite{BonnetSubsoontornEndy2012}}
+
+Bxb1 gp35/gp47
+serine-integrase/excisionase
+(Int/Xis)
+pair
+directs the infection cycle of Bxb1 
+in
+\emph{Mycobacterium smegmatis}.
+%
+Stoichiometry, start codons,
+degradation rates (proteolysis tags)
+and DNA substrate copy number 
+were optimized 
+in \emph{E.~coli}
+in \cite{BonnetSubsoontornEndy2012}
+to 
+assemble a memory bit
+that is
+stable and responsive over several generations.
+%
+A promoter of choice is flanked 
+by Int recognition sites
+and
+its directionality is 
+\emph{set}
+by Int
+and 
+\emph{reset}
+by Int+Xis.
+%
+Switching times of $\sim$4h were demonstrated
+(but the authors expected 30min to be realistic).
+%
+\ra{maybe:}
+Our convention will be that
+the \emph{reset} state corresponds to 
+positive output (memory bit is \emph{on}).
+%
+The final construct
+\cite[Fig.~4A]{BonnetSubsoontornEndy2012}
+consists of an Int gene 
+and
+a Xis+Int operon
+induced by two separate signals,
+which facilitates stoichiometry optimization.
+%
+However, 
+in our design,
+an external pulse (say, \signal{w_B}) controls Int,
+and
+an internal compute unit (say, \ce{s_0 \text{ xor } r_0}) controls Xis.
+%
+The flanked promoter is activated by another
+external signal (say, \signal{w_A}).
+%
+This achieves the separation 
+discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
+
+%
+% SymBiology:
+% https://github.com/numpde/ibiocomp/tree/main/code/20201230_Integrase
+
+%
+
+
 
 \subsubsection*{XX}
 
 
 \subsubsection*{XX}
+
+
+
+\section{Simulations}
+
+\subsection{PlayerA}
+
+\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
+
+\TODO{Some details missing:
+\href{https://drive.google.com/file/d/1X1uEVNkUiXZqNz7C7m36YjW-g1XctIH0}{click for figure (ignore black part)}}
+
+\subsection{Bit 0}
+
+\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit0}
+
+\TODO{this could have the same problem as described in Bit 1}
+
+\subsection{Bit 1}
+
+\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
+
+
+\TODO{\ra{Issue: how to implement this ``Dock'' (and a better name)}}
+%
+Consider bit 1 of Subtractor A.
+%
+Suppose \ce{s_1 r_1 c_1 = 101},
+in which case \ce{c_2 = 0}.
+%
+Suppose a transcription factor \ce{Y},
+which encodes \ce{c_2},
+promotes expression of \ce{Xis} in the memory subunit.
+%
+%
+When \ce{w_B} is up,
+access to memory is on.
+%
+Since we want \ce{c_2 = 0},
+the amount of \ce{Y} is low,
+but
+around the timepoint when 
+\ce{w_B} is turned off
+and the inputs begin 
+change,
+\ce{Y} can experience a transient bump.
+%
+This is sufficient to produce \ce{Xis}
+and thus to cause an unintended \emph{reset}
+towards \ce{c_2 = 1}.
+%
+We found two ways to mitigate this
+in the computational model.
+%
+One is to make expression of \ce{Xis}
+conditional on \ce{w_B} also
+but this requires that \ce{w_B} goes down
+before other change
+and could be sensitive to degradation rates.
+%
+A more robust way
+is to introduce a buffer for \ce{Y},
+which we call ``Dock'',
+that 
+i)
+has high affinity for \ce{Y};
+ii)
+sequesters a large amount of \ce{Y},
+about 30x compared to the EC50 of \ce{Y} activation of \ce{Xis};
+iii)
+releases \ce{Y} for degradation when \ce{w_A} is up.
+%
+In this way, 
+a transient bump in \ce{Y} is absorbed 
+by the Dock,
+but a sustained signal 
+will overflow the Dock and activate 
+transcription of \ce{Xis}.
+%
+\ra{%
+This seems similar to
+\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007}.
+}
+
+
+%
 
 
 
@@ -717,7 +966,33 @@ activates transcription
 \bibliographystyle{apalike}
 \bibliography{refs}
 
+
+
 \SHOWTODOS
+
+
+
+\section*{Appendix}
+
+% https://www.circuit-diagram.org/editor/c/075f8cf9d084400b94f1384cc1c3ba96
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
+\caption{%
+A delayed half-subtractor.
+%
+The result of the compute unit is written to the memory unit
+(bistable switch)
+when the signal \ce{w_B} is present.
+%
+The value of the memory unit is
+forwarded to the output
+when the signal \ce{w_A} is present.
+}
+\label{f:logical-halfsubtractor0}
+\end{figure}
+
+
 
 \leavevmode\vfill{\tiny\color{lightgray}\hfill{\DTMnow}}
 \end{document}
