@@ -67,8 +67,8 @@
 \newcommand{\promoter}[1]{\ensuremath{\cbra{[}\mathrm{#1}\cbra{]}}}
 
 % https://tex.stackexchange.com/questions/543953/arrow-with-blunted-end-head-in-math-mode
-\newcommand{\act}{\ensuremath{\to}}
-\newcommand{\rep}{\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}}
+\newcommand{\act}{\ensuremath{\to}\xspace}
+\newcommand{\rep}{\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}\xspace}
 
 \def\[#1\]{\begin{align}#1\end{align}}
 
@@ -948,11 +948,16 @@ A more robust way
 is to introduce a buffer for \ce{Y},
 which we call ``Dock'',
 that 
+%
 i)
 has high affinity for \ce{Y};
+%
 ii)
 sequesters a large amount of \ce{Y},
-about 30x compared to the EC50 of \ce{Y} activation of \ce{Xis};
+about 30x compared to the 
+\href{https://en.wikipedia.org/wiki/EC50}{EC50}
+of \ce{Y} \act \ce{Xis};
+%
 iii)
 releases \ce{Y} for degradation when \ce{w_A} is up.
 %
