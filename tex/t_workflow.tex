@@ -1,0 +1,29 @@
+
+
+\begin{table}[hpbt]
+	\centering 
+	
+	% Table made by this script:
+	% https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
+	\begin{tabular}{llll}
+	\toprule
+	{} &                                Phase A &               Interphase &                                Phase B \\
+	\midrule
+	Experimenter &                        supply \ce{w_A} &  \makecell{clear medium} &                        supply \ce{w_B} \\
+	Player A     &                in: \ce{s}, out: \ce{r} &                       -- &                                     -- \\
+	Subtractor A &                        out: new \ce{s} &                       -- &  in: \ce{s}/\ce{r}; \makecell{compute} \\
+	Subtractor B &  in: \ce{s}/\ce{r}; \makecell{compute} &                       -- &                        out: new \ce{s} \\
+	Player B     &                                     -- &                       -- &                in: \ce{s}, out: \ce{r} \\
+	\bottomrule
+	\end{tabular}
+	
+	\caption{%
+		Workflow overview of the experiment.
+		Phases A/B
+		alternate
+		until the game is over.
+	}
+	
+	\label{t:workflow}
+\end{table}
+

@@ -9,7 +9,6 @@
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage[svgnames]{xcolor}
 \usepackage{datetime2}
-\usepackage{epstopdf}
 \usepackage[
 	colorlinks=true, 
 	citecolor={DarkRed}, urlcolor={DarkBlue}, linkcolor={DarkBlue},
@@ -28,6 +27,8 @@
 
 \usepackage{graphicx}
 \graphicspath{{../images/}}
+
+%\usepackage{epstopdf}
 
 % Tables (the order matters here)
 \usepackage{makecell}
@@ -90,40 +91,294 @@
 \maketitle
 
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{The game of 15 sticks}
 
-Rules of the game: %
+We design genetic circuits
+that play the following game:
 %
 \begin{quote}
 	Two players start with 15 sticks
 	and alternatingly 
 	take 1, 2 or 3 sticks.
 	\\
-	The last to take a stick loses.
+	The last player to take a stick loses.
 \end{quote}
 
-\TODO{winning strategy, refer to Table \ref{t:logical-playera}}
+Because a player can complement
+the number of sticks taken by the opponent,
+there is a deterministic winning strategy
+of the first-mover
+as shown in Table \ref{t:logical-playera}.
+%
+%
+We implement this strategy for both players.
 
-\ra{[we may change the bibliography style later, but for the moment names are convenient]}
 
 \subsection{General design}
 
-\TODO{bit encoding}
+We encode in binary 
+the number of sticks left as
+\[
+    \label{e:s0123}
+    %
+    \text{number of sticks left} = \ce{8 s_3 + 4 s_2 + 2 s_1 + s_0}
+    .
+\]
+%
+%
+By the 4-periodicity of the winning strategy,
+only the two lowest bits \ce{s_1}/\ce{s_0}
+matter to the player.
+%
+%
+The response of a player is a number 1, 2, or 3,
+which we encode in binary as
+\[
+    \label{e:r01}
+    %
+    \text{number of sticks taken by a player} = \ce{2 r_1 + r_0}
+    .
+\]
+%
+The bits in \eqref{e:s0123}--\eqref{e:r01}
+are transmitted by 
+intercellular signaling molecules,
+cf.~\S\ref{ss:experiment}.
+%
+Although our players are essentially identical,
+we model them separately and with one difference:
+Player A (B) becomes active when 
+the extracellular signal \ce{w_A} (\ce{w_B}) is supplied.
 
-\TODO{players and subtractor}
+%
 
-\TODO{signaling}
+The \emph{subtractor} module
+keeps track of the number of sticks left \eqref{e:s0123}.
+To appreciate the key design issue, suppose
+we manually transmit the response \ce{r_1 r_0 = 01}
+of a player
+into the medium of the subtractor.
+It should compute the new number of the sticks,
+yet, it has to do so once
+and not keep subtracting the value \ce{r_1 r_0}
+that is still present.
+One solution is single-use subtractors
+but then the result of each computation
+has to be imparted to an unused subtractor.
+Barring excessive manual intervention,
+a feasible design
+seems to require some separation of
+reading/storing the current state,
+computing the new state and communicating it
+--
+temporally or spatially.
+For our purposes
+this may include
+modest parallelism in intercellular signaling
+(but not frequency encoding).
+%
+%
+We propose 
+a subtractor composed of two parts A and B,
+and
+a workflow 
+%of Phase A, Interphase, Phase B, Interphase, etc.,
+as shown in Table \ref{t:workflow}.
+%
+%
+%
+Thus,
+in Phase A characterized by the supply of 
+the signal \ce{w_A},
+Subtractor A
+emits the current state \ce{s},
+Player A responds with \ce{r},
+while
+Subtractor B
+reads \ce{s}/\ce{r}
+and
+computes the new state % \ce{s} 
+{silently}
+and remembers the result
+in order to emit it in the subsequent Phase B.
+%
+The medium is cleared, before
+Phase B is initiated by
+supplying the signal \ce{w_B}.
+%
+%
+In short,
+we require
+a gated memory module and a delayed response,
+cf.~\S\ref{s:sub}.
 
-\TODO{mention tubes/microfluidics if applicable}
+%
 
-\TODO{manual intervention}
+Refinements could include
+a)
+dealing with
+a player who might attempt
+to take more sticks than \eqref{e:s0123};
+b)
+dedicated sensor cells 
+that report 
+on the presence of signaling molecules 
+in order to 
+monitor the state of the game.
+
+%
+
+%%% TABLE %%%
+\input{t_workflow}
 
 
+\subsection{Experimental design}
+\label{ss:experiment}
+
+We distinguish
+\emph{extracellular} chemical signals 
+that are supplied by the experimenter
+and
+\emph{intercellular} signals
+that are produced and sensed by cells.
+%
+\TODO{what are \ce{w_A} and \ce{w_B}?}
+%
+%
+For an experiment in a single test tube 
+we need
+orthogonal intercellular channels:
+\emph{four} for \eqref{e:s0123},
+\emph{two} for \eqref{e:r01},
+and
+\emph{three} for the carry flags
+(see \S\ref{s:sub}).
+%
+One channel can be spared 
+at the expense
+of a more involved computation of 
+the last useful carry flag $c_3$.
+%
+Thus \emph{eight} orthogonal intercellular channels
+would be required.
+%
+This is possible according to \cite{DuETAL2020},
+where 10 intercellular signaling
+pathways were designed de novo
+and
+four known QS pathways optimized.
+%
+Among those, only eight worked well orthogonally
+\cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c}]{DuETAL2020}.
+
+%
+
+In the interest of experimental feasibility
+we partition the workflow
+with spatial compartments
+that require manual transmission of 
+the medium.
+%
+%
+This allows to save on another two intercellular channels.
+%
+%
+%
+
+\TODO{\ra{I don't see how this is supposed to work:}}
+
+%
+In phase A.
+%
+Add \ce{w_A} everywhere.
+%
+Then:
+%
+\begin{enumerate}
+\item 
+    Admix the medium of Bit~0 and Bit~1 
+    (containing the signals \ce{s_0} and \ce{s_1})
+    to Player~A,
+    wait for Player~A to respond
+    (with \ce{r_0}/\ce{r_1}).
+\item
+    Admix the medium of Player~A
+    (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1})
+    to Bit~0, wait for response
+    (with \ce{c_1}).
+    %
+    \hh{Now the medium from Bit~0 contains updated \ce{s_0}.}
+\item
+    Admix the media of Player~A and Bit~0
+    (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}/\ce{c_1})
+    to Bit~1, wait for response
+    (with \ce{c_2}). \hh{Now the medium from Bit~1 contains updated \ce{s_0} and \ce{s_1}.}
+\item
+    \hh{Half of the medium with updated \ce{s_0} and \ce{s_1} is transferred to the tube containing Players A and B. \ce{w_B} is added so that Player B is now in the game.}
+    
+    \hh{The medium from Bit~0 and Bit~1 computation (containing \ce{c_2} is now added to Bit~2 and wait for the response \ce{c_3}.}
+    
+    \hh{In the meanwhile, the medium for Bit~1 and Bit~0 is washed.}
+    For the following we need only \ce{c_2}.
+    %
+    Thus we clean the medium of Bit~1,
+    and add \ce{w_A} again.
+    %
+    Now, \ce{c_2} is gone and also the input to Bit~1
+    is gone.
+    %
+    \TODO{How do we get \ce{c_2}?} 
+    
+\item
+    \hh{Admix the medium from Bit~3 to Bit~4}
+\end{enumerate}
+
+
+
+
+\begin{table}[hpbt]
+    \centering
+    %
+    % Table made with
+    % https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
+    %
+    \begin{tabular}{l||cc|ccc|ccc|ccc|cc}
+    {} &      \ce{r_0} &      \ce{r_1} &    \ce{s_0} &      \ce{d_0} &      \ce{c_1} &      \ce{s_1} & \ce{d_1} &      \ce{c_2} &    \ce{s_2} &      \ce{d_2} &      \ce{c_3} &    \ce{s_3} &      \ce{d_3} \\ 
+    \hline
+    1 &  $\downarrow$ &  $\downarrow$ &  $\uparrow$ &               &               &    $\uparrow$ &          &               &             &               &               &             &               \\ 
+    \hline
+    2 &    $\uparrow$ &               &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &               &          &               &             &               &               &             &               \\ 
+    \hline
+    3 &               &    $\uparrow$ &             &               &    $\uparrow$ &  $\downarrow$ &          &  $\downarrow$ &             &               &               &             &               \\ 
+    \hline
+    4 &               &               &             &               &               &               &          &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &             &               \\ 
+    \hline
+    5 &               &               &             &               &               &               &          &               &             &               &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ \\ 
+    \hline
+    \end{tabular}
+    %
+    %
+    \caption{%
+        Substeps of each phase A/B.
+        Arrows indicate emit ($\uparrow$) and compute ($\downarrow$).
+    }
+    \label{t:}
+\end{table}
+
+
+\TODO{mention a microfluids setup}
+
+\TODO{how many intercellular signaling pathways do we need and what are they?}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Logical circuits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{The players}
 
@@ -158,172 +413,25 @@ among those circuits that performed well.
 
 \TODO{Table \ref{t:subtractor1}}
 
-The gates
-$
-	\ce{c_2} 
-%	=
-%	\mathop{\mathsf{0x4D}}
-%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
-	=
-	\mathop{\mathsf{0x4D}}
-	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
-%	=
-%	\NOT
-%	\mathop{\mathsf{0x8E}}
-%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x8E}}
-	(\ce{c_1}, \ce{r_1}, \ce{s_1})
-$,
-which are
-symmetric in \ce{r_1}/\ce{c_1},
-were successfully
-implemented in \cite{NielsenETAL2016}.
-%
-%
-However,
-we could not find
-$
-	\ce{d_1} 
-	= 
-	((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mod 2)
-	=
-	\mathop{\mathsf{0x69}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x96}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-$,
-a.k.a.~there-input \XOR,
-explicitly.
-
-%
-
-
-\TODO{
-\ra{Issure:} Can we have a resettable XOR with recombinases
-eg as theorized here in Fig.~2g?
-\url{https://www.nature.com/articles/s41598-017-07386-3/figures/2}
-}
-
-
-\ra{2-input \XOR with recombinase \cite{BonnetETAL2013}}
-\ra{theoretical 3-input Xor with recombinase \cite{ChiuJiang2017}}
-
-\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
-communicating \cite{AuslaenderETAL2017}}
-
-%
 
 
 
 
 \input{t_subtractor1}
 
-The \emph{subtractor} multi-module
-keeps track of the number of sticks left.
-To appreciate the key design issue, suppose
-we manually transmit the response \ce{r_1 r_0 = 01}
-of a player
-into the medium of the subtractor.
-It should compute the new number of the sticks,
-yet, it has to do so once
-and not keep subtracting the value \ce{r_1 r_0}
-that is still present.
-One solution is single-use subtractors
-but then the result of each computation
-has to be imparted to an unused subtractor.
-Barring excessive manual intervention,
-a feasible design
-seems to require some separation of
-reading/storing the current state,
-computing the new state and communicating it
---
-temporally or spatially.
-For our purposes
-this may include
-modest parallelism in extracellular signaling
-(but not frequency encoding).
-%
-%
-We propose 
-a subtractor composed of two parts A and B,
-and
-a workflow 
-%of Phase A, Interphase, Phase B, Interphase, etc.,
-as shown in Table \ref{t:workflow}.
-%
-Thus,
-in Phase A characterized by the supply of 
-the signal \ce{w_A},
-Subtractor A
-emits the current state \ce{s},
-Player A responds with \ce{r},
-while
-Subtractor B
-reads \ce{s}/\ce{r}
-and
-computes the new state % \ce{s} 
-{silently}
-and remembers the result
-to emit it in the next Phase B.
-%
-The medium is cleared, before
-Phase B is initiated by
-supplying the signal \ce{w_B}.
-%
-%
-In short,
-we require
-what could be called
-a ``gated memory module''
-or
-``delayed computation''.
+
 %
 Fig.~\ref{f:logical-halfsubtractor0}
-illustrates this principle
+illustrates the principle of delayed response
 for the half-subtractor,
 cf.~Table~\ref{t:subtractor1}.
 %
-
-
-\begin{table}[hpbt]
-	\centering 
-	
-	% Table made by this script:
-	% https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
-	\begin{tabular}{llll}
-	\toprule
-	{} &                                Phase A &               Interphase &                                Phase B \\
-	\midrule
-	Experimenter &                        supply \ce{w_A} &  \makecell{clear medium} &                        supply \ce{w_B} \\
-	Player A     &                in: \ce{s}, out: \ce{r} &                       -- &                                     -- \\
-	Subtractor A &                        out: new \ce{s} &                       -- &  in: \ce{s}/\ce{r}; \makecell{compute} \\
-	Subtractor B &  in: \ce{s}/\ce{r}; \makecell{compute} &                       -- &                        out: new \ce{s} \\
-	Player B     &                                     -- &                       -- &                in: \ce{s}, out: \ce{r} \\
-	\bottomrule
-	\end{tabular}
-		
-	\TODO{caption}
-	
-	\caption{%
-		Workflow.
-	}
-	
-	\label{t:workflow}
-\end{table}  
-
-asdfasdfalsdf
 
 
 \section{Genetic toolbox}
 
 
 \TODO{mention 3-input boolean functions \cite{NielsenETAL2016}}
-
-\TODO{ribocomputing OR and big AND gates \cite{GreenETAL2017}}
 
 \TODO{Specify initial conditions}
 
@@ -839,8 +947,8 @@ by Int+Xis.
 Switching times of $\sim$4h were demonstrated
 (but the authors expected 30min to be realistic).
 %
-\ra{maybe:}
-Our convention will be that
+Unless state otherwise,
+we convene that
 the \emph{reset} state corresponds to 
 positive output (memory bit is \emph{on}).
 %
@@ -856,7 +964,7 @@ However,
 in our design,
 an external pulse (say, \signal{w_B}) controls Int,
 and
-an internal compute unit (say, \ce{s_0 \text{ xor } r_0}) controls Xis.
+an internal compute unit (say, \ce{s_0 \XOR r_0}) controls Xis.
 %
 The flanked promoter is activated by another
 external signal (say, \signal{w_A}).
@@ -876,11 +984,208 @@ discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
 \subsubsection*{XX}
 
 
-
 \subsubsection*{XX}
 
 
 \subsubsection*{XX}
+
+
+\subsection{Ribocomputing}
+
+\subsubsection*{AND gate}
+
+RNA-only circuits
+were proposed and in evaluated in \emph{E.~coli} in \cite{GreenETAL2017}.
+%
+A toehold switch for AND logic
+\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
+
+
+
+\TODO{AND gate from \cite{GreenETAL2017}}
+\ra{maybe not necessary, since we have another AND-mechanism
+with the dimer}
+
+
+\subsection{3-input XOR gate}
+
+
+In \cite[\href{https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0146-0/figures/5}{Fig.~5}]{Wong2015}, 
+a \XOR gate is built with two plasmids. 
+%
+On the first plasmid, 
+a constitutive promoter \TODO{need to specify at some point}
+promotes the synthesis of proteins AraC and RhaS.
+%
+% Ara
+\ra{
+AraC is an arabinose-induced transcription activator
+of the promoter pBAD upstream of HrpS. 
+%
+% Rha
+Similarly, RhaS activates the promoter pRHAB in the presence of inducer rhamnose and then synthesis of HrpR.
+%
+HrpR and HrpS form a heterodimer HrpRS
+that binds to and activates the promoter pHrpL 
+upstream of the repressor $\lambda$CI 
+on the second plasmid.
+%
+At the same time, inducers arabinose and rhamnose 
+each promote the expression
+of the reporter RFP on the second plasmid via
+the promoters pBAD and pRHAB,
+which are, however,
+modified to allow $\lambda$CI to bind
+and prevent expression.
+%
+In this way, 
+RFP is expressed when either one of them is present but not both. 
+
+It is noted \TODO{by whom, where \hh{in this exact cited paper, when they discuss why the copy number is like this} 
+\ra{so what are the numbers? if you make a specific claim, provide a specific reference}
+}
+that the promoter pHrpL is relatively weak.
+%
+The authors propose to 
+increase the copy number of 
+the second plasmid (where the promoter is located)
+in order to
+increase the dynamic range of the activator dimer.
+}
+
+%
+\ra{
+We could not find
+$
+	\ce{d_1} 
+	= 
+	\mathop{\mathsf{0x69}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x96}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+$,
+i.e.~the 3-\XOR,
+cf.~Table~\ref{t:subtractor1},
+explicitly in \cite{NielsenETAL2016}.
+%
+}
+%
+\ra{
+To implement this,
+we cascade
+two constructs analogous to \cite{Wong2015}
+using two orthogonal heterodimers.
+}
+
+\TODO{
+we only have one 3-input XOR gate, therefore ABC should be specified
+somewhere here
+as what they are, ie: 
+\ce{s_1}/\ce{r_1}/\ce{c_1} mapping to \ce{d_1}.
+%
+however, which should be which? --
+how about 
+\ce{c_1} = C.
+}
+
+\TODO{
+\ra{urgent}
+what are the actual signaling molecules we're using?
+we should settle this asap, because now everything depends on it,
+including the symbio;
+thus, first we need the ``experimental design'' section
+\hh{Ara, Rha and IPTG is what I suggested for the 2 layered xor gates.}}
+
+\begin{figure}
+    \centering
+    \includegraphics{images/circuits/3_input_xor.png}
+    \caption{3 input \XOR logic gate as cascading \XOR gates}
+    \label{f:my_label}
+\end{figure}
+
+\hh{
+The first 2-\XOR (A and B) use the above implementation 
+(i.e.~with heterodimer HrpRS) to regulate the expression of pchB. 
+%
+The 3rd inducer C then triggers the expression of pchA.
+%
+Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger the synthesis of salicylic acid, which then regulates the activator NahR to activate the expression of repressor McbR \cite{Rey2005}.
+
+}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P1.png}
+    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P2.png}
+    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P3.png}
+    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P4.png}
+    \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with \url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the design diagram}
+    \ra{if you keep them online please provide a url and/or upload the relevant files (not just the figures)}
+    }
+    \label{f:gene_circuit_xor}
+\end{figure}
+
+
+\TODO{what is the url of the circuit figure, if any; why is it upside-down}
+\hh{there is no url of the circuit figure. it is just a sketch indicating 2 layered xor gate. and I dont know if there is a rule for which way should be up and which way is down}
+
+\TODO{we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf}
+
+\subsubsection*{Cascading-OR XOR gate}
+
+\TODO{other XOR gates (perhaps briefly) one might consider}
+
+
+The gates
+$
+	\ce{c_2} 
+%	=
+%	\mathop{\mathsf{0x4D}}
+%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
+	=
+	\mathop{\mathsf{0x4D}}
+	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
+%	=
+%	\NOT
+%	\mathop{\mathsf{0x8E}}
+%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x8E}}
+	(\ce{c_1}, \ce{r_1}, \ce{s_1})
+$,
+which are
+symmetric in \ce{r_1}/\ce{c_1},
+were successfully
+implemented in \cite{NielsenETAL2016}.
+%
+%
+
+
+\subsubsection*{3x recombinase}
+
+
+\TODO{
+\ra{Issure:} Can we have a resettable \XOR with recombinases
+eg as theorized here in Fig.~2g?
+\url{https://www.nature.com/articles/s41598-017-07386-3/figures/2}
+}
+
+
+\ra{other notes:}
+
+\ra{2-input \XOR with recombinase \cite{BonnetETAL2013}}
+\ra{theoretical 3-input \XOR with recombinase \cite{ChiuJiang2017}}
+
+\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
+communicating \cite{AuslaenderETAL2017}}
+
+%
+
+
+
 
 
 
@@ -890,7 +1195,7 @@ discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
-\TODO{Some details missing:
+\TODO{Some details missing, also need to carefully choose the wake-up signal \ce{w_A} / \ce{w_B}:
 \href{https://drive.google.com/file/d/1X1uEVNkUiXZqNz7C7m36YjW-g1XctIH0}{click for figure (ignore black part)}}
 
 \subsection{Bit 0}
@@ -967,6 +1272,7 @@ In this way,
 a transient bump in \ce{Y} is absorbed 
 by the Dock,
 but a sustained signal 
+(while \ce{w_B} is up)
 will overflow the Dock and activate 
 transcription of \ce{Xis}.
 %
@@ -1003,6 +1309,7 @@ The value of the memory unit is
 forwarded to the output
 when the signal \ce{w_A} is present.
 }
+\TODO{$c1$ should be projected immediately}
 \label{f:logical-halfsubtractor0}
 \end{figure}
 
