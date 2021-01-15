@@ -60,16 +60,16 @@
 \newcommand{\XOR}{\ensuremath{\mathop{\mathsf{xor}}}\xspace}
 
 \newcommand{\TEXT}[1]{\quad\text{#1}\quad}
-\newcommand{\with}{\text{ $:$ }}
+\newcommand{\with}{\text{$\,{:}\,$}}
 
-\newcommand{\cbra}[1]{{\color{gray}\ensuremath{#1}}}
-\newcommand{\signal}[1]{\ensuremath{\cbra{\langle}\mathrm{#1}\cbra{\rangle}}}
-\newcommand{\protein}[1]{\ensuremath{\cbra{(}\mathrm{#1}\cbra{)}}}
-\newcommand{\promoter}[1]{\ensuremath{\cbra{[}\mathrm{#1}\cbra{]}}}
+\newcommand{\cbra}[1]{{\ensuremath{\color{gray}{#1}}}}
+\newcommand{\signal}[1]{{{\cbra{\langle}\ce{#1}\cbra{\rangle}}}}
+\newcommand{\protein}[1]{{{\cbra{(}\ce{#1}\cbra{)}}}}
+\newcommand{\promoter}[1]{{{\cbra{[}\ce{#1}\cbra{]}}}}
 
 % https://tex.stackexchange.com/questions/543953/arrow-with-blunted-end-head-in-math-mode
-\newcommand{\act}{\ensuremath{\to}\xspace}
-\newcommand{\rep}{\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}\xspace}
+\newcommand{\act}{\ {\ensuremath{\mathbin{\to}}}\ }
+\newcommand{\rep}{\ {\ensuremath{\mathrel{\raisebox{-.3ex}{\rotatebox{90}{\scalebox{1}[1.2]{$\bot$}}}}}}\ }
 
 \def\[#1\]{\begin{align}#1\end{align}}
 
@@ -273,8 +273,19 @@ and
 four known QS pathways optimized.
 %
 Among those, only eight worked well orthogonally
-\cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c}]{DuETAL2020}.
-
+on the sensor level 
+and 
+seven on the promoter level,
+see
+\cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
+%
+It is pointed out
+\cite[p.6]{DuETAL2020}
+that 
+the signaling pathways 
+\TODO{RpaR-Prpa* and LuxR-Plux*}
+should not coexist in one cell,
+which we avoid below.
 %
 
 In the interest of experimental feasibility
@@ -289,8 +300,144 @@ This allows to save on another two intercellular channels.
 %
 %
 
-\TODO{\ra{I don't see how this is supposed to work:}}
+\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
+\begin{quote}
+    The sensors used include a truncated AraC 
+    (AraC-C280*, referred to as AraC* in this work)
+    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
+    which is induced using L-arabinose; 
+    LacI and its output promoter with a symmetric lac-operator PTac which
+    is IPTG-inducible(41); 
+    and TetR with its output promoter PTet(42)
+\end{quote}
+}
 
+\TODO{Please check:}
+
+\begin{itemize}
+\item[\ce{w_A}:]
+    $
+        \href{https://pubchem.ncbi.nlm.nih.gov/compound/L-Arabinose}{\signal{Ara}}
+        \act
+        \protein{AraC^*}
+        \act
+        \promoter{BAD}
+    $
+
+\item[\ce{w_B}:]
+    $
+        \href{https://pubchem.ncbi.nlm.nih.gov/compound/656894}{\signal{IPTG}}
+        \rep
+        \protein{LacI}
+        \rep
+        \promoter{Tac}
+    $
+    
+    \ra{
+    is that the usual promoter controlled by LacI?
+    }
+    
+\item[\ce{r_0}:]
+    $
+        \href{https://pubchem.ncbi.nlm.nih.gov/compound/119133}{\signal{{3OC6}{-}{HSL}}}
+        \act
+        \protein{LuxR}
+        \act
+        \promoter{Lux}
+    $
+    
+    \ra{[this is already discussed below]}
+
+\item[\ce{r_1}:]
+    $
+        \href{https://pubmed.ncbi.nlm.nih.gov/21949379/}{\signal{IV{-}HSL}}
+        \TODO{?}
+        \protein{BjaR}
+        \TODO{?}
+        \promoter{Bja}
+    $
+    
+    \TODO{reference?}
+    \TODO{good link to IV-HSL?}
+
+\item[\ce{s_0}:]
+    $
+        \href{https://en.wikipedia.org/wiki/2,4-Diacetylphloroglucinol}{\signal{DAPG}}
+        \rep
+        \protein{PhlF}
+        \rep
+        \promoter{PhlF}
+    $
+    % This appears in \cite{NielsenETAL2016}
+ 
+    Note: \protein{PhlF} used a lot in \cite{NielsenETAL2016}
+    
+\item[\ce{c_1}:]
+    $
+        \signal{Sal}
+        \act
+        \protein{NahR}
+        \act
+        \promoter{Sal}
+    $
+    
+    \ra{[this is already discussed below]}
+    
+    \TODO{what exactly is \href{https://en.wikipedia.org/wiki/Salicylic_acid}{Sal}?}
+    
+\item[\ce{s_1}:]
+    $
+        \href{https://pubchem.ncbi.nlm.nih.gov/compound/N-_4-Coumaroyl_-L-homoserine-lactone}{\signal{pC{-}HSL}}
+        \act
+        \protein{RpaR}
+        \act
+        \promoter{Rpa}
+    $
+
+    \ra{[this is already discussed below]}
+    
+\item[\ce{c_2}:]
+    $
+        \signal{MMF}
+        \TODO{?}
+        \protein{MmfR}
+        \TODO{?}
+        \promoter{Mmf}
+    $
+    
+    \TODO{
+    what is MMF?
+    cf.~\url{https://pubmed.ncbi.nlm.nih.gov/19054329/}
+    }
+
+\item[\ce{s_2}:]
+    $
+        \href{http://www.chemspider.com/Chemical-Structure.2497481.html}{\signal{{3OC12}{-}HSL}}
+        \TODO{?}
+        \protein{LasR}
+        \TODO{?}
+        \promoter{Las}
+    $
+
+\item[\ce{c_3}:]
+    $
+        \signal{NG}
+        \TODO{?}
+        \protein{FdeR}
+        \TODO{?}
+        \promoter{FdeA}
+    $
+
+    \TODO{
+    what is NG? 
+    is it 
+    \href{https://en.wikipedia.org/wiki/Naringenin}{Naringenin}?
+    cf.~\url{https://pubmed.ncbi.nlm.nih.gov/24188962/}
+    }
+\end{itemize}
+
+
+\TODO{tubes and such:}
 %
 In phase A.
 %
@@ -305,36 +452,24 @@ Then:
     to Player~A,
     wait for Player~A to respond
     (with \ce{r_0}/\ce{r_1}).
+    
 \item
     Admix the medium of Player~A
     (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1})
     to Bit~0, wait for response
     (with \ce{c_1}).
-    %
-    \hh{Now the medium from Bit~0 contains updated \ce{s_0}.}
+    
 \item
     Admix the media of Player~A and Bit~0
     (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}/\ce{c_1})
     to Bit~1, wait for response
-    (with \ce{c_2}). \hh{Now the medium from Bit~1 contains updated \ce{s_0} and \ce{s_1}.}
-\item
-    \hh{Half of the medium with updated \ce{s_0} and \ce{s_1} is transferred to the tube containing Players A and B. \ce{w_B} is added so that Player B is now in the game.}
-    
-    \hh{The medium from Bit~0 and Bit~1 computation (containing \ce{c_2} is now added to Bit~2 and wait for the response \ce{c_3}.}
-    
-    \hh{In the meanwhile, the medium for Bit~1 and Bit~0 is washed.}
-    For the following we need only \ce{c_2}.
-    %
-    Thus we clean the medium of Bit~1,
-    and add \ce{w_A} again.
-    %
-    Now, \ce{c_2} is gone and also the input to Bit~1
-    is gone.
-    %
-    \TODO{How do we get \ce{c_2}?} 
+    (with \ce{c_2}). 
     
 \item
-    \hh{Admix the medium from Bit~3 to Bit~4}
+    
+\item
+    Admix the medium from Bit~3 to Bit~4.
+    
 \end{enumerate}
 
 
@@ -421,7 +556,7 @@ among those circuits that performed well.
 
 
 %
-Fig.~\ref{f:logical-halfsubtractor0}
+Fig.~\ref{f:logical-subtractor01}
 illustrates the principle of delayed response
 for the half-subtractor,
 cf.~Table~\ref{t:subtractor1}.
@@ -536,9 +671,12 @@ the kinetics:
 
 \subsubsection*{3OC6-HSL/LuxR}
 
+\TODO{fix 3OC6}
+\TODO{spacing of act and rep}
+
 Pathway:
 \[
-	\signal{3OC6\text{-}HSL} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
+	\signal{{3OC6}{-}HSL} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
 	.
 \]
 
@@ -583,7 +721,7 @@ We assume the mechanism:
 \begin{subequations}
 \[
 	\ce{
-		\signal{3OC6\text{-}HSL} + \protein{LuxR}
+		\signal{{3OC6}{-}HSL} + \protein{LuxR}
 		& <=>>
 		\protein{LuxR^\star}
 	}
@@ -848,7 +986,7 @@ which we implement as:
 Pathway:
 %
 \[
-	\signal{pC} \act \protein{RpaR} \act \promoter{rpa}
+	\signal{pC{-}HSL} \act \protein{RpaR} \act \promoter{rpa}
 	\act 
 	\protein{Output}
 	.
@@ -970,7 +1108,7 @@ The flanked promoter is activated by another
 external signal (say, \signal{w_A}).
 %
 This achieves the separation 
-discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-halfsubtractor0}.
+discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-subtractor01}.
 
 %
 % SymBiology:
@@ -1103,6 +1241,7 @@ thus, first we need the ``experimental design'' section
     \includegraphics{images/circuits/3_input_xor.png}
     \caption{3 input \XOR logic gate as cascading \XOR gates}
     \label{f:my_label}
+    \ra{cf. new figure \ref{f:logical-subtractor01}}
 \end{figure}
 
 \hh{
@@ -1128,10 +1267,13 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 \end{figure}
 
 
-\TODO{what is the url of the circuit figure, if any; why is it upside-down}
+\TODO{
+what is the url of the circuit figure, if any; why is it upside-down
 \hh{there is no url of the circuit figure. it is just a sketch indicating 2 layered xor gate. and I dont know if there is a rule for which way should be up and which way is down}
+\ra{cf. new figure \ref{f:logical-subtractor01}}
+}
 
-\TODO{we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf}
+\ra{we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf [can delete this]}
 
 \subsubsection*{Cascading-OR XOR gate}
 
@@ -1292,14 +1434,15 @@ transcription of \ce{Xis}.
 
 \section*{Appendix}
 
-\TODO{On Figure \ref{f:logical-halfsubtractor0}.}
+\TODO{On Figure \ref{f:logical-subtractor01}.}
 
 % https://www.circuit-diagram.org/editor/c/075f8cf9d084400b94f1384cc1c3ba96
 \begin{figure}[phbt]
 \centering
-\includegraphics[width=0.5\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
+\includegraphics[width=0.9\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
 \caption{%
-A delayed half-subtractor.
+A logic circuit representation of Subtractor~A:
+Bit~0 and Bit~1.
 %
 The result of the compute unit is written to the memory unit
 (bistable switch)
@@ -1309,8 +1452,7 @@ The value of the memory unit is
 forwarded to the output
 when the signal \ce{w_A} is present.
 }
-\TODO{$c1$ should be projected immediately}
-\label{f:logical-halfsubtractor0}
+\label{f:logical-subtractor01}
 \end{figure}
 
 
