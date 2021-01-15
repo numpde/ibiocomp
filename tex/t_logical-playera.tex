@@ -53,8 +53,7 @@
 \end{minipage}
 
 \caption{%
-    Each player follows the deterministic strategy,
-    which is a winning strategy for the first-mover.
+    Both players follow the same strategy shown.
     %
 	The truth table and the logical circuit 
 	for Player A
@@ -68,17 +67,16 @@
 	(\ce{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
 	%
 	The output is
-	the number of sticks that 
-	the player chooses to take,
+	the number of sticks taken,
 	encoded as \ce{2 r_1 + r_0}.
 	%
-	Note that the output is cut off
-	when \ce{w_A} is absent.
+	The output is cut off when \ce{w_A} is absent.
 	%
 	%
 	The circuit for {Player B}
 	is identical except
-	that it is controlled by \ce{w_B}.
+	that 
+	the output is controlled by \ce{w_B}.
 }
 
 \label{t:logical-playera}

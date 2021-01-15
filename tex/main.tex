@@ -119,7 +119,7 @@ as shown in Table \ref{t:logical-playera}.
 We implement this strategy for both players.
 
 
-\subsection{General design}
+\subsection{General design} \label{s:general}
 
 We encode in binary 
 the number of sticks left as
@@ -247,7 +247,6 @@ and
 \emph{intercellular} signals
 that are produced and sensed by cells.
 %
-\TODO{what are \ce{w_A} and \ce{w_B}?}
 %
 %
 For an experiment in a single test tube 
@@ -259,19 +258,23 @@ and
 \emph{three} for the carry flags
 (see \S\ref{s:sub}).
 %
-One channel can be spared 
+One channel could be spared 
 at the expense
 of a more involved computation of 
 the last useful carry flag $c_3$.
 %
-Thus \emph{eight} orthogonal intercellular channels
-would be required.
+In fact, since the bit $s_3$ is otherwise unused
+no dedicated channel is necessary for it
+(YFP is expressed instead).
+%
+Thus we need \emph{eight} orthogonal intercellular channels.
 %
 This is possible according to \cite{DuETAL2020},
-where 10 intercellular signaling
-pathways were designed de novo
+where 10 de novo intercellular signaling pathways
+were designed
 and
-four known QS pathways optimized.
+four known QS pathways
+were optimized.
 %
 Among those, only eight worked well orthogonally
 on the sensor level 
@@ -280,165 +283,50 @@ seven on the promoter level,
 see
 \cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
 %
-It is pointed out
-\cite[p.6]{DuETAL2020}
-that 
-the signaling pathways 
-\TODO{RpaR-Prpa* and LuxR-Plux*}
-should not coexist in one cell,
-which we avoid below.
+As warned in \cite[p.6]{DuETAL2020}
+we avoid putting LuxR and RpaR sensors
+in one cell (cf.~Table~\ref{t:signals}).
+
 %
 
-In the interest of experimental feasibility
+\ra{
+In the interest of experimental feasibility and debugging
 we partition the workflow
 with spatial compartments
 that require manual transmission of 
 the medium.
 %
-%
-This allows to save on another two intercellular channels.
-%
-%
-%
-
-\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
-\begin{quote}
-    The sensors used include a truncated AraC 
-    (AraC-C280*, referred to as AraC* in this work)
-    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
-    which is induced using L-arabinose; 
-    LacI and its output promoter with a symmetric lac-operator PTac which
-    is IPTG-inducible(41); 
-    and TetR with its output promoter PTet(42)
-\end{quote}
+Unfortunately, this does not automatically reduce
+the number of intercellular channels we need.
 }
 
-\TODO{Please check:}
+%
 
-\begin{itemize}
-\item[\ce{w_A}:]
-    $
-        \href{https://pubchem.ncbi.nlm.nih.gov/compound/L-Arabinose}{\signal{Ara}}
-        \act
-        \protein{AraC^*}
-        \act
-        \promoter{BAD}
-    $
+\ra{
+As shown in Table \ref{t:signals},
+we encode \ce{w_A} by L-arabinose,
+\ce{w_B} by IPTG, etc.
+%
+Our convention is \ce{w_A = 1}
+if and only if
+the corresponding messenger molecule L-arabinose 
+is present in the medium in sufficient quantity,
+and analogously for the other signals.
+}
+%
+%
+\ra{
+Subsequently,
+we abbreviate
+\signal{{3OC6}{-}HSL} by \signal{{3OC6}}, etc.
+}
 
-\item[\ce{w_B}:]
-    $
-        \href{https://pubchem.ncbi.nlm.nih.gov/compound/656894}{\signal{IPTG}}
-        \rep
-        \protein{LacI}
-        \rep
-        \promoter{Tac}
-    $
-    
-    \ra{
-    is that the usual promoter controlled by LacI?
-    }
-    
-\item[\ce{r_0}:]
-    $
-        \href{https://pubchem.ncbi.nlm.nih.gov/compound/119133}{\signal{{3OC6}{-}{HSL}}}
-        \act
-        \protein{LuxR}
-        \act
-        \promoter{Lux}
-    $
-    
-    \ra{[this is already discussed below]}
-
-\item[\ce{r_1}:]
-    $
-        \href{https://pubmed.ncbi.nlm.nih.gov/21949379/}{\signal{IV{-}HSL}}
-        \TODO{?}
-        \protein{BjaR}
-        \TODO{?}
-        \promoter{Bja}
-    $
-    
-    \TODO{reference?}
-    \TODO{good link to IV-HSL?}
-
-\item[\ce{s_0}:]
-    $
-        \href{https://en.wikipedia.org/wiki/2,4-Diacetylphloroglucinol}{\signal{DAPG}}
-        \rep
-        \protein{PhlF}
-        \rep
-        \promoter{PhlF}
-    $
-    % This appears in \cite{NielsenETAL2016}
- 
-    Note: \protein{PhlF} used a lot in \cite{NielsenETAL2016}
-    
-\item[\ce{c_1}:]
-    $
-        \signal{Sal}
-        \act
-        \protein{NahR}
-        \act
-        \promoter{Sal}
-    $
-    
-    \ra{[this is already discussed below]}
-    
-    \TODO{what exactly is \href{https://en.wikipedia.org/wiki/Salicylic_acid}{Sal}?}
-    
-\item[\ce{s_1}:]
-    $
-        \href{https://pubchem.ncbi.nlm.nih.gov/compound/N-_4-Coumaroyl_-L-homoserine-lactone}{\signal{pC{-}HSL}}
-        \act
-        \protein{RpaR}
-        \act
-        \promoter{Rpa}
-    $
-
-    \ra{[this is already discussed below]}
-    
-\item[\ce{c_2}:]
-    $
-        \signal{MMF}
-        \TODO{?}
-        \protein{MmfR}
-        \TODO{?}
-        \promoter{Mmf}
-    $
-    
-    \TODO{
-    what is MMF?
-    cf.~\url{https://pubmed.ncbi.nlm.nih.gov/19054329/}
-    }
-
-\item[\ce{s_2}:]
-    $
-        \href{http://www.chemspider.com/Chemical-Structure.2497481.html}{\signal{{3OC12}{-}HSL}}
-        \TODO{?}
-        \protein{LasR}
-        \TODO{?}
-        \promoter{Las}
-    $
-
-\item[\ce{c_3}:]
-    $
-        \signal{NG}
-        \TODO{?}
-        \protein{FdeR}
-        \TODO{?}
-        \promoter{FdeA}
-    $
-
-    \TODO{
-    what is NG? 
-    is it 
-    \href{https://en.wikipedia.org/wiki/Naringenin}{Naringenin}?
-    cf.~\url{https://pubmed.ncbi.nlm.nih.gov/24188962/}
-    }
-\end{itemize}
+%%% TABLE %%%
+\input{t_signals.tex}
 
 
-\TODO{tubes and such:}
+
+\TODO{experimental protocol:}
 %
 In phase A.
 %
@@ -508,7 +396,6 @@ Then:
 
 \TODO{mention a microfluids setup}
 
-\TODO{how many intercellular signaling pathways do we need and what are they?}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -518,7 +405,16 @@ Then:
 
 \subsection{The players}
 
-\TODO{Table \ref{t:logical-playera}}
+Both players
+follow the same deterministic strategy,
+which is a winning strategy for the first-mover.
+%
+They are identical except
+that player A responds when \ce{w_A} is present
+and player B responds upon \ce{w_B}.
+%
+The logic is shown in Table \ref{t:logical-playera}.
+
 
 In
 \cite{NielsenETAL2016}
@@ -564,12 +460,34 @@ cf.~Table~\ref{t:subtractor1}.
 %
 
 
-\section{Genetic toolbox}
+\section{Genetic toolbox} \label{s:genetic}
 
 
 \TODO{mention 3-input boolean functions \cite{NielsenETAL2016}}
 
 \TODO{Specify initial conditions}
+
+
+
+\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
+\begin{quote}
+    The sensors used include a truncated AraC 
+    (AraC-C280*, referred to as AraC* in this work)
+    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
+    which is induced using L-arabinose; 
+    LacI and its output promoter with a symmetric lac-operator PTac which
+    is IPTG-inducible(41); 
+    and TetR with its output promoter PTet(42)
+\end{quote}
+}
+
+
+\subsection{Extracellular signaling}
+
+
+The two signals \ce{w_A} and \ce{w_B}
+are encoded by 
+
 
 
 \subsection{Transducers}
@@ -606,6 +524,8 @@ It seems clear that
 AmtR sits on the DNA as a dimer
 \cite{SevvanaETAL2017},
 \cite[\S3.4.2]{Schwab2019}.
+
+
 %
 %
 We therefore assume
@@ -666,28 +586,19 @@ the kinetics:
 \subsubsection*{...}
 
 
-\subsection{Sensors}
+
+\subsection{Intercellular pathways}
 
 \TODO{Explain intercellular signaling pathways from \cite{DuETAL2020}}
 
-\subsubsection*{3OC6-HSL/LuxR}
-
-\TODO{fix 3OC6}
-\TODO{spacing of act and rep}
-
-Pathway:
-\[
-	\signal{{3OC6}{-}HSL} \act \protein{LuxR} \act \promoter{Lux} \act \protein{Output}
-	.
-\]
-
+\subsubsection*{3OC6} \label{ss:3OC6}
  
 The transcription activator \protein{LuxR}
 occurs in Gram-negative bacteria
 such as \emph{Vibrio fischeri}.
 %
 The bacterium is permeable to the (auto)inducer,
-here \signal{3OC6\text{-}HSL}.
+here \signal{{3OC6}}.
 %
 The inducer binds to the N-terminal of \protein{LuxR},
 which otherwise inhibits its
@@ -705,10 +616,10 @@ promoter
 %
 %
 %
-We abbreviate
-$\protein{LuxR^\star} := \signal{3OC6\text{-}HSL} \with \protein{LuxR}$
+We write
+$\protein{LuxR^\star}$ for $\signal{3OC6\text{-}HSL} \with \protein{LuxR}$
 and
-$\promoter{Lux^\star} := \protein{LuxR^\star} \with \promoter{Lux}$.
+$\promoter{Lux^\star}$ for $\protein{LuxR^\star} \with \promoter{Lux}$.
 %
 %\TODO{
 %Let $\protein{LuxR^\star}$ denote 
@@ -837,24 +748,14 @@ In combination, we have
 \]
 
 
-\subsubsection*{Salicylate/NahR}
-
-Pathway:
-%
-\[
-	\signal{Sal} \act \protein{NahR} \act \promoter{Sal} \act \protein{Output}
-	.
-\]
-
-%
+\subsubsection*{Sal} \label{ss:sal}
 
 According to 
 \cite{SchellWender1986, HuangSchell1991},
 the transcription activator \protein{NahR}
 binds to the recognition site of \promoter{Sal} at
-$-83$ to $-45$,
-and does so without the inducer \cite[p.10837]{HuangSchell1991}.
-The \protein{NahR} hence activate the expression of \promoter{Sal}.
+$-83$ to $-45$
+without the inducer \cite[p.10837]{HuangSchell1991}.
 %
 %
 %
@@ -872,6 +773,7 @@ $\protein{NahR} \with \promoter{Sal}$.
 \hh{
 Nevertheless, the configuration changes 
 then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{Sal}).
+\TODO{reference?}
 %
 %
 The inducer
@@ -887,8 +789,7 @@ that
 $4 \times \protein{NahR}$ bind to the DNA,
 and
 transcription starts
-once
-one $\signal{Sal}$
+once a $\signal{Sal}$
 binds to each \protein{NahR}.
 %
 For the sensors we assume an abundance
@@ -982,24 +883,17 @@ which we implement as:
 
 
 
-\subsubsection*{pC-HSL/rpaR}
-
-Pathway:
-%
-\[
-	\signal{pC{-}HSL} \act \protein{RpaR} \act \promoter{rpa}
-	\act 
-	\protein{Output}
-	.
-\]
+\subsubsection*{pC} \label{ss:pC}
 
 \hh{
-The p-coumaroyl-HSL -- RpaR system 
-(\signal{pC\text{-}HSL})
+The p-coumaroyl-HSL/RpaR system 
+(pC-HSL)
 works similarly to AHL/LuxR
+\TODO{what is AHL?}
 \TODO{use `protein`?}.
 %
-However, as they come from an anoxygenic phototrophic soil bacterium strain, 
+However,
+as they come from an anoxygenic phototrophic soil bacterium strain, 
 the luxIR-type pair, rpaI and rpaR shows good orthogonality to many
 QS signals in use \cite{SchaeferETAL2008}.
 }
@@ -1016,8 +910,8 @@ of its promoter
 %
 Transcription depends on 
 the inducer 
-\emph{p}-coumaroyl-homoserine lactone,
-or \signal{pC} for short.
+\signal{pC}
+(\emph{p}-coumaroyl-homoserine lactone).
 %
 %
 %There is
@@ -1109,7 +1003,7 @@ The flanked promoter is activated by another
 external signal (say, \signal{w_A}).
 %
 This achieves the separation 
-discussed in \S\ref{s:sub} and Fig.~\ref{f:logical-subtractor01}.
+discussed in \S\ref{s:general} and Fig.~\ref{f:logical-subtractor01}.
 
 %
 % SymBiology:
@@ -1218,28 +1112,10 @@ two constructs analogous to \cite{Wong2015}
 using two orthogonal heterodimers.
 }
 
-\TODO{
-we only have one 3-input XOR gate, therefore ABC should be specified
-somewhere here
-as what they are, ie: 
-\ce{s_1}/\ce{r_1}/\ce{c_1} mapping to \ce{d_1}.
-%
-however, which should be which? --
-how about 
-\ce{c_1} = C.
-}
-
-\TODO{
-\ra{urgent}
-what are the actual signaling molecules we're using?
-we should settle this asap, because now everything depends on it,
-including the symbio;
-thus, first we need the ``experimental design'' section
-\hh{Ara, Rha and IPTG is what I suggested for the 2 layered xor gates.}}
 
 \begin{figure}
     \centering
-    \includegraphics{images/circuits/3_input_xor.png}
+    \includegraphics{circuits/3_input_xor.png}
     \caption{3 input \XOR logic gate as cascading \XOR gates}
     \label{f:my_label}
     \ra{cf. new figure \ref{f:logical-subtractor01}}
@@ -1257,10 +1133,10 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 
 \begin{figure}
     \centering
-    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P1.png}
-    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P2.png}
-    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P3.png}
-    \includegraphics[width = \linewidth]{images/gene_circuits_xor/P4.png}
+    \includegraphics[width = \linewidth]{gene_circuits_xor/P1.png}
+    \includegraphics[width = \linewidth]{gene_circuits_xor/P2.png}
+    \includegraphics[width = \linewidth]{gene_circuits_xor/P3.png}
+    \includegraphics[width = \linewidth]{gene_circuits_xor/P4.png}
     \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with \url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the design diagram}
     \ra{if you keep them online please provide a url and/or upload the relevant files (not just the figures)}
     }
@@ -1442,20 +1318,30 @@ transcription of \ce{Xis}.
 \centering
 \includegraphics[width=0.9\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
 \caption{%
-A logic circuit representation of Subtractor~A:
-Bit~0 and Bit~1.
+Bit~0 and Bit~1
+of
+Subtractor~A.
 %
 The result of the compute unit is written to the memory unit
-(bistable switch)
+(here as a bistable switch)
 when the signal \ce{w_B} is present.
 %
 The value of the memory unit is
 forwarded to the output
 when the signal \ce{w_A} is present.
+%
+Our genetic implementation
+follows this concept
+but
+differs in the details.
 }
 \label{f:logical-subtractor01}
 \end{figure}
 
+
+\section*{Final TODOs}
+
+\TODO{spacing of act and rep}
 
 
 
