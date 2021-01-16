@@ -26,7 +26,7 @@
 \usepackage{xspace}
 
 \usepackage{graphicx}
-\graphicspath{{../images/}}
+\graphicspath{{../images/}, {../code/20201231_SymBio_All}}
 
 %\usepackage{epstopdf}
 
@@ -1035,15 +1035,8 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
+\subsubsection*{d1}
 
-\TODO{\ra{Issue: how to implement this ``Shelf'' (and a better name)?}}
-\ra{%
-Note: This seems similar to
-\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007},
-also
-\cite{NilgiriwalaETAL2014}.
-}
-%
 Consider bit 1 of Subtractor A.
 %
 Suppose \ce{s_1 r_1 c_1 = 101},
@@ -1102,7 +1095,61 @@ but a sustained signal
 will overflow the shelves and activate 
 transcription of \ce{Xis}.
 %
+%
+This is illustrated in Fig.~\ref{f:symbio-d1-tempo}.
 
+\TODO{\ra{Issue: how to implement this ``Shelf'' (and a better name)?}}
+\ra{%
+Note: This seems similar to
+\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007},
+also
+\cite{NilgiriwalaETAL2014}.
+}
+
+
+\begin{figure}[phbt]
+\centering
+
+\begin{minipage}[t]{0.8\linewidth}
+\vspace{0pt}
+\includegraphics[width=\linewidth]{code/20201231_SymBio_All/Bit1/response_d1_tempo.pdf}
+\end{minipage}
+%
+\hspace{-0.02\linewidth}
+%
+\begin{minipage}[t]{0.2\linewidth}
+\vspace{0pt}
+\scalebox{0.7}{%
+\begin{tabular}{cccc}
+    & \ce{s_1} & \ce{r_1} & \ce{c_1} \\
+    \ce{B_1} & 10 & 10 & 10 \\
+    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
+    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} \\
+    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
+\end{tabular}
+}
+\end{minipage}
+
+\caption{%
+Subtractor A, bit 1/\ce{d_1},
+across the phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
+(with interphases).
+%
+The table shows the inputs.
+%
+As required,
+we have
+$\ce{d_1} \approx 10$ 
+during the recall phase \ce{A_1}
+and
+$\ce{d_1} \approx 0$ 
+during the recall phase \ce{A_2}.
+%
+%
+}
+\label{f:symbio-d1-tempo}
+\TODO{ref to location in text}
+\end{figure}
 
 %
 
