@@ -90,7 +90,7 @@
 
 \maketitle
 
-\ra{LOCKED 'COS WORKING WITH ANOTHER COPY (WRITE EMAIL IF NEEDED)}
+% \ra{LOCKED 'COS WORKING WITH ANOTHER COPY (WRITE EMAIL IF NEEDED)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -444,61 +444,63 @@ Then:
 \TODO{Specify initial conditions}
 
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Genetic toolbox} \label{s:genetic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{3-input gates of Cello} \label{ss:cello}
-
-\cite{NielsenETAL2016}
-
-\TODO{explain}
+\subsection{3-input gates by Cello} \label{ss:cello}
 
 In
 \cite{NielsenETAL2016}
-we find the gates
-$
-	\ce{r_0} = 
-	\mathop{\mathsf{0x0E}}
-	(\ce{s_0}, \ce{s_1}, \ce{w_A})
-$
-and
-$
-	\ce{r_1} =
-	\NOT
-	\mathop{\mathsf{0xF6}}
-	(\ce{s_0}, \ce{s_1}, \ce{w_A})
-$
+we found the three-input one-output gates
+%
+\begin{itemize}
+\item
+    $
+    	\ce{r_0} = 
+    	\mathop{\mathsf{0x0E}}
+    	(\ce{s_0}, \ce{s_1}, \ce{w_A})
+    $,
+\item
+    $
+    	\ce{r_1} =
+    	\NOT
+    	\mathop{\mathsf{0xF6}}
+    	(\ce{s_0}, \ce{s_1}, \ce{w_A})
+    $,
+\item
+    $
+    	\ce{c_2} 
+    %	=
+    %	\mathop{\mathsf{0x4D}}
+    %	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
+    %	=
+    %	\NOT
+    %	\mathop{\mathsf{0x8E}}
+    %	(\ce{r_1}, \ce{c_1}, \ce{s_1})
+    	=
+    	\NOT
+    	\mathop{\mathsf{0x8E}}
+    	(\ce{c_1}, \ce{r_1}, \ce{s_1})
+    $,
+    also
+    equal
+    $
+    	\mathop{\mathsf{0x4D}}
+    	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
+    $,
+    \hfill
+    (symmetric in \ce{r_1}/\ce{c_1})
+\end{itemize}
+%
 among those circuits that performed well.
 %
-
-
-
-The gates
-$
-	\ce{c_2} 
-%	=
-%	\mathop{\mathsf{0x4D}}
-%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
-	=
-	\mathop{\mathsf{0x4D}}
-	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
-%	=
-%	\NOT
-%	\mathop{\mathsf{0x8E}}
-%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x8E}}
-	(\ce{c_1}, \ce{r_1}, \ce{s_1})
-$,
-which are
-symmetric in \ce{r_1}/\ce{c_1},
-were successfully
-implemented in \cite{NielsenETAL2016}.
+We implemented those with some modifications.
 %
-%
+\TODO{explain}
+
+
 
 
 
@@ -537,14 +539,13 @@ AmtR sits on the DNA as a dimer
 \cite{SevvanaETAL2017},
 \cite[\S3.4.2]{Schwab2019}.
 
-\TODO{finish}
-
 % Further literature
 %\cite{MuhlETAL2009}
 %\cite{BuchingerETAL2009}
 
 \subsubsection*{...}
 
+\TODO{continue}
 
 
 \subsection{Extracellular signaling} \label{ss:wAB}
@@ -804,7 +805,9 @@ discussed in \S\ref{s:general} and Fig.~\ref{f:logical-subtractor01}.
 
 \subsubsection*{pchBA}
 
-\ra{probably don't need this because it is used in \cite{DuETAL2020} for Sal}
+\TODO{Describe}
+
+\ra{note: this is used in \cite{DuETAL2020} for Sal}
 
 
 \subsection{Ribocomputing}
@@ -1033,7 +1036,7 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
 
-\TODO{\ra{Issue: how to implement this ``Dock'' (and a better name)?}}
+\TODO{\ra{Issue: how to implement this ``Shelf'' (and a better name)?}}
 \ra{%
 Note: This seems similar to
 \cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007},
@@ -1046,8 +1049,8 @@ Consider bit 1 of Subtractor A.
 Suppose \ce{s_1 r_1 c_1 = 101},
 in which case \ce{c_2 = 0}.
 %
-Suppose a transcription factor \ce{Y},
-which encodes \ce{c_2},
+Suppose a transcription factor \ce{Y}
+encoding \ce{c_2},
 promotes expression of \ce{Xis} in the memory subunit.
 %
 %
@@ -1069,35 +1072,34 @@ towards \ce{c_2 = 1}.
 We found two ways to mitigate this
 in the computational model.
 %
-One is to make expression of \ce{Xis}
-conditional on \ce{w_B} also
-but this requires that \ce{w_B} goes down
+One is to condition the expression of \ce{Xis}
+on \ce{w_B} also
+--
+but this requires \ce{w_B} to go down
 before other change
 and could be sensitive to degradation rates.
 %
 A more robust way
-is to introduce a buffer for \ce{Y},
-which we call ``Dock'',
+is a buffer for \ce{Y}
+(a ``shelf'')
 that 
 %
 i)
 has high affinity for \ce{Y};
 %
 ii)
-sequesters a large amount of \ce{Y},
-about 30x compared to the 
-\href{https://en.wikipedia.org/wiki/EC50}{EC50}
-of \ce{Y} \act \ce{Xis};
+sequesters 
+a large amount of \ce{Y}
+(about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50} of $\ce{Y} \act \ce{Xis}$);
 %
 iii)
-releases \ce{Y} for degradation when \ce{w_A} is up.
+releases \ce{Y} for degradation when \ce{w_A} is on.
 %
 In this way, 
-a transient bump in \ce{Y} is absorbed 
-by the Dock,
+a transient increase in \ce{Y} is shelved
 but a sustained signal 
 (while \ce{w_B} is up)
-will overflow the Dock and activate 
+will overflow the shelves and activate 
 transcription of \ce{Xis}.
 %
 
