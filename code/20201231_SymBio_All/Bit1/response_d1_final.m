@@ -66,7 +66,7 @@ function response_d1_final
 			set(0, 'DefaultAxesFontSize', 14);
 			set(gcf, 'renderer', 'Painters');
 			
-			surf(aa, bb, (responses{index_of(R)}'));
+			surf(aa, bb, log10(responses{index_of(R)}'));
 			xlabel(A, 'Interpreter', 'none');
 			ylabel(B, 'Interpreter', 'none');
 			
@@ -78,11 +78,20 @@ function response_d1_final
 			ax = gca;
 			ax.XScale = 'log';
 			ax.YScale = 'log';
+			
+			mima = @(arr) 10 .^ (floor(log10(min(arr))):ceil(log10(max(arr))));
+			ax.XAxis.TickValues = mima(ax.XAxis.TickValues);
+			ax.YAxis.TickValues = mima(ax.YAxis.TickValues);
 
 			colormap(flipud(gray));
-			colorbar;
-			caxis([0, ceil(max(caxis))]);
-			
+			cb = colorbar;
+			cax = [-3, ceil(max(caxis))];
+			caxis(cax);
+			cb.Ticks = (cax(1):cax(2));
+			TickLabels = arrayfun(@(x)(['10^{' num2str(x) '}']), cb.Ticks, 'UniformOutput', false);
+			TickLabels(1) = {'...'};
+			cb.TickLabels = TickLabels;
+						
 			grid on;
 
 			filename = ['response_' str2mat(R) '_final' '__' str2mat(C) '=' num2str(c)];
