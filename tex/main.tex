@@ -215,7 +215,7 @@ supplying the signal \ce{w_B}.
 In short,
 we require
 a gated memory module and a delayed response,
-cf.~\S\ref{s:sub}.
+cf.~\S\ref{ss:sub}.
 
 %
 
@@ -237,8 +237,48 @@ monitor the state of the game.
 \input{t_workflow}
 
 
-\subsection{Experimental design}
-\label{ss:experiment}
+
+\subsection{Logic circuits}
+
+
+\subsubsection*{The players} \label{ss:players}
+
+Both players
+follow the same deterministic strategy,
+which is a winning strategy for the first-mover.
+%
+They are identical except
+that player A responds when \ce{w_A} is present
+and player B responds upon \ce{w_B}.
+%
+The logic is shown in Table \ref{t:logical-playera}.
+
+%%% TABLE %%%
+\input{t_logical-playera}
+
+
+\subsubsection*{Subtractor} \label{ss:sub}
+
+\TODO{descibe}
+
+
+%%% TABLE %%%
+\input{t_subtractor1}
+
+%
+Fig.~\ref{f:logical-subtractor01}
+illustrates the principle of delayed response
+for the half-subtractor,
+cf.~Table~\ref{t:subtractor1}.
+
+
+
+
+
+
+
+
+\subsection{Experimental design} \label{ss:experiment}
 
 We distinguish
 \emph{extracellular} chemical signals 
@@ -256,7 +296,7 @@ orthogonal intercellular channels:
 \emph{two} for \eqref{e:r01},
 and
 \emph{three} for the carry flags
-(see \S\ref{s:sub}).
+(see \S\ref{ss:sub}).
 %
 One channel could be spared 
 at the expense
@@ -290,14 +330,14 @@ in one cell (cf.~Table~\ref{t:signals}).
 %
 
 \ra{
-In the interest of experimental feasibility and debugging
+To facilitate debugging
 we partition the workflow
 with spatial compartments
 that require manual transmission of 
 the medium.
 %
 Unfortunately, this does not automatically reduce
-the number of intercellular channels we need.
+the number of intercellular channels needed.
 }
 
 %
@@ -311,7 +351,7 @@ Our convention is \ce{w_A = 1}
 if and only if
 the corresponding messenger molecule L-arabinose 
 is present in the medium in sufficient quantity,
-and analogously for the other signals.
+ditto for the other signals.
 }
 %
 %
@@ -324,6 +364,10 @@ we abbreviate
 %%% TABLE %%%
 \input{t_signals.tex}
 
+
+
+
+\TODO{what species are we working with}
 
 
 \TODO{experimental protocol:}
@@ -394,27 +438,22 @@ Then:
 \end{table}
 
 
-\TODO{mention a microfluids setup}
+\TODO{mention a microfluids setup?}
+
+
+\TODO{Specify initial conditions}
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Logical circuits}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Genetic toolbox} \label{s:genetic}
 
 
-\subsection{The players}
+\subsection{3-input gates of Cello} \label{ss:cello}
 
-Both players
-follow the same deterministic strategy,
-which is a winning strategy for the first-mover.
-%
-They are identical except
-that player A responds when \ce{w_A} is present
-and player B responds upon \ce{w_B}.
-%
-The logic is shown in Table \ref{t:logical-playera}.
+\cite{NielsenETAL2016}
 
+\TODO{explain}
 
 In
 \cite{NielsenETAL2016}
@@ -435,58 +474,31 @@ among those circuits that performed well.
 %
 
 
+
+The gates
+$
+	\ce{c_2} 
+%	=
+%	\mathop{\mathsf{0x4D}}
+%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
+	=
+	\mathop{\mathsf{0x4D}}
+	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
+%	=
+%	\NOT
+%	\mathop{\mathsf{0x8E}}
+%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x8E}}
+	(\ce{c_1}, \ce{r_1}, \ce{s_1})
+$,
+which are
+symmetric in \ce{r_1}/\ce{c_1},
+were successfully
+implemented in \cite{NielsenETAL2016}.
 %
-
-
-
-\input{t_logical-playera}
-
-\subsection{Subtractor} \label{s:sub}
-
-\TODO{Table \ref{t:subtractor1}}
-
-
-
-
-
-\input{t_subtractor1}
-
-
 %
-Fig.~\ref{f:logical-subtractor01}
-illustrates the principle of delayed response
-for the half-subtractor,
-cf.~Table~\ref{t:subtractor1}.
-%
-
-
-\section{Genetic toolbox} \label{s:genetic}
-
-
-\TODO{mention 3-input boolean functions \cite{NielsenETAL2016}}
-
-\TODO{Specify initial conditions}
-
-
-
-\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
-\begin{quote}
-    The sensors used include a truncated AraC 
-    (AraC-C280*, referred to as AraC* in this work)
-    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
-    which is induced using L-arabinose; 
-    LacI and its output promoter with a symmetric lac-operator PTac which
-    is IPTG-inducible(41); 
-    and TetR with its output promoter PTet(42)
-\end{quote}
-}
-
-
-\subsection{Extracellular signaling}
-
-
-The two signals \ce{w_A} and \ce{w_B}
-are encoded by 
 
 
 
@@ -525,71 +537,49 @@ AmtR sits on the DNA as a dimer
 \cite{SevvanaETAL2017},
 \cite[\S3.4.2]{Schwab2019}.
 
-
-%
-%
-We therefore assume
-the mechanism
-\begin{subequations}
-\[
-	\ce{
-		2 \protein{AmtR} + \promoter{AmtR}
-		& <=>>
-		\protein{AmtR}_2 \with \promoter{AmtR}
-	}
-	%
-	\\
-	%
-	\ce{
-		\promoter{AmtR} 
-		& ->
-		\promoter{AmtR} + \protein{Output}
-	}
-\]
-\end{subequations}
-and
-the kinetics:
-\begin{subequations}
-\[
-	\label{e:AmtR_Act}
-	%
-	\promoter{AmtR} 
-	& =
-	\frac{1}{1 + k_{\ref{e:AmtR_Act}} \protein{AmtR}^{n_{\ref{e:AmtR_Act}}}}
-	\promoter{AmtR}_\text{total}
-	%
-	% here, k = forward / backward
-	%
-	,
-	\\
-	%
-	\label{e:AmtR_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output} 
-	& =
-	k_{\ref{e:AmtR_Out}}
-	\promoter{AmtR}
-	.
-\]
-\end{subequations}
-%
-%
+\TODO{finish}
 
 % Further literature
 %\cite{MuhlETAL2009}
 %\cite{BuchingerETAL2009}
 
-\ra{working on this}
-
-
 \subsubsection*{...}
+
+
+
+\subsection{Extracellular signaling} \label{ss:wAB}
+
+
+The two master signals \ce{w_A} and \ce{w_B}
+are encoded by L-arabinose and IPTG,
+respectively,
+and are supplied by the experimenter.
+
+
+\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
+\begin{quote}
+    The sensors used include a truncated AraC 
+    (AraC-C280*, referred to as AraC* in this work)
+    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
+    which is induced using L-arabinose; 
+    LacI and its output promoter with a symmetric lac-operator PTac which
+    is IPTG-inducible(41); 
+    and TetR with its output promoter PTet(42)
+\end{quote}
+}
+
+\TODO{write about Ara and IPTG}
 
 
 
 \subsection{Intercellular pathways}
 
-\TODO{Explain intercellular signaling pathways from \cite{DuETAL2020}}
+\TODO{references to \cite{DuETAL2020}}
+
+\TODO{comment on toxicity, see SM of Du}
+
+\TODO{WHAT ABOUT THE SENDERS?}
+
 
 \subsubsection*{3OC6} \label{ss:3OC6}
  
@@ -614,141 +604,18 @@ it protects the \emph{lux} box and the \emph{lux} operon
 promoter
 \cite{StevensDolanGreenberg1994}.
 %
-%
-%
-We write
-$\protein{LuxR^\star}$ for $\signal{3OC6\text{-}HSL} \with \protein{LuxR}$
-and
-$\promoter{Lux^\star}$ for $\protein{LuxR^\star} \with \promoter{Lux}$.
-%
-%\TODO{
-%Let $\protein{LuxR^\star}$ denote 
-%the activated form
-%$\signal{3OC6}:\protein{LuxR}$.
-%}
-%
-%
-We assume the mechanism:
-%
-\begin{subequations}
-\[
-	\ce{
-		\signal{{3OC6}{-}HSL} + \protein{LuxR}
-		& <=>>
-		\protein{LuxR^\star}
-	}
-	\\
-	\ce{
-		\protein{LuxR^\star} + \promoter{Lux}
-		& <=>>
-		\promoter{Lux^\star}
-	}
-	\\
-	\ce{
-		\promoter{Lux^\star}
-		& ->
-		\promoter{Lux^\star} + \protein{Output}
-	}
-	.
-\]
-\end{subequations}
-%
-%=======
-%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{P_{Lux}}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{P_{Lux}}
-%	\\
-%	\protein{RNApol} : \promoter{P_{Lux}}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{P_{Lux}} + \protein{Output}
-%>>>>>>> c8a0f57bdb0a7b80747263819cbb64562e087765
-%\TODO{
-%\[
-%	\signal{3OC6} + \protein{LuxR}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star}
-%	\\
-%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{Lux}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{Lux}
-%	\\
-%	\protein{RNApol} : \promoter{Lux}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{Lux} + \protein{Output}
-%\]
-%}
-% https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
-%
-%
-%
-and the kinetics:
-%
-\begin{subequations}
-\[
-	\label{e:LuxR_Act}
-	%
-	\protein{LuxR^\star} 
-	& =
-	\frac{
-		\signal{3OC6\text{-}HSL}
-	}{
-		k_{\ref{e:LuxR_Act}} + \signal{3OC6\text{-}HSL}
-	}
-	\protein{LuxR}_\text{total}
-%	\TEXT{initially}
-%	\protein{LuxR^\star} = 0
-	,
-	%
-	\\
-	%%
-	\label{e:P_Lux_Act}
-	%
-	\promoter{Lux^\star} 
-	& =
-	\frac{
-		\protein{LuxR^\star}
-	}{
-		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
-	}
-	\promoter{Lux}_\text{total}
-%	\TEXT{initially}
-%	\promoter{Lux^\star} = 0
-	,
-	%
-	\\
-	%
-	\label{e:P_Lux_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	& =
-	k_{\ref{e:P_Lux_Out}} \promoter{Lux^\star}
-	.
-\]
-\end{subequations}
-%
-%
-In combination, we have
-\[
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	=
-	k_{\ref{e:P_Lux_Out}}
-	\promoter{Lux}_\text{total}
-	\frac{
-		\signal{} \protein{}_\text{total}
-	}{
-		k_{\ref{e:LuxR_Act}} k_{\ref{e:P_Lux_Act}}
-		+
-		k_{\ref{e:P_Lux_Act}} \signal{}
-		+
-		\signal{} \protein{}_\text{total}
-	}
-	.
-\]
+\TODO{finish}
 
 
-\subsubsection*{Sal} \label{ss:sal}
+\subsubsection*{IV} \label{ss:IV}
+
+\TODO{describe}
+
+\subsubsection*{DAPG} \label{ss:DAPG}
+
+\TODO{describe}
+
+\subsubsection*{Sal} \label{ss:Sal}
 
 According to 
 \cite{SchellWender1986, HuangSchell1991},
@@ -799,88 +666,7 @@ hence the inactive form of the promoter
 is $\protein{NahR}_4 \with \promoter{Sal}$.
 %
 %
-We write
-$
-	\promoter{Sal^\star} :=
-	\signal{Sal}_4 \with \protein{NahR}_4 \with \promoter{Sal}
-$
-for the active form.
-%
-%
-We assume the mechanism
-%
-\begin{subequations}
-\[
-	\ce{
-		\signal{Sal} + 
-		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
-		& <=>>
-		\signal{Sal}_k \with \protein{NahR}_4 \with \promoter{Sal}
-	}
-	,
-	\quad \text{k} = 1, 2, 3, 4,
-	%
-	%
-	\\
-	%
-	%
-	\ce{
-		\promoter{Sal^\star}
-		&
-		->
-		\promoter{Sal^\star} + \protein{Output}
-	}
-\]
-\end{subequations}
-%
-%Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
-%\[
-%	\signal{Sal} + \protein{NahR}
-%	& \longleftrightarrow
-%	\protein{NahR^\star}
-%	 \\
-%	 \protein{NahR^\star} + \protein{RNApol} + \promoter{P_{Sal}}
-%	& \longleftrightarrow
-%	\protein{NahR^\star} + \protein{RNApol} : \promoter{P_{Sal}}
-%	\\
-%	\protein{RNApol} : \promoter{P_{Sal}}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
-%	.
-%\]
-%
-%
-which we implement as:
-%
-\begin{subequations}
-\[
-	\label{e:NahR_Act}
-	%
-	\promoter{Sal^\star}
-	& =
-	\frac{
-		\signal{}^{n_{\ref{e:NahR_Act}}}
-	}{
-		k_{\ref{e:NahR_Act}} + \signal{}^{n_{\ref{e:NahR_Act}}}
-	}
-	\promoter{Sal}_\text{total}
-	,
-	%
-	%
-	\\
-	%
-	%
-	\label{e:NahR_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	& =
-	k_{\ref{e:NahR_Out}} 
-	\promoter{Sal^\star}
-	.
-\]
-\end{subequations}
-
+\TODO{finish}
 
 
 \subsubsection*{pC} \label{ss:pC}
@@ -924,21 +710,24 @@ bound to the promoter
 activates transcription
 \cite[Discussion]{HirakawaETAL2011}.
 }
+%
+%
+\TODO{finish}
 
 
-\subsubsection*{XX}
+\subsubsection*{MMF} \label{ss:MMF}
+
+\TODO{describe}
 
 
+\subsubsection*{3OC12} \label{ss:3OC12}
 
-\subsubsection*{XX}
-
-\ra{--}
-
-\subsubsection*{XX}
+\TODO{describe}
 
 
+\subsubsection*{NG} \label{ss:NG}
 
-\subsubsection*{XX}
+\TODO{describe}
 
 
 
@@ -951,8 +740,7 @@ activates transcription
 Bxb1 gp35/gp47
 serine-integrase/excisionase
 (Int/Xis)
-pair
-directs the infection cycle of Bxb1 
+direct the infection cycle of Bxb1 
 in
 \emph{Mycobacterium smegmatis}.
 %
@@ -978,12 +766,7 @@ and
 by Int+Xis.
 %
 Switching times of $\sim$4h were demonstrated
-(but the authors expected 30min to be realistic).
-%
-Unless state otherwise,
-we convene that
-the \emph{reset} state corresponds to 
-positive output (memory bit is \emph{on}).
+but the authors expected 30min to be realistic.
 %
 The final construct
 \cite[Fig.~4A]{BonnetSubsoontornEndy2012}
@@ -999,49 +782,150 @@ an external pulse (say, \signal{w_B}) controls Int,
 and
 an internal compute unit (say, \ce{s_0 \XOR r_0}) controls Xis.
 %
+The \emph{reset} state corresponds to 
+positive output (memory bit is \emph{on}).
+%
+%
 The flanked promoter is activated by another
 external signal (say, \signal{w_A}).
 %
-This achieves the separation 
+This achieves the temporal separation 
 discussed in \S\ref{s:general} and Fig.~\ref{f:logical-subtractor01}.
 
-%
-% SymBiology:
-% https://github.com/numpde/ibiocomp/tree/main/code/20201230_Integrase
 
-%
+\subsection{Heterodimeric transcription factors}
 
+\subsubsection*{HrpRS} \label{ss:HrpRS}
 
+\ra{This is useful as an \AND gate}
 
-
-\subsubsection*{XX}
+\TODO{Describe}
 
 
-\subsubsection*{XX}
+\subsubsection*{pchBA}
 
-
-\subsubsection*{XX}
+\ra{probably don't need this because it is used in \cite{DuETAL2020} for Sal}
 
 
 \subsection{Ribocomputing}
 
 \subsubsection*{AND gate}
 
-RNA-only circuits
-were proposed and in evaluated in \emph{E.~coli} in \cite{GreenETAL2017}.
+\ra{Probably not necessary here; just in the XOR section}
+
+RNA-based circuits
+were proposed/evaluated in \emph{E.~coli} in \cite{GreenETAL2017}.
 %
 A toehold switch for AND logic
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 
 
 
-\TODO{AND gate from \cite{GreenETAL2017}}
-\ra{maybe not necessary, since we have another AND-mechanism
-with the dimer}
+
+\subsection{3-input XOR}
+
+\ra{NEW TEXT:}
+%
+%
+The subtractor result bit
+(cf.~Table~\ref{t:subtractor1})
+\[
+	\ce{d_1} 
+	= 
+	\mathop{\mathsf{0x69}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+	=
+	\NOT
+	\mathop{\mathsf{0x96}}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+	=
+	\text{3-\XOR}
+	(\ce{s_1}, \ce{r_1}, \ce{c_1})
+	=
+	((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mathbin{\mathrm{mod}} 2)
+\]
+is particularly difficult
+because the result flips 
+whenever any input is flipped.
+%
+We could not find it explicitly in \cite{NielsenETAL2016}.
+%
+%
+Observe that 3-\XOR is a concatenation
+of two \XOR gates (cf.~Fig.~\ref{f:logical-subtractor01}),
+and 
+can be written 
+in \href{https://en.wikipedia.org/wiki/Disjunctive_normal_form}{DNF}
+as 
+$
+	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
+	\vee
+	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
+$.
+%
+We considered several implementations:
+%
+\begin{itemize}
+\item
+	Cascading 
+	two \XOR gates
+	built on tandem promoters as in
+	\cite[\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F4.large.jpg}{Fig.~3}]{NielsenETAL2016}.
+\item
+	Cascading
+	two \XOR gates, 
+	each as in 
+	\cite[\href{https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0146-0/figures/5}{Fig.~5}]{Wong2015}
+	but
+	with two orthogonal heterodimeric transcription activators.
+\item
+	RNA \AND-gates
+	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
+	instead of the protein heterodimer.
+\item
+	\href{https://bit.ly/wsgxfDv}{RNA-only construct}
+	inspired by
+	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
+	where
+	each input expresses its own mRNA,
+	whose
+	5' tail opens its RBS stemloop;
+	%
+	each input also expresses
+	complementary RNAs
+	that
+	sequester other tails 
+	thus closing up each other's RBS;
+	%
+	upon all three inputs,
+	all complementary RNAs 
+	assemble into a ring,
+	allowing the 5' tails to reopen the RBS stemloop.
+\item
+	Three orthogonal resettable recombinases
+	as in 
+	\cite[\href{https://www.nature.com/articles/s41598-017-07386-3/figures/2}{Fig.~2g}]{ChiuJiang2017}.
+\item
+	\TODO{Describe the Cas variant}
+\end{itemize}
+
+	
+
+\ra{other notes:}
+
+\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
+communicating \cite{AuslaenderETAL2017}}
 
 
-\subsection{3-input XOR gate}
 
+%
+
+
+\TODO{migrate what's useful to \S\ref{ss:HrpRS}:}
 
 In \cite[\href{https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0146-0/figures/5}{Fig.~5}]{Wong2015}, 
 a \XOR gate is built with two plasmids. 
@@ -1075,7 +959,8 @@ In this way,
 RFP is expressed when either one of them is present but not both. 
 
 It is noted \TODO{by whom, where \hh{in this exact cited paper, when they discuss why the copy number is like this} 
-\ra{so what are the numbers? if you make a specific claim, provide a specific reference}
+\TODO{what are the copy numbers?} 
+\ra{if you make a specific claim, provide a specific reference [delete when read]}
 }
 that the promoter pHrpL is relatively weak.
 %
@@ -1086,31 +971,6 @@ in order to
 increase the dynamic range of the activator dimer.
 }
 
-%
-\ra{
-We could not find
-$
-	\ce{d_1} 
-	= 
-	\mathop{\mathsf{0x69}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x96}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-$,
-i.e.~the 3-\XOR,
-cf.~Table~\ref{t:subtractor1},
-explicitly in \cite{NielsenETAL2016}.
-%
-}
-%
-\ra{
-To implement this,
-we cascade
-two constructs analogous to \cite{Wong2015}
-using two orthogonal heterodimers.
-}
 
 
 \begin{figure}
@@ -1138,68 +998,13 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
     \includegraphics[width = \linewidth]{gene_circuits_xor/P3.png}
     \includegraphics[width = \linewidth]{gene_circuits_xor/P4.png}
     \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with \url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the design diagram}
-    \ra{if you keep them online please provide a url and/or upload the relevant files (not just the figures)}
+    \ra{if you keep them online please provide a url and/or upload all relevant files (not just the figures); also: vector graphics [delete when read]}
     }
     \label{f:gene_circuit_xor}
 \end{figure}
 
 
-\TODO{
-what is the url of the circuit figure, if any; why is it upside-down
-\hh{there is no url of the circuit figure. it is just a sketch indicating 2 layered xor gate. and I dont know if there is a rule for which way should be up and which way is down}
-\ra{cf. new figure \ref{f:logical-subtractor01}}
-}
-
-\ra{we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf [can delete this]}
-
-\subsubsection*{Cascading-OR XOR gate}
-
-\TODO{other XOR gates (perhaps briefly) one might consider}
-
-
-The gates
-$
-	\ce{c_2} 
-%	=
-%	\mathop{\mathsf{0x4D}}
-%	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
-	=
-	\mathop{\mathsf{0x4D}}
-	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
-%	=
-%	\NOT
-%	\mathop{\mathsf{0x8E}}
-%	(\ce{r_1}, \ce{c_1}, \ce{s_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x8E}}
-	(\ce{c_1}, \ce{r_1}, \ce{s_1})
-$,
-which are
-symmetric in \ce{r_1}/\ce{c_1},
-were successfully
-implemented in \cite{NielsenETAL2016}.
-%
-%
-
-
-\subsubsection*{3x recombinase}
-
-
-\TODO{
-\ra{Issure:} Can we have a resettable \XOR with recombinases
-eg as theorized here in Fig.~2g?
-\url{https://www.nature.com/articles/s41598-017-07386-3/figures/2}
-}
-
-
-\ra{other notes:}
-
-\ra{2-input \XOR with recombinase \cite{BonnetETAL2013}}
-\ra{theoretical 3-input \XOR with recombinase \cite{ChiuJiang2017}}
-
-\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
-communicating \cite{AuslaenderETAL2017}}
+\ra{Note: we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf [delete when read]}
 
 %
 
@@ -1214,7 +1019,7 @@ communicating \cite{AuslaenderETAL2017}}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
-\TODO{Some details missing, also need to carefully choose the wake-up signal \ce{w_A} / \ce{w_B}:
+\TODO{Some details missing:
 \href{https://drive.google.com/file/d/1X1uEVNkUiXZqNz7C7m36YjW-g1XctIH0}{click for figure (ignore black part)}}
 
 \subsection{Bit 0}
@@ -1339,10 +1144,285 @@ differs in the details.
 \end{figure}
 
 
+\subsection{Kinetics}
+
+\subsubsection*{AmtR}
+
+We therefore assume
+the mechanism
+\begin{subequations}
+\[
+	\ce{
+		2 \protein{AmtR} + \promoter{AmtR}
+		& <=>>
+		\protein{AmtR}_2 \with \promoter{AmtR}
+	}
+	%
+	\\
+	%
+	\ce{
+		\promoter{AmtR} 
+		& ->
+		\promoter{AmtR} + \protein{Output}
+	}
+\]
+\end{subequations}
+and
+the kinetics:
+\begin{subequations}
+\[
+	\label{e:AmtR_Act}
+	%
+	\promoter{AmtR} 
+	& =
+	\frac{1}{1 + k_{\ref{e:AmtR_Act}} \protein{AmtR}^{n_{\ref{e:AmtR_Act}}}}
+	\promoter{AmtR}_\text{total}
+	%
+	% here, k = forward / backward
+	%
+	,
+	\\
+	%
+	\label{e:AmtR_Out}
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output} 
+	& =
+	k_{\ref{e:AmtR_Out}}
+	\promoter{AmtR}
+	.
+\]
+\end{subequations}
+
+
+\subsubsection*{3OC6}
+
+
+We write
+$\protein{LuxR^\star}$ for $\signal{3OC6\text{-}HSL} \with \protein{LuxR}$
+and
+$\promoter{Lux^\star}$ for $\protein{LuxR^\star} \with \promoter{Lux}$.
+%
+%\TODO{
+%Let $\protein{LuxR^\star}$ denote 
+%the activated form
+%$\signal{3OC6}:\protein{LuxR}$.
+%}
+%
+%
+We assume the mechanism:
+%
+\begin{subequations}
+\[
+	\ce{
+		\signal{{3OC6}} + \protein{LuxR}
+		& <=>>
+		\protein{LuxR^\star}
+	}
+	\\
+	\ce{
+		\protein{LuxR^\star} + \promoter{Lux}
+		& <=>>
+		\promoter{Lux^\star}
+	}
+	\\
+	\ce{
+		\promoter{Lux^\star}
+		& ->
+		\promoter{Lux^\star} + \protein{Output}
+	}
+	.
+\]
+\end{subequations}
+%
+%=======
+%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{P_{Lux}}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{P_{Lux}}
+%	\\
+%	\protein{RNApol} : \promoter{P_{Lux}}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{P_{Lux}} + \protein{Output}
+%>>>>>>> c8a0f57bdb0a7b80747263819cbb64562e087765
+%\TODO{
+%\[
+%	\signal{3OC6} + \protein{LuxR}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star}
+%	\\
+%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{Lux}
+%	& \longleftrightarrow
+%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{Lux}
+%	\\
+%	\protein{RNApol} : \promoter{Lux}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{Lux} + \protein{Output}
+%\]
+%}
+% https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
+%
+%
+%
+and the kinetics:
+%
+\begin{subequations}
+\[
+	\label{e:LuxR_Act}
+	%
+	\protein{LuxR^\star} 
+	& =
+	\frac{
+		\signal{{3OC6}}
+	}{
+		k_{\ref{e:LuxR_Act}} + \signal{{3OC6}}
+	}
+	\protein{LuxR}_\text{total}
+%	\TEXT{initially}
+%	\protein{LuxR^\star} = 0
+	,
+	%
+	\\
+	%%
+	\label{e:P_Lux_Act}
+	%
+	\promoter{Lux^\star} 
+	& =
+	\frac{
+		\protein{LuxR^\star}
+	}{
+		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
+	}
+	\promoter{Lux}_\text{total}
+%	\TEXT{initially}
+%	\promoter{Lux^\star} = 0
+	,
+	%
+	\\
+	%
+	\label{e:P_Lux_Out}
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	& =
+	k_{\ref{e:P_Lux_Out}} \promoter{Lux^\star}
+	.
+\]
+\end{subequations}
+%
+%
+In combination, we have
+\[
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	=
+	k_{\ref{e:P_Lux_Out}}
+	\promoter{Lux}_\text{total}
+	\frac{
+		\signal{} \protein{}_\text{total}
+	}{
+		k_{\ref{e:LuxR_Act}} k_{\ref{e:P_Lux_Act}}
+		+
+		k_{\ref{e:P_Lux_Act}} \signal{}
+		+
+		\signal{} \protein{}_\text{total}
+	}
+	.
+\]
+
+
+\subsubsection*{Sal}
+
+
+We write
+$
+	\promoter{Sal^\star} :=
+	\signal{Sal}_4 \with \protein{NahR}_4 \with \promoter{Sal}
+$
+for the active form.
+%
+%
+We assume the mechanism
+%
+\begin{subequations}
+\[
+	\ce{
+		\signal{Sal} + 
+		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
+		& <=>>
+		\signal{Sal}_k \with \protein{NahR}_4 \with \promoter{Sal}
+	}
+	,
+	\quad \text{k} = 1, 2, 3, 4,
+	%
+	%
+	\\
+	%
+	%
+	\ce{
+		\promoter{Sal^\star}
+		&
+		->
+		\promoter{Sal^\star} + \protein{Output}
+	}
+\]
+\end{subequations}
+%
+%Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
+%\[
+%	\signal{Sal} + \protein{NahR}
+%	& \longleftrightarrow
+%	\protein{NahR^\star}
+%	 \\
+%	 \protein{NahR^\star} + \protein{RNApol} + \promoter{P_{Sal}}
+%	& \longleftrightarrow
+%	\protein{NahR^\star} + \protein{RNApol} : \promoter{P_{Sal}}
+%	\\
+%	\protein{RNApol} : \promoter{P_{Sal}}
+%	& \longrightarrow
+%	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
+%	.
+%\]
+%
+%
+which we implement as:
+%
+\begin{subequations}
+\[
+	\label{e:NahR_Act}
+	%
+	\promoter{Sal^\star}
+	& =
+	\frac{
+		\signal{}^{n_{\ref{e:NahR_Act}}}
+	}{
+		k_{\ref{e:NahR_Act}} + \signal{}^{n_{\ref{e:NahR_Act}}}
+	}
+	\promoter{Sal}_\text{total}
+	,
+	%
+	%
+	\\
+	%
+	%
+	\label{e:NahR_Out}
+	%
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	& =
+	k_{\ref{e:NahR_Out}} 
+	\promoter{Sal^\star}
+	.
+\]
+\end{subequations}
+
+
+
+
 \section*{Final TODOs}
 
 \TODO{spacing of act and rep}
 
+\TODO{check that Table \ref{t:signals} is correct}
 
 
 \clearpage

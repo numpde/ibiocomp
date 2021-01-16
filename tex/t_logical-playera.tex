@@ -53,24 +53,22 @@
 \end{minipage}
 
 \caption{%
-    Both players follow the same strategy shown.
+    Both players follow the same strategy.
     %
-	The truth table and the logical circuit 
+	Truth table and logic circuit 
 	for Player A
-	is shown.
+	are shown.
 	%
 	The input is a
 	wake-up signal \ce{w_A}
 	and the bits
 	\ce{s_1}/\ce{s_0}
-	of the current number of sticks
-	(\ce{8 s_3 + 4 s_2 + 2 s_1 + s_0}).
+	of the current number of sticks \eqref{e:s0123}.
 	%
 	The output is
-	the number of sticks taken,
-	encoded as \ce{2 r_1 + r_0}.
+	the number of sticks taken \eqref{e:r01}.
 	%
-	The output is cut off when \ce{w_A} is absent.
+	The output is cut off unless \ce{w_A} is present.
 	%
 	%
 	The circuit for {Player B}
