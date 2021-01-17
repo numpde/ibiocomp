@@ -15,12 +15,12 @@ function response_d1_final
 	% Disable any events in the model
 	set(m1.Events, 'Active', 0)
 
-	A = "s1_in";
-	aa = logspace(-2, 2, 15);
-	B = "r1_in";
-	bb = logspace(-2, 2, 16);
-	C = "c1_in";
-	cc = [0.1, 1, 10];
+	A = 's1_in'; A_label = ['# ' A(1:2)];
+	aa = logspace(-2, 2, 19);
+	B = 'r1_in'; B_label = ['# ' B(1:2)];
+	bb = logspace(-2, 2, 20);
+	C = 'c1_in'; C_label = ['# ' C(1:2)];
+	cc = [0.01, 0.1, 1, 10, 100];
 
 	m1.Species(index_of('wB_in')).InitialAmount = 10;
 	%m1.Species(index_of(A)).InitialAmount = 0; % set by the loop
@@ -62,13 +62,15 @@ function response_d1_final
 
 
 		for R = ["d1"]
+			close all;
+			
 			figure;
-			set(0, 'DefaultAxesFontSize', 14);
+			set(0, 'DefaultAxesFontSize', 16);
 			set(gcf, 'renderer', 'Painters');
 			
 			surf(aa, bb, log10(responses{index_of(R)}'));
-			xlabel(A, 'Interpreter', 'none');
-			ylabel(B, 'Interpreter', 'none');
+			xlabel(A_label, 'Interpreter', 'none');
+			ylabel(B_label, 'Interpreter', 'none');
 			
 			%title(R);
 			
@@ -92,12 +94,11 @@ function response_d1_final
 			TickLabels(1) = {'...'};
 			cb.TickLabels = TickLabels;
 						
-			grid on;
+			grid off;
 
 			filename = ['response_' str2mat(R) '_final' '__' str2mat(C) '=' num2str(c)];
 			exportgraphics(gcf, [filename '.pdf']);
 			exportgraphics(gcf, [filename '.png'], 'Resolution', 180);
-			close all;
 		end
 	end
 

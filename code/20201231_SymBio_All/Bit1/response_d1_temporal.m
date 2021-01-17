@@ -127,6 +127,9 @@ function response_d1_temporal
 	ylabel("Molecules");
 	xlabel("Time (a.u.)");
 	
+	species(species == "wA_in") = "#wA";
+	species(species == "wB_in") = "#wB";
+	species(species == "d1") = "#d1";
 	legend(species, 'Location', 'NE', 'Interpreter', 'none');
 	axis tight;
 	
