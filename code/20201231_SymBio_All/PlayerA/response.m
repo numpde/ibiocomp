@@ -11,14 +11,14 @@ for i = 1 : length(m1.Species)
 	index_of(m1.Species(i).Name) = i;
 end
 
-m1.Species(index_of('pC')).InitialAmount = 1;
+m1.Species(index_of('wA_in')).InitialAmount = 1;
 
 
 aa = logspace(-2, 2, 9);
 bb = logspace(-2, 2, 10);
 
-A = "Sal";
-B = "3OC6";
+A = "s0_in";
+B = "s1_in";
 
 responses = {};
 
@@ -34,7 +34,7 @@ for a = aa
 	end
 end
 
-for R = ["IV", "DAPG"]
+for R = ["r0", "r1"]
 	figure;
 	surf(aa, bb, responses{index_of(R)}');
 	xlabel(A);
