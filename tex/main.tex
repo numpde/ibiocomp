@@ -39,6 +39,9 @@
 \usepackage{booktabs}
 \usepackage{arydshln}
 
+% https://en.wikibooks.org/wiki/LaTeX/Footnotes_and_Margin_Notes#Margin_Notes
+\usepackage{marginnote}
+
 % For editing purposes:
 %\usepackage[margin=10pt]{geometry}
 
@@ -80,6 +83,7 @@
 % https://tex.stackexchange.com/questions/114113/how-to-label-text-with-equation-number
 \newcommand{\eqnum}{\leavevmode\hfill\refstepcounter{equation}\textup{{(\theequation)}}}
 
+\newcommand{\starlink}[1]{\textsuperscript{\href{#1}{\color{gray}$\star$}}}
 
 \newcommand{\hh}[1]{{\color{Purple}#1}}
 \newcommand{\ra}[1]{{\color{Blue}#1}}
@@ -519,8 +523,9 @@ We implemented those with some modifications.
 The TetR family member AmtR is 
 the central regulator of nitrogen starvation response
 in 
-the Gram-positive bacterium
-\emph{Corynebacterium glutamicum}
+the Gram-positive 
+\emph{C.~glutamicum}%
+\starlink{https://en.wikipedia.org/wiki/Corynebacterium_glutamicum}
 \cite{JakobyETAL2000}.
 %
 This repressor is released
@@ -693,7 +698,10 @@ QS signals in use \cite{SchaeferETAL2008}.
 }
 
 \ra{
-The \emph{Rhodopseudomonas palustris} transcriptional regulator
+The \emph{R.~palustris}%
+\starlink{https://en.wikipedia.org/wiki/Rhodopseudomonas_palustris}
+%
+transcriptional regulator
 \protein{RpaR},
 when purified,
 binds an inverted repeat element 
@@ -740,17 +748,15 @@ activates transcription
 
 
 
-\subsection{Recombinases}
-
-\subsubsection*{Bxb1}
-
+\subsection{Memory module}
 
 Bxb1 gp35/gp47
 serine-integrase/excisionase
 (Int/Xis)
 direct the infection cycle of Bxb1 
 in
-\emph{Mycobacterium smegmatis}.
+\emph{M.~smegmatis}%
+\starlink{https://en.wikipedia.org/wiki/Mycobacterium_smegmatis}.
 %
 Stoichiometry, start codons,
 degradation rates (proteolysis tags)
@@ -776,7 +782,7 @@ by Int+Xis.
 Switching times of $\sim$4h were demonstrated
 but the authors expected 30min to be realistic.
 %
-The final construct
+Their final construct
 \cite[Fig.~4A]{BonnetSubsoontornEndy2012}
 consists of an Int gene 
 and
@@ -801,36 +807,83 @@ This achieves the temporal separation
 discussed in \S\ref{s:general} and Fig.~\ref{f:logical-subtractor01}.
 
 
-\subsection{Heterodimeric transcription factors}
-
-\subsubsection*{HrpRS} \label{ss:HrpRS}
-
-\ra{This is useful as an \AND gate}
-
-\TODO{Describe}
-
+\subsection{Enhanced \AND gate}
 
 \subsubsection*{pchBA}
 
-\TODO{Describe}
+\TODO{Describe, maybe}
 
 \ra{note: this is used in \cite{DuETAL2020} for Sal}
 
 
+\subsubsection*{HrpR/HrpS} \label{ss:HrpRS}
+
+\cite[\href{https://www.nature.com/articles/ncomms1516/figures/1}{Fig.~1}]{WangKitneyJolyBuck2011}
+proposed 
+an \AND gate
+in \emph{E.~coli}
+using the heterodimeric transcription factor 
+$\ce{HrpR} \with \ce{HrpS}$
+from 
+\emph{P.~syringae}%
+\starlink{https://en.wikipedia.org/wiki/Pseudomonas_syringae}%
+.
+%
+The dimer 
+binds upstream of the promoter \ce{hrpL} 
+and opens the $\ce{\sigma^{54}{-}RNAP{-}hrpL}$ transcription complex.
+
+\subsubsection*{Ribocomputing}
+
+\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
+combined
+two short input/sensor RNAs
+into a ``trigger'' RNA
+which opens an RBS-occluding stemloop
+on the output mRNA.
+%
+%
+A symmetric variation of the idea is this:
+%
+Let inputs \ce{A} and \ce{B} 
+produce
+output \ce{mRNA_A} and \ce{mRNA_B}, resp.,
+whose RBS is auto-occluded
+by their own 5' tail.
+%
+Let \ce{A} 
+also produce a short RNA
+\ce{R^*_B}
+such that
+the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
+and vice versa.
+
+\subsubsection*{Cross-inhibition}
+
+Even in our idealized simulations
+such \AND gates produce undesired leakage
+within larger circuits.
+%
+%
+%
+To fix this, we propose that
+\emph{low} input \ce{A} 
+inhibit the downstream of \ce{B},
+and vice versa.
+%
+%
+
+\ra{
+this is implemented in \ce{c_2}
+[\href{https://i.ibb.co/86S2qfL/2021-01-17-01-42-06.png}{fig}]
+}
+
+\TODO{explain}
+
+
 \subsection{Ribocomputing}
 
-\subsubsection*{AND gate}
-
-RNA-based circuits
-were proposed/evaluated in \emph{E.~coli} in \cite{GreenETAL2017}.
-%
-A toehold switch for AND logic
-\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
-
-\TODO{describe}
-
-\TODO{describe refinement from Bit1-c2-symbio}
-
+\ra{}
 
 
 \subsection{3-input XOR}
