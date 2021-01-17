@@ -26,8 +26,8 @@
 \usepackage{xspace}
 
 \usepackage{graphicx}
-\graphicspath{{../images/}, {../code/20201231_SymBio_All}}
-
+\graphicspath{{../code/20201231_SymBio_All/}{../images/}}
+\DeclareGraphicsExtensions{.pdf,.eps,.png}
 
 % https://tex.stackexchange.com/questions/20792/how-to-superimpose-latex-on-a-picture
 \usepackage[percent]{overpic}
@@ -360,10 +360,13 @@ ditto for the other signals.
 %
 %
 \ra{
-Subsequently,
-we abbreviate
+Subsequently, we abbreviate
 \signal{{3OC6}{-}HSL} by \signal{{3OC6}}, etc.
 }
+%
+%
+\TODO{\ce{\#w_A} convention for the number of molecules}
+
 
 %%% TABLE %%%
 \input{t_signals.tex}
@@ -818,14 +821,15 @@ discussed in \S\ref{s:general} and Fig.~\ref{f:logical-subtractor01}.
 
 \subsubsection*{AND gate}
 
-\ra{Probably not necessary here; just in the XOR section}
-
 RNA-based circuits
 were proposed/evaluated in \emph{E.~coli} in \cite{GreenETAL2017}.
 %
 A toehold switch for AND logic
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 
+\TODO{describe}
+
+\TODO{describe refinement from Bit1-c2-symbio}
 
 
 
@@ -1114,45 +1118,77 @@ also
 \begin{figure}[phbt]
 \centering
 
-\begin{minipage}[t]{0.8\linewidth}
-\vspace{0pt}
-\includegraphics[width=\linewidth]{code/20201231_SymBio_All/Bit1/response_d1_tempo.pdf}
-\end{minipage}
-%
-\hspace{-0.02\linewidth}
-%
-\begin{minipage}[t]{0.2\linewidth}
-\vspace{0pt}
-\scalebox{0.7}{%
-\begin{tabular}{cccc}
-    & \ce{s_1} & \ce{r_1} & \ce{c_1} \\
-    \ce{B_1} & 10 & 10 & 10 \\
-    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
-    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} \\
-    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
-\end{tabular}
+\begin{overpic}[width=0.99\textwidth]{Bit1/response_d1_tempo}
+\put (50, 30) {%
+	\scalebox{0.7}{%
+		\begin{tabular}{cccc}
+		    & \ce{\#s_1} & \ce{\#r_1} & \ce{\#c_1} \\
+		    \ce{B_1} & 10 & 10 & 10 \\
+		    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
+		    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} \\
+		    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} \\
+		\end{tabular}
+	}
 }
-\end{minipage}
+\end{overpic}
 
 \caption{%
-Subtractor A, bit 1/\ce{d_1},
-across the phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
+Subtractor A, bit 1, output \ce{\#d_1}
+across phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
 (with interphases).
 %
-The table shows the inputs.
+The table shows the inputs for each phase.
 %
 As required,
 we have
-$\ce{d_1} \approx 10$ 
+$\#\ce{d_1} \approx 10$ 
 during the recall phase \ce{A_1}
 and
-$\ce{d_1} \approx 0$ 
+$\#\ce{d_1} \approx 0$ 
 during the recall phase \ce{A_2}.
 %
 %
 }
 \label{f:symbio-d1-tempo}
 \TODO{ref to location in text}
+\end{figure}
+
+%
+
+\begin{figure}[hpbt]
+	\begin{tabular}{cc|cc}
+		\multicolumn{2}{c|}{\ce{\#d_1}} & \multicolumn{2}{c}{\ce{\#c_2}}
+		%
+		\\
+		%
+		\ce{\#c_1} = 0.01 & \ce{\#c_1} = 10 &
+		\ce{\#c_1} = 0.01 & \ce{\#c_1} = 10 
+		%
+		\\
+		%
+		\includegraphics[width=0.22\textwidth]{Bit1/response_d1_final__c1_in=0.1}
+		&
+		\includegraphics[width=0.22\textwidth]{Bit1/response_d1_final__c1_in=10}
+		&
+		\includegraphics[width=0.22\textwidth]{Bit1/response_c2__c1_in=0.1}
+		&
+		\includegraphics[width=0.22\textwidth]{Bit1/response_c2__c1_in=10}
+	\end{tabular}
+	%
+	\caption{%
+		Response surfaces of the Subtractor
+		for varying \ce{\#r_1} (vertical) and \ce{\#s_1} (horizontal).
+		%
+		The output \ce{\#d_1}
+		is measured after a compute-, inter- and readout-phase,
+		similarly to Fig.~\ref{f:symbio-d1-tempo}.
+		%
+		The logarithmic colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
+	}
+	%
+	\label{f:sub_response}
+	%
+	\TODO{caption}
 \end{figure}
 
 %
