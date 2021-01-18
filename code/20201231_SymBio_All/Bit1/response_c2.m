@@ -21,9 +21,10 @@ function response_c2
 	bb = logspace(-2, 2, 20);
 	C = 'c1_in'; C_label = ['# ' C(1:2)];
 	cc = [0.01, 0.1, 1, 10, 100];
-
-	%m1.Species(index_of(A)).InitialAmount = 0; % set by the loop
-	%m1.Species(index_of(B)).InitialAmount = 0; % set by the loop
+	
+	% c2 does not depend on wA/wB
+	%m1.Species(index_of('wA_in')).InitialAmount = 0;
+	%m1.Species(index_of('wB_in')).InitialAmount = 0;
 
 	% https://ch.mathworks.com/help/simbio/ref/sbiosimulate.html
 	% Set final time

@@ -21,7 +21,7 @@ function response
 	bb = logspace(-2, 2, 20);
 	C = 'wA_in'; C_label = ['# ' C(1:2)];
 	cc = [10, 1, 0.1];
-
+	
 	% https://ch.mathworks.com/help/simbio/ref/sbiosimulate.html
 	% Set final time
 	T = 400;

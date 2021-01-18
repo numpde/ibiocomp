@@ -22,15 +22,16 @@ function response_d1_final
 	C = 'c1_in'; C_label = ['# ' C(1:2)];
 	cc = [0.01, 0.1, 1, 10, 100];
 
+	m1.Species(index_of('wA_in')).InitialAmount = 0.01;
 	m1.Species(index_of('wB_in')).InitialAmount = 10;
 	%m1.Species(index_of(A)).InitialAmount = 0; % set by the loop
 	%m1.Species(index_of(B)).InitialAmount = 0; % set by the loop
 
 	% Remove input
-	addevent(m1, "time >= 200", "wB_in = 0");
-	addevent(m1, "time >= 200", "s1_in = 0");
-	addevent(m1, "time >= 200", "r1_in = 0");
-	addevent(m1, "time >= 200", "c1_in = 0");
+	addevent(m1, "time >= 200", "wB_in = 0.01");
+	addevent(m1, "time >= 200", "s1_in = 0.01");
+	addevent(m1, "time >= 200", "r1_in = 0.01");
+	addevent(m1, "time >= 200", "c1_in = 0.01");
 
 	% Request output
 	addevent(m1, "time >= 400", "wA_in = 10");
