@@ -100,6 +100,7 @@
 \title{ibiocomp project}
 \author{RA \& HH}
 \date{\today}
+\newcommand{\linktodoc}{http://bit.ly/15sticks}
 
 
 \begin{document}
@@ -107,6 +108,7 @@
 \maketitle
 
 % \ra{LOCKED 'COS WORKING WITH ANOTHER COPY (WRITE EMAIL IF NEEDED)}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -497,8 +499,10 @@ Then:
 \subsection{Cite as}
 
 \MyTitle, \MyAuthor, \MyDate.
-\href{https://bit.ly/15sticks}{{\small\texttt{http://bit.ly/15sticks}}}
+\href{\linktodoc}{{\small\texttt{\linktodoc}}}
 
+The figures are best seen in
+the PDF file of this document.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1141,20 +1145,66 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 
 \section{Simulations}
 
-\subsection{PlayerA}
+\subsection{PlayerA} \label{s:sim:player}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
-\TODO{Some details missing:
-\href{https://drive.google.com/file/d/1X1uEVNkUiXZqNz7C7m36YjW-g1XctIH0}{click for figure (ignore black part)}}
+\TODO{Some details missing}
 
-\subsection{Bit 0}
 
-\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit0}
 
-\TODO{this could have the same problem as described in Bit 1}
 
-\subsection{Bit 1}
+%
+
+\begin{figure}[hpbt]
+	\begin{tabular}{cc|cc}
+		\multicolumn{2}{c|}{\ce{\#r_1}} & \multicolumn{2}{c}{\ce{\#r_0}}
+		%
+		\\
+		%
+		\ce{\#w_A} = 0.01 & \ce{\#w_A} = 10 &
+		\ce{\#w_A} = 0.01 & \ce{\#w_A} = 10 
+		%
+		\\
+		%
+		\includegraphics[width=0.22\textwidth]{PlayerA/response_r0__wA_in=0.1}
+		&
+		\includegraphics[width=0.22\textwidth]{PlayerA/response_r0__wA_in=10}
+		&
+		\includegraphics[width=0.22\textwidth]{PlayerA/response_r1__wA_in=0.1}
+		&
+		\includegraphics[width=0.22\textwidth]{PlayerA/response_r1__wA_in=10}
+	\end{tabular}
+	%
+	\caption{%
+		Response surfaces of Player A
+		for varying \ce{\#s_1}($\uparrow$) and \ce{\#s_0}($\rightarrow$).
+		%
+		See \S\ref{s:sim:player}.
+		%
+		The log-colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
+		%
+		The yellow contour lines are at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
+	}
+	%
+	\label{f:player_response}
+\end{figure}
+
+
+
+
+
+\subsection{Bits 0, 2, 3}
+
+Bits 0, 2, 3 are half-subtractors
+which are technically a subset of Bit~1
+(see Table~\ref{t:subtractor1}).
+%
+%
+We omit their discussion to focus on Bit~1.
+
+
+\subsection{Bit 1} \label{s:sim:bit1}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
@@ -1307,8 +1357,9 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 	\end{tabular}
 	%
 	\caption{%
-		Response surfaces of the Subtractor
-		for varying \ce{\#r_1} (vertical) and \ce{\#s_1} (horizontal).
+		Response surfaces of Subtractor A
+		for varying \ce{\#r_1}($\uparrow$) and \ce{\#s_1}($\rightarrow$),
+		see \S\ref{s:sim:bit1}.
 		%
 		The output \ce{\#d_1}
 		is measured after a compute-, inter- and readout-phase,
@@ -1317,8 +1368,6 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 		The log-colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
 		%
 		The yellow contour lines are at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
-		%
-		See PDF for high resolution.
 	}
 	%
 	\label{f:sub_response}
@@ -1333,18 +1382,20 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 \TODO{risks}
 
 
+
+\section{Acknowledgments}
+
+\TODO{ack}
+
+
+
+
 \footnotesize
 \bibliographystyle{apalike}
 \bibliography{refs}
 \normalsize
 
 \clearpage
-
-
-\section{Acknowledgments}
-
-\TODO{}
-
 
 
 \section*{Appendix}
@@ -1396,10 +1447,11 @@ this is implemented in \ce{c_2}
 
 \subsection{Kinetics}
 
+\TODO{explain guidelines}
 
 \subsubsection*{AmtR}
 
-We therefore assume
+We assume
 the mechanism
 \begin{subequations}
 \[
