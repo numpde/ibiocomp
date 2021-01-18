@@ -271,7 +271,7 @@ The logic is shown in Table \ref{t:logical-playera}.
 
 \subsubsection*{Subtractor} \label{ss:sub}
 
-\TODO{descibe}
+The subtractor senses the current number of sticks and the response from the player. It is composed of 4 computing units, denoted by Bit 0, Bit 1, Bit 2 and Bit 3. The subtraction is done bit by bit. Bit 0 senses the current \ce{s_0} and \ce{r_0}, and computes the difference  \ce{d_0} and the carry flag \ce{c_1}. The carry flag is then passed on to the next computing unit, i.e Bit 1 in this case. Bit 1 subtracts \ce{r_1} and \ce{c_1} from \ce{s_1} (\ref{t:subtractor1}, middle column). The carry flag \ce{c_2} computed from Bit 1 is passed on to the next computing unite Bit 2, which subtracts \ce{c_2} from \ce{s_2}. Therefore, for the computing unit Bit 0, Bit 2 and Bit 3, only half-subtractor is required (2 inputs) while the Bit 1 requires a full subtractor (3 inputs).
 
 
 %%% TABLE %%%
