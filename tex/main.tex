@@ -43,9 +43,13 @@
 \usepackage{booktabs}
 \usepackage{arydshln}
 
+% https://tex.stackexchange.com/questions/109467/footnote-in-tabular-environment
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+
 % https://tex.stackexchange.com/questions/10130/use-the-values-of-title-author-and-date-on-a-custom-title-page
 \usepackage{authoraftertitle}
-
 
 % https://en.wikibooks.org/wiki/LaTeX/Footnotes_and_Margin_Notes#Margin_Notes
 \usepackage{marginnote}
@@ -808,8 +812,26 @@ activates transcription
 
 \subsubsection*{NG} \label{ss:NG}
 
-\TODO{describe}
+\ra{
+Naringenin (NG) is the main flavone from grapefruits.
+%
+It binds the homodimeric protein FdeR 
+from \emph{H.~seropedicae}%
+\starlink{https://en.wikipedia.org/wiki/Herbaspirillum_seropedicae}%
+. 
+%
+There are two recognition sites on FdeR, 
+and the binding of NG
+induces a conformational change of the dimer. 
+%
+The activated FdeR promotes 
+the ``Flavanone degradation'' operon \promoter{fdeA}.
+\cite{SiedlerETAL2014}
+}
 
+\ra{include:}
+\cite{iGEM14_TU_Darmstadt}
+\cite[SM:p.3]{DuETAL2020}
 
 
 \subsection{Memory module} \label{ss:memory}
