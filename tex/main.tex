@@ -43,6 +43,10 @@
 \usepackage{booktabs}
 \usepackage{arydshln}
 
+% https://tex.stackexchange.com/questions/10130/use-the-values-of-title-author-and-date-on-a-custom-title-page
+\usepackage{authoraftertitle}
+
+
 % https://en.wikibooks.org/wiki/LaTeX/Footnotes_and_Margin_Notes#Margin_Notes
 \usepackage{marginnote}
 
@@ -488,6 +492,13 @@ Then:
 
 
 \TODO{Specify initial conditions}
+
+
+\subsection{Cite as}
+
+\MyTitle, \MyAuthor, \MyDate.
+\href{https://bit.ly/15sticks}{{\small\texttt{http://bit.ly/15sticks}}}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1304,6 +1315,10 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 		cf.~Fig.~\ref{f:symbio-d1-tempo}.
 		%
 		The log-colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
+		%
+		The yellow contour lines are at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
+		%
+		See PDF for high resolution.
 	}
 	%
 	\label{f:sub_response}
@@ -1324,6 +1339,11 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 \normalsize
 
 \clearpage
+
+
+\section{Acknowledgments}
+
+\TODO{}
 
 
 
