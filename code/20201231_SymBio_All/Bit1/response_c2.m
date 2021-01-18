@@ -59,7 +59,10 @@ function response_c2
 			set(0, 'DefaultAxesFontSize', 16);
 			set(gcf, 'renderer', 'Painters');
 			
-			surf(aa, bb, log10(abs(responses{index_of(R)}')));
+			v = linspace(-3, 1, 21);
+			[CM, Ch] = contourf(aa, bb, log10(abs(responses{index_of(R)}')), v, '-y', 'LineWidth', 0.3);
+			clabel(CM, Ch, v(end-1:-7:1), 'FontSize', 7, 'Color', 'r')
+
 			xlabel(A_label, 'Interpreter', 'none');
 			ylabel(B_label, 'Interpreter', 'none');
 			
