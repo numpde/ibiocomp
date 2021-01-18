@@ -139,3 +139,9 @@ dmypy.json
 .pyre/
 *.swp
 .idea
+/tex/main.aux
+/tex/main.bbl
+/tex/main.blg
+/tex/main.out
+/tex/main.pdf
+/tex/main.synctex.gz
