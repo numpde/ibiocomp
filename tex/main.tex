@@ -302,7 +302,7 @@ this is consistent with
 the symbols that we employ in
 the SimBiology schemes.
 %
-We may write \signal{w_A} to mean 
+By \signal{w_A} we mean 
 ``the signal molecule that encodes \ce{w_A}'',
 i.e.~L-arabinose.
 %
@@ -313,7 +313,9 @@ Ditto for the other signals.
 %
 \ra{
 Abbreviations:
-RBS = ribosome binding site.
+RBS = ribosome binding site,
+txn = transcription,
+tln = translation.
 }
 
 
@@ -331,9 +333,6 @@ that player A responds when \ce{w_A} is present
 and player B responds upon \ce{w_B}.
 %
 The logic is shown in Table \ref{t:logical-playera}.
-
-%%% TABLE %%%
-\input{t_logical-playera}
 
 
 \subsubsection*{Subtractor} \label{ss:sub}
@@ -381,14 +380,20 @@ Bit~1 is a ``full subtractor'' with 3 inputs.
 \ra{
 See
 Table~\ref{t:subtractor1}
-for the truth table
-of the subtraction.
+for their truth table.
 %
 Fig.~\ref{f:logical-subtractor01}
 shows a reference logic circuit 
 for Bit~0 and Bit~1
 that illustrates the principle of delayed response.
 }
+
+
+
+
+%%% TABLE %%%
+\input{t_logical-playera}
+
 
 %%% TABLE %%%
 \input{t_subtractor1}
@@ -443,7 +448,7 @@ and
 seven on the promoter level
 \cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
 %
-We have tried to assign the signals
+We have assigned the signals
 to further minimize crosstalk,
 in particular 
 avoiding LuxR and RpaR in one cell
@@ -567,21 +572,20 @@ for the PDF file with sharp figures.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Constitutive promoters} \label{ss:const}
+\subsection{Constitutive promoters and transcription factors} \label{ss:const}
+
+\subsubsection*{Promoters} \label{ss:Pc}
 
 \cite{ShimadaETAL2014}
-
 \TODO{const prom}
-
-
-\subsection{No-questions-asked transcription factors}
 
 \subsubsection*{cI} \label{ss:cI}
 
 \ra{
 The optimized and orthogonal variant
 $\ce{cI^*} := \ce{cI_{5G6G,P}}$
-of the transcription factor $\lambda$~\ce{cI}
+of the transcription factor 
+\href{https://www.uniprot.org/uniprot/P03034}{$\lambda$~\ce{cI}}
 from
 \cite[\href{https://www.nature.com/articles/ncomms13858/figures/4}{Fig.~4c/d}]{BroedelJaramilloIsalan2016}
 requires no cofactors
@@ -647,48 +651,46 @@ among good performers:
        	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
     $,
     which is
-    symmetric in \ce{r_1}/\ce{c_1}.
+    symmetric in \ce{r_1}/\ce{c_1},
 \end{itemize}
 %
+but not the 3-\XOR, see \S\ref{ss:3xor}.
 %
-We did not find the 3-\XOR, see \S\ref{ss:3xor}.
 %
-%
-We used their $\mathsf{0x0E}$ to implement \ce{r_0},
+We used $\mathsf{0x0E}$ for \ce{r_0},
 replacing the sensors 
 and
-replacing the repressor PhlF 
+replacing the repressor \protein{PhlF}
 (which clashes with the \ce{s_0} sensor) 
-by HlyIIR.
+by \protein{HlyIIR}
+(also from \cite{NielsenETAL2016}).
 %
-The last operation of $\mathsf{0x0E}$
+The last operation
 is a ``poor man's \OR gate'';
-we let it control the production of \ce{cI^*}
+we let it produce \ce{cI^*}
 (\S\ref{ss:cI})
 that
 triggers the synthesis of \signal{r_0}.
 
 %
 
-We noted that \ce{r_1} can reuse 
-most of this circuitry.
-%
-Thus we implemented 
+We observed that \ce{r_1} can reuse 
+most of this circuitry,
+and implemented 
 the remainder using ribocomputing
 \TODO{explain}.
 
 %
 
 For \ce{c_2}, we took 
-the $\NOT \mathsf{0x83}$ construct from \cite{NielsenETAL2016}, 
+$\NOT \mathsf{0x83}$ from \cite{NielsenETAL2016}, 
 replacing the sensors.
 %
 Also, 
 we replaced the final 
 ``$\NOT (\NOT (\cdot) \OR \NOT (\cdot))$''
 by
-``$(\cdot) \mathbin{\AND} (\cdot)$'',
-implemented as a ribo-\AND gate with cross-inhibition,
+a ribo-\AND gate with cross-inhibition,
 see \S\ref{ss:xinh}/p.\pageref{ss:xinh}.
 
 
@@ -740,9 +742,8 @@ AmtR sits on the DNA as a dimer
 
 \subsection{Extracellular signaling} \label{ss:wAB}
 
-The two master signals \ce{w_A} and \ce{w_B}
-are encoded by L-arabinose and IPTG,
-respectively,
+The two master signals \ce{w_A}/\ce{w_B}
+are encoded by L-arabinose/IPTG,
 and are supplied by the experimenter.
 %
 %
@@ -1328,13 +1329,13 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 		%
 		\\
 		%
-		\includegraphics[width=0.22\textwidth]{PlayerA/response_r0__wA_in=0.1}
+		\includegraphics[width=0.22\textwidth]{PlayerA/output/response_r0__wA_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{PlayerA/response_r0__wA_in=10}
+		\includegraphics[width=0.22\textwidth]{PlayerA/output/response_r0__wA_in=10}
 		&
-		\includegraphics[width=0.22\textwidth]{PlayerA/response_r1__wA_in=0.1}
+		\includegraphics[width=0.22\textwidth]{PlayerA/output/response_r1__wA_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{PlayerA/response_r1__wA_in=10}
+		\includegraphics[width=0.22\textwidth]{PlayerA/output/response_r1__wA_in=10}
 	\end{tabular}
 	%
 	\caption{%
@@ -1456,13 +1457,13 @@ also
 		%
 		\\
 		%
-		\includegraphics[width=0.22\textwidth]{Bit1/response_d1_final__c1_in=0.1}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__c1_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{Bit1/response_d1_final__c1_in=10}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__c1_in=10}
 		&
-		\includegraphics[width=0.22\textwidth]{Bit1/response_c2__c1_in=0.1}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2__c1_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{Bit1/response_c2__c1_in=10}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2__c1_in=10}
 	\end{tabular}
 	%
 	\caption{%
