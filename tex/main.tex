@@ -311,8 +311,10 @@ Ditto for the other signals.
 %
 %
 %
-
-
+\ra{
+Abbreviations:
+RBS = ribosome binding site.
+}
 
 
 \subsection{Logic circuits}
@@ -466,14 +468,6 @@ with spatial compartments
 that require manual transmission of 
 the medium.
 %
-This reduces 
-the required number of transcription factors,
-\ra{
-e.g.~the Player can use $\protein{FdeR} \to \promoter{FdeA}$
-because 
-it does not receive the medium of 
-Bit~2 that emits \signal{NG}.
-}
 %
 Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
@@ -562,22 +556,61 @@ Then:
 \MyTitle, \MyAuthor, \MyDate.
 \href{\linktodoc}{{\small\texttt{\linktodoc}}}
 
-The Matlab/SymBiology
-codes are available via the same link.
-%
-Sharp figures in the PDF file.
+See this link 
+for the Matlab/SymBiology files
+and 
+for the PDF file with sharp figures.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Genetic toolbox} \label{s:genetic}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\subsection{Constitutive promoters} \label{ss:const}
+
+\cite{ShimadaETAL2014}
+
+\TODO{const prom}
+
+
+\subsection{No-questions-asked transcription factors}
+
+\subsubsection*{cI} \label{ss:cI}
+
+\ra{
+The optimized and orthogonal variant
+$\ce{cI^*} := \ce{cI_{5G6G,P}}$
+of the transcription factor $\lambda$~\ce{cI}
+from
+\cite[\href{https://www.nature.com/articles/ncomms13858/figures/4}{Fig.~4c/d}]{BroedelJaramilloIsalan2016}
+requires no cofactors
+and
+shows 
+about 10-fold activation of the promoter
+$\promoter{cI^*_+} := \promoter{M,{5G6G}}$
+and 
+a similar-fold repression of 
+$\promoter{cI^*_-} := \promoter{{5G6G}}$.
+%
+%
+To improve the dynamic range of 
+$\promoter{cI^*_+} \act \text{mRNA}_1$
+we propose 
+that
+$\promoter{cI^*_-}$ express
+an inhibitory RNA that is complementary
+to the RBS of $\text{mRNA}_1$.
+}
+
+
+
+
 \subsection{3-input gates by Cello} \label{ss:cello}
 
 In
 \cite{NielsenETAL2016}
-we found these
-3-input 1-output gates
+we found these gates
 among good performers:
 %
 \begin{itemize}
@@ -621,40 +654,42 @@ among good performers:
 We did not find the 3-\XOR, see \S\ref{ss:3xor}.
 %
 %
-We implemented \ce{r_0} 
+We used their $\mathsf{0x0E}$ to implement \ce{r_0},
 replacing the sensors 
 and
 replacing the repressor PhlF 
 (which clashes with the \ce{s_0} sensor) 
 by HlyIIR.
 %
-The last operation
+The last operation of $\mathsf{0x0E}$
 is a ``poor man's \OR gate'';
-thus we replaced its output 
-by
-the transcription factor \TODO{act TF}
-that drives the synthesis of 
-\signal{r_0}.
+we let it control the production of \ce{cI^*}
+(\S\ref{ss:cI})
+that
+triggers the synthesis of \signal{r_0}.
+
 %
+
+We noted that \ce{r_1} can reuse 
+most of this circuitry.
 %
-%
-%
-We found that \ce{r_1} can reuse 
-most of this circuitry
-and implemented 
-the remainder of it using ribocomputing
+Thus we implemented 
+the remainder using ribocomputing
 \TODO{explain}.
-%
-%
-%
-For \ce{c_2}, we implemented
-
-
 
 %
-\TODO{\ra{explain}}
 
-
+For \ce{c_2}, we took 
+the $\NOT \mathsf{0x83}$ construct from \cite{NielsenETAL2016}, 
+replacing the sensors.
+%
+Also, 
+we replaced the final 
+``$\NOT (\NOT (\cdot) \OR \NOT (\cdot))$''
+by
+``$(\cdot) \mathbin{\AND} (\cdot)$'',
+implemented as a ribo-\AND gate with cross-inhibition,
+see \S\ref{ss:xinh}/p.\pageref{ss:xinh}.
 
 
 
@@ -1013,13 +1048,6 @@ external signal (say, \signal{w_A}).
 
 \subsection{Enhanced AND gate}
 
-\subsubsection*{pchBA}
-
-\TODO{Describe, maybe}
-
-\ra{note: this is used in \cite{DuETAL2020} for Sal}
-
-
 \subsubsection*{HrpR/HrpS} \label{ss:HrpRS}
 
 \cite[\href{https://www.nature.com/articles/ncomms1516/figures/1}{Fig.~1}]{WangKitneyJolyBuck2011}
@@ -1065,7 +1093,7 @@ the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
 and vice versa.
 
 
-\subsubsection*{Cross-inhibition}
+\subsubsection*{Cross-inhibition} \label{ss:xinh}
 
 Even in our idealized simulations
 such \AND gates produce undesired leakage
@@ -1081,10 +1109,9 @@ see \S\ref{s:x-inh}.
 
 
 
-
-\subsection{Ribocomputing}
-
-\ra{}
+% \subsection{Ribocomputing}
+%
+% \TODO{ribo section, could be unnecessary}
 
 
 \subsection{3-input \texorpdfstring{\XOR}{XOR}} \label{ss:3xor}
@@ -1152,24 +1179,24 @@ We considered several implementations:
 	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 	instead of the protein heterodimer.
 \item
-	\href{https://bit.ly/wsgxfDv}{RNA-only construct}
+	\href{https://bit.ly/wsgxfDv}{RNA-only gate}
 	inspired by
-	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
-	where
-	each input expresses its own mRNA,
-	whose
-	5' tail opens its RBS stemloop;
+	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
 	%
-	each input also expresses
+	Each input expresses its own mRNA,
+	whose
+	5' tail opens its RBS stemloop.
+	%
+	Each input also expresses
 	complementary RNAs
 	that
 	sequester other tails 
-	thus closing up each other's RBS;
+	thus closing up other RBS.
 	%
-	upon all three inputs,
+	Upon all three inputs,
 	all complementary RNAs 
-	assemble into a ring,
-	allowing the 5' tails to reopen the RBS stemloop.
+	form a ring,
+	so that the 5' tails reopen their RBS.
 \item
 	Three orthogonal resettable recombinases
 	as in 
