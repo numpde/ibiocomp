@@ -93,8 +93,8 @@ function response_final
 		grid off;
 
 		filename = ['response_' str2mat(R) '_final'];
-		exportgraphics(gcf, [filename '.pdf']);
-		exportgraphics(gcf, [filename '.png'], 'Resolution', 180);
+		exportgraphics(gcf, ['output/' filename '.pdf']);
+		exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
 	end
 
 end

@@ -1,8 +1,9 @@
 % 2020-HS Intro Bio Computers
 % RA, 2020-12-31
 % RA, 2020-01-16
+% RA, 2020-01-19
 
-function response_d1_temporal
+function response_d1_temporal_noshelf
 	close all;
 
 	m1 = sbioloadproject("Bit1_d1.sbproj").m1;
@@ -14,6 +15,9 @@ function response_d1_temporal
 
 	% Disable any events in the model
 	set(m1.Events, 'Active', 0)
+	
+	% !!! disable the shelfing mechanism !!!
+	m1.Species(index_of('ShelfEmpty')).InitialAmount = 0;
 
 	A = "s1_in";
 	B = "r1_in";
@@ -114,8 +118,9 @@ function response_d1_temporal
 	styles("Xis") = "-b";
 	styles("Int") = "-r";
 	styles("d1") = "-k";
+	styles("P1_forw") = "--g";
 	
-	species = ["wA_in", "wB_in", "Y", "ShelfLoaded", "Xis", "Int", "d1"];
+	species = ["wA_in", "wB_in", "Y", "ShelfLoaded", "Xis", "Int", "d1", "P1_forw"];
 	
 	for S = species
 		plot(t, x(:, index_of(S)), styles(S), 'LineWidth', 2);
@@ -135,7 +140,7 @@ function response_d1_temporal
 	
 	set(gcf, 'units', 'inches', 'position', [0, 0, 15, 5])
 	
-	filename = ['response_d1_tempo'];
+	filename = ['response_d1_tempo_noshelf'];
 	exportgraphics(gcf, ['output/' filename '.pdf']);
 	exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
 
