@@ -168,7 +168,9 @@ which we encode in binary as
 \]
 %
 The bits in \eqref{e:s0123}--\eqref{e:r01}
-are transmitted by 
+are transmitted 
+between compute units
+by 
 intercellular signaling molecules,
 cf.~\S\ref{ss:experiment}.
 %
@@ -199,10 +201,11 @@ reading/storing the current state,
 computing the new state and communicating it
 --
 temporally or spatially.
-For our purposes
-this may include
-modest parallelism in intercellular signaling
-(but not frequency encoding).
+%
+% For our purposes this may include
+% modest parallelism in intercellular signaling
+% (but not frequency encoding).
+\marginnote{\ra{removed sentence}}
 %
 %
 We propose 
@@ -229,6 +232,11 @@ computes the new state % \ce{s}
 and remembers the result
 in order to emit it in the subsequent Phase B.
 %
+\ra{
+We use the symbols \ce{d_3}/\ce{d_2}/\ce{d_1}/\ce{d_0}
+for this internal state.
+}
+%
 The medium is cleared, before
 Phase B is initiated by
 supplying the master signal \ce{w_B}.
@@ -238,18 +246,18 @@ In short,
 we require
 a gated memory module and a delayed response,
 cf.~\S\ref{ss:sub}.
+%
+%
 
 %
 
 Refinements could include
 a)
 dealing with
-a player who might attempt
-to take more sticks than \eqref{e:s0123};
+a player who attempts to take more sticks than \eqref{e:s0123};
 b)
 dedicated sensor cells 
-that report 
-on the presence of signaling molecules 
+that report on signaling molecules 
 in order to 
 monitor the state of the game.
 
@@ -257,6 +265,53 @@ monitor the state of the game.
 
 %%% TABLE %%%
 \input{t_workflow}
+
+
+
+\subsection{Conventions}
+
+
+\ra{
+%
+As shown in Table \ref{t:signals},
+we encode \ce{w_A} by L-arabinose,
+\ce{w_B} by IPTG, etc.
+%
+Our convention is \ce{w_A = 1}
+if 
+the corresponding messenger molecule L-arabinose 
+is present in the medium or in the cell 
+in sufficiently high quantity,
+and \ce{w_A = 0} otherwise.
+%
+We write \ce{\#w_A} for
+the \emph{number} of L-arabinose molecules 
+in the numerical simulations.
+%
+We may abbreviate
+{3OC6}{-}HSL by {3OC6}.
+%
+Where suitable,
+we indicate the semantics of an element thus:
+\signal{signal},
+\protein{protein} -- often a transcription factor,
+and
+\promoter{promoter};
+%
+this is consistent with 
+the symbols that we employ in
+the SimBiology schemes.
+%
+We may write \signal{w_A} to mean 
+``the signal molecule that encodes \ce{w_A}'',
+i.e.~L-arabinose.
+%
+Ditto for the other signals.
+}
+%
+%
+%
+
 
 
 
@@ -281,41 +336,60 @@ The logic is shown in Table \ref{t:logical-playera}.
 
 \subsubsection*{Subtractor} \label{ss:sub}
 
-\hh{
-The subtractor senses the current number of sticks and 
-the response from the player. 
+\ra{
+In Phase A,
+Subtractor B 
+senses the current number of sticks \eqref{e:s0123},
+emitted by Subtractor A,
+and 
+the response \eqref{e:r01} from Player A,
+and
+computes the difference \ce{d}.
 %
-It is composed of 
-the four computing units Bit~0 to Bit~3.
+It has four compute units Bit~0 to Bit~3
+that are also
+spatially separated (cf.~\S\ref{ss:experiment}). 
 %
-The subtraction is done bit by bit. 
+The subtraction proceeds from Bit~0 to Bit~3
+(cf.~Table~\ref{t:substeps}).
 %
-Bit 0 senses the current \ce{s_0}/\ce{r_0}
-and computes the difference \ce{d_0} and the carry flag \ce{c_1}.
+Bit~0 senses the current \ce{s_0}/\ce{r_0}
+and computes \ce{d_0} (silently)
+and the carry flag \ce{c_1} (emitted immediately).
 %
-The carry flag is then passed on to the next computing unit, 
-i.e.~Bit~1 in this case. 
+The carry flag is passed on to Bit~1.
 %
-Bit~1 subtracts \ce{r_1} and \ce{c_1} from \ce{s_1}
-(Table~\ref{t:subtractor1}, middle column). 
+Bit~1 subtracts \ce{r_1} and \ce{c_1} from \ce{s_1}. 
 %
-The carry flag \ce{c_2} computed from Bit 1 is passed on 
-to the next computing unite Bit 2, 
+The resulting carry flag \ce{c_2} 
+is passed on to Bit~2, 
 which subtracts \ce{c_2} from \ce{s_2}.
 %
-Therefore, for the computing unit Bit 0, Bit 2 and Bit 3,
-only a half-subtractor is required (2 inputs)
-while the Bit~1 requires a full subtractor (3 inputs).
+Then Bit~3 subtracts the resulting carry flag
+\ce{c_3} from \ce{s_3}.
+%
+Importantly,
+each of
+Bit 0/2/3,
+is in fact a ``half-subtractor'' with 2 inputs,
+whilst
+Bit~1 is a ``full subtractor'' with 3 inputs.
+}
+%
+\ra{
+See
+Table~\ref{t:subtractor1}
+for the truth table
+of the subtraction.
+%
+Fig.~\ref{f:logical-subtractor01}
+shows a reference logic circuit 
+for Bit~0 and Bit~1
+that illustrates the principle of delayed response.
 }
 
 %%% TABLE %%%
 \input{t_subtractor1}
-
-%
-Fig.~\ref{f:logical-subtractor01}
-illustrates the principle of delayed response
-for the subtractor,
-cf.~Table~\ref{t:subtractor1}.
 
 
 
@@ -378,32 +452,6 @@ Table~\ref{t:signals}.
 %
 %
 %
-\ra{
-As shown in Table \ref{t:signals},
-we encode \ce{w_A} by L-arabinose,
-\ce{w_B} by IPTG, etc.
-%
-Our convention is \ce{w_A = 1}
-if and only if
-the corresponding messenger molecule L-arabinose 
-is present in the medium or in the cell 
-in sufficiently high quantity.
-%
-We write \ce{\#w_A}
-for
-the \emph{number} of L-arabinose molecules 
-in the numerical simulations.
-%
-Ditto for the other signals.
-}
-%
-%
-\ra{
-Subsequently, we abbreviate
-\signal{{3OC6}{-}HSL} by \signal{{3OC6}}, etc.
-}
-%
-
 
 %%% TABLE %%%
 \input{t_signals.tex}
@@ -417,6 +465,15 @@ we partition the workflow
 with spatial compartments
 that require manual transmission of 
 the medium.
+%
+This reduces 
+the required number of transcription factors,
+\ra{
+e.g.~the Player can use $\protein{FdeR} \to \promoter{FdeA}$
+because 
+it does not receive the medium of 
+Bit~2 that emits \signal{NG}.
+}
 %
 Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
@@ -505,9 +562,10 @@ Then:
 \MyTitle, \MyAuthor, \MyDate.
 \href{\linktodoc}{{\small\texttt{\linktodoc}}}
 
-The figures are best seen in
-the PDF file of this document.
-
+The Matlab/SymBiology
+codes are available via the same link.
+%
+Sharp figures in the PDF file.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Genetic toolbox} \label{s:genetic}
@@ -518,71 +576,89 @@ the PDF file of this document.
 
 In
 \cite{NielsenETAL2016}
-we found the following 
-useful three-input one-output gates
-among those that performed well:
+we found these
+3-input 1-output gates
+among good performers:
 %
 \begin{itemize}
 \item
     $
     	\ce{r_0} = 
-    	\mathop{\mathsf{0x0E}}
+    	\mathop{\mathsf{%
+    	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-6.large.jpg}{0x0E}%
+    	}}
     	(\ce{s_0}, \ce{s_1}, \ce{w_A})
     $,
 \item
     $
     	\ce{r_1} =
     	\NOT
-    	\mathop{\mathsf{0xF6}}
+    	\mathop{\mathsf{%
+    	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-5.large.jpg}{0xF6}%
+    	}}
     	(\ce{s_0}, \ce{s_1}, \ce{w_A})
     $,
 \item
     $
-    	\ce{c_2} 
-    %	=
-    %	\mathop{\mathsf{0x4D}}
-    %	(\ce{r_1}, \ce{s_1}, \ce{c_1}) 
-    %	=
-    %	\NOT
-    %	\mathop{\mathsf{0x8E}}
-    %	(\ce{r_1}, \ce{c_1}, \ce{s_1})
+    	\ce{c_2}
     	=
     	\NOT
-    	\mathop{\mathsf{0x8E}}
+    	\mathop{\mathsf{%
+    	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-8.large.jpg}{0x8E}%
+    	}}
     	(\ce{c_1}, \ce{r_1}, \ce{s_1})
-    $.
-    %
-    \hfill
-    (also equal
-    $
-       	\mathop{\mathsf{0x4D}}
+    	=
+       	\mathop{\mathsf{%
+    	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-5.large.jpg}{0x4D}%
+    	}}
        	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
-    $
-    and
-    symmetric in \ce{r_1}/\ce{c_1})
+    $,
+    which is
+    symmetric in \ce{r_1}/\ce{c_1}.
 \end{itemize}
-
-
-We implemented \ce{r_0} mutatis mutandis,
+%
+%
+We did not find the 3-\XOR, see \S\ref{ss:3xor}.
+%
+%
+We implemented \ce{r_0} 
 replacing the sensors 
 and
 replacing the repressor PhlF 
 (which clashes with the \ce{s_0} sensor) 
 by HlyIIR.
 %
+The last operation
+is a ``poor man's \OR gate'';
+thus we replaced its output 
+by
+the transcription factor \TODO{act TF}
+that drives the synthesis of 
+\signal{r_0}.
+%
+%
+%
 %
 We found that \ce{r_1} can reuse 
-some of the circuit
+most of this circuitry
+and implemented 
+the remainder of it using ribocomputing
+\TODO{explain}.
+%
+%
+%
+For \ce{c_2}, we implemented
+
 
 
 %
-\TODO{explain}
+\TODO{\ra{explain}}
 
 
 
 
 
-\subsection{Transducers}
+\subsection{Intracellular pathways (transducers)}
 
 
 \subsubsection*{AmtR}
@@ -629,26 +705,32 @@ AmtR sits on the DNA as a dimer
 
 \subsection{Extracellular signaling} \label{ss:wAB}
 
-
 The two master signals \ce{w_A} and \ce{w_B}
 are encoded by L-arabinose and IPTG,
 respectively,
 and are supplied by the experimenter.
-
-
-\ra{Note, from \cite[SM, VII.M]{NielsenETAL2016}:
-\begin{quote}
-    The sensors used include a truncated AraC 
-    (AraC-C280*, referred to as AraC* in this work)
-    that has reduced cross-talk with IPTG(40) and its output promoter PBAD
-    which is induced using L-arabinose; 
-    LacI and its output promoter with a symmetric lac-operator PTac which
-    is IPTG-inducible(41); 
-    and TetR with its output promoter PTet(42)
-\end{quote}
+%
+%
+%
+Following \cite[SM, VII.M]{NielsenETAL2016}/\cite{LeeETAL2007}
+we posit
+a truncated \protein{AraC^*}
+that has reduced crosstalk with \signal{IPTG}.
+%
+%
+\ra{
+The genetic sequences can be found 
+in
+\cite[SM, Table~S8]{NielsenETAL2016}
+for \protein{Ara^*} and \protein{LacI},
+and
+in
+\cite[SM, Table~S9]{NielsenETAL2016}
+for \promoter{BAD} and \promoter{Tac}.
 }
 
-\TODO{write about Ara and IPTG}
+% Ref on Ara>AraC>BAD: \cite{LeeETAL2007}
+% Ref on IPTG>LacI>Tac: \cite{DykxhoornStpierreLinn1996}
 
 
 
@@ -661,16 +743,29 @@ and are supplied by the experimenter.
 \TODO{WHAT ABOUT THE SENDERS?}
 
 
+
+	
 \subsubsection*{3OC6} \label{ss:3OC6}
  
 The transcription activator \protein{LuxR}
 occurs in Gram-negative bacteria
-such as \emph{Vibrio fischeri}.
+such as 
+\emph{V.~fischeri}%
+\starlink{https://en.wikipedia.org/wiki/Aliivibrio_fischeri}%
+.
 %
-The bacterium is permeable to the (auto)inducer,
-here \signal{{3OC6}}.
+The bacterium is permeable to the (auto)inducer
+3‐oxo‐C6‐homoserine lactone (3OC6-HSL) .
 %
-The inducer binds to the N-terminal of \protein{LuxR},
+The inducer 
+\hh{belongs to \ra{the} acyl homoserine lactone (AHL) \ra{family?}
+that \ra{is} commonly used
+\ra{by whom? ref?}
+in quorum sensing
+\ra{perhaps better to say which ones are in one place (at the beginning of this subsection) with an appropriate ref}
+}. 
+
+It binds to the N-terminal of \protein{LuxR},
 which otherwise inhibits its
 functional C-terminal \cite{StevensDolanGreenberg1994}.
 %
@@ -719,8 +814,7 @@ $\protein{NahR} \with \promoter{Sal}$.
 
 \hh{
 Nevertheless, the configuration changes 
-then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{Sal}).
-\TODO{reference?}
+then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{Sal})\cite{HuangSchell1991}.
 %
 %
 The inducer
@@ -740,8 +834,7 @@ once a $\signal{Sal}$
 binds to each \protein{NahR}.
 %
 For the sensors we assume an abundance
-of \protein{NahR}
-\TODO{describe constitutive promoter},
+of \protein{NahR},
 hence the inactive form of the promoter
 is $\protein{NahR}_4 \with \promoter{Sal}$.
 %
@@ -754,12 +847,9 @@ is $\protein{NahR}_4 \with \promoter{Sal}$.
 \hh{
 The p-coumaroyl-HSL/RpaR system 
 (pC-HSL)
-works similarly to AHL/LuxR
-\TODO{what is AHL?}
-\TODO{use `protein`?}.
+works similarly to AHL/LuxR system, but the pC-HSL is composed of p-coumaric acid rather than fatty acids in AHL.
 %
-However,
-as they come from an anoxygenic phototrophic soil bacterium strain, 
+As pC-HSLs come from an anoxygenic phototrophic soil bacterium strain, 
 the luxIR-type pair, rpaI and rpaR shows good orthogonality to many
 QS signals in use \cite{SchaeferETAL2008}.
 }
@@ -805,9 +895,30 @@ activates transcription
 
 \subsubsection*{3OC12} \label{ss:3OC12}
 
-\TODO{describe}
-
-\url{https://pubmed.ncbi.nlm.nih.gov/12169617/}
+\hh{
+3-oxo-dodecanoyl-homoserine lactone (3OC12-HSL)
+belongs to homoserine lactone signaling systems, 
+which binds to the receiver protein \ra{dimer} \protein{LasR}
+from \emph{P.~aeruginosa}%
+\starlink{https://en.wikipedia.org/wiki/Pseudomonas_aeruginosa}%
+. 
+%
+\protein{LasR} irreversibly binds to two molecules of 3OC12-HSL.
+%
+\ra{is there a statement on ``our promoter'' -- probably not}
+The activated LasR protein can activate several lac-responsive promoters with high affinity with no cooperativity (Hill coefficients $\approx$ 1) or with positive cooperativity (Hill coefficients $>$ 1) \cite{SchusterUrbanowskiGreenberg2004}. 
+%
+\TODO{the following statement is practically universally applicable}
+It is suggested that base pair changes can increase 
+the affinity of the promoter to LasR and 
+reduce the affinity to other proteins (\ra{e.g.~}LuxR) 
+\cite{Grant2016},
+\ra{thus increasing orthogonality}.
+%
+Particularly, in the work of \cite[\ra{where}]{DuETAL2020}, 
+they used the mutated
+Las-responsive promoter \promoter{Las^*}.
+}
 
 
 \subsubsection*{NG} \label{ss:NG}
@@ -851,7 +962,8 @@ serine-integrase/excisionase
 direct the infection cycle of Bxb1 
 in
 \emph{M.~smegmatis}%
-\starlink{https://en.wikipedia.org/wiki/Mycobacterium_smegmatis}.
+\starlink{https://en.wikipedia.org/wiki/Mycobacterium_smegmatis}%
+.
 %
 Stoichiometry, start codons,
 degradation rates (proteolysis tags)
@@ -912,8 +1024,7 @@ external signal (say, \signal{w_A}).
 
 \cite[\href{https://www.nature.com/articles/ncomms1516/figures/1}{Fig.~1}]{WangKitneyJolyBuck2011}
 proposed 
-an \AND gate
-in \emph{E.~coli}
+an \AND gate in \emph{E.~coli}
 using the heterodimeric transcription factor 
 $\ce{HrpR} \with \ce{HrpS}$
 from 
@@ -953,6 +1064,7 @@ such that
 the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
 and vice versa.
 
+
 \subsubsection*{Cross-inhibition}
 
 Even in our idealized simulations
@@ -975,14 +1087,14 @@ see \S\ref{s:x-inh}.
 \ra{}
 
 
-\subsection{3-input \texorpdfstring{\XOR}{XOR}}
+\subsection{3-input \texorpdfstring{\XOR}{XOR}} \label{ss:3xor}
 
 \ra{NEW TEXT:}
 %
 %
 The subtractor result bit
 (cf.~Table~\ref{t:subtractor1})
-\[
+\begin{align} \label{e:3xor}
 	\ce{d_1} 
 	= 
 	\mathop{\mathsf{0x69}}
@@ -996,7 +1108,7 @@ The subtractor result bit
 	(\ce{s_1}, \ce{r_1}, \ce{c_1})
 	=
 	((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mathbin{\mathrm{mod}} 2)
-\]
+\end{align}
 is particularly difficult
 because the result flips 
 whenever any input is flipped.
@@ -1184,8 +1296,8 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 		%
 		\\
 		%
-		\ce{\#w_A} = 0.01 & \ce{\#w_A} = 10 &
-		\ce{\#w_A} = 0.01 & \ce{\#w_A} = 10 
+		\ce{\#w_A} = 0.1 & \ce{\#w_A} = 10 &
+		\ce{\#w_A} = 0.1 & \ce{\#w_A} = 10 
 		%
 		\\
 		%
@@ -1219,18 +1331,21 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 \subsection{Bits 0, 2, 3}
 
 Bits 0, 2, 3 are half-subtractors
-which are technically a subset of Bit~1
+which are technically a subfunctionality of Bit~1
 (see Table~\ref{t:subtractor1}).
 %
-%
-We omit their discussion to focus on Bit~1.
+We omit closer discussion to focus on Bit~1.
 
 
 \subsection{Bit 1} \label{s:sim:bit1}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
-\subsubsection*{d1} \label{ss:d1}
+\subsubsection*{c2} \label{s:sim:bit1:c2}
+
+
+
+\subsubsection*{d1} \label{s:sim:bit1:d1}
 
 Consider bit 1 of Subtractor A.
 %
@@ -1301,61 +1416,6 @@ also
 \cite{NilgiriwalaETAL2014}.
 }
 
-
-\begin{figure}[phbt]
-\centering
-
-\begin{overpic}[width=0.99\textwidth]{Bit1/response_d1_tempo}
-\put (50, 30) {%
-	\scalebox{0.7}{%
-		\begin{tabular}{c|ccc|c}
-		    & \ce{\#s_1} & \ce{\#r_1} & \ce{\#c_1} & $\approx \ce{\#d_1}$
-		    \\
-		    \hline
-		    \ce{B_1} & 10 & 10 & 10 & 0 
-		    \\
-		    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 10 
-		    \\
-		    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} & 0 
-		    \\
-		    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 0
-		    \\
-		\end{tabular}
-	}
-}
-\end{overpic}
-
-\caption{%
-Subtractor A, bit 1, output \ce{\#d_1}
-across phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
-(with interphases).
-%
-The table shows the inputs for each phase.
-%
-As required,
-we have
-$\#\ce{d_1} \approx 10$ 
-during the recall phase \ce{A_1}
-and
-$\#\ce{d_1} \approx 0$ 
-during the recall phase \ce{A_2}.
-%
-Observe the slight delay in the rise of Y
-at the beginning of \ce{B_1} while it is being ``shelved''
-and a sustained supply by ``unshelving'' at the end
-that helps maintaining Xis;
-conversely,
-the leakage of Y is ``shelved''
-during \ce{B_2}
-preventing unwanted expression of Xis.
-%
-See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
-%
-}
-%
-\label{f:symbio-d1-tempo}
-\end{figure}
-
 %
 
 \begin{figure}[hpbt]
@@ -1364,8 +1424,8 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 		%
 		\\
 		%
-		\ce{\#c_1} = 0.01 & \ce{\#c_1} = 10 &
-		\ce{\#c_1} = 0.01 & \ce{\#c_1} = 10 
+		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 &
+		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 
 		%
 		\\
 		%
@@ -1380,8 +1440,9 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 	%
 	\caption{%
 		Response surfaces of Subtractor A
-		for varying \ce{\#r_1}($\uparrow$) and \ce{\#s_1}($\rightarrow$),
-		see \S\ref{s:sim:bit1}.
+		for varying \ce{\#r_1}($\uparrow$) and \ce{\#s_1}($\rightarrow$).
+		%
+		See \S\ref{s:sim:bit1}.
 		%
 		The output \ce{\#d_1}
 		is measured after a compute-, inter- and readout-phase,
@@ -1393,8 +1454,61 @@ See also \S\ref{ss:d1}/p.\pageref{ss:d1}.
 	}
 	%
 	\label{f:sub_response}
-	%
-	\TODO{caption}
+\end{figure}
+
+%
+
+\begin{figure}[phbt]
+    \centering
+    %
+    \begin{overpic}[width=0.99\textwidth]{Bit1/response_d1_tempo}
+    \put (50, 30) {%
+    	\scalebox{0.7}{%
+    		\begin{tabular}{c|ccc|c}
+    		    & \ce{\#s_1} & \ce{\#r_1} & \ce{\#c_1} & $\approx \ce{\#d_1}$
+    		    \\
+    		    \hline
+    		    \ce{B_1} & 10 & 10 & 10 & 0 
+    		    \\
+    		    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 10 
+    		    \\
+    		    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} & 0 
+    		    \\
+    		    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 0
+    		    \\
+    		\end{tabular}
+    	}
+    }
+    \end{overpic}
+    %
+    \caption{%
+        Subtractor A, bit 1, output \ce{\#d_1}
+        across phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
+        (with interphases).
+        %
+        The table shows the inputs for each phase.
+        %
+        As required,
+        we have
+        $\#\ce{d_1} \approx 10$ 
+        during the recall phase \ce{A_1}
+        and
+        $\#\ce{d_1} \approx 0$ 
+        during the recall phase \ce{A_2}.
+        %
+        Observe the slight delay in the rise of Y
+        at the beginning of \ce{B_1} while it is being ``shelved''
+        and a sustained supply by ``unshelving'' at the end
+        that helps maintaining Xis;
+        conversely,
+        the leakage of Y is ``shelved''
+        during \ce{B_2}
+        preventing unwanted expression of Xis.
+        %
+        See also \S\ref{s:sim:bit1:d1}/p.\pageref{s:sim:bit1:d1}.
+    }
+    %
+    \label{f:symbio-d1-tempo}
 \end{figure}
 
 %
@@ -1431,13 +1545,14 @@ the Subtractor module (bit 0 and bit 1),
 but our implementation
 differs in the details.
 %
-For example, we use a reversible recombinase
+In particular, we use a reversible recombinase
 for the memory module, see \S\ref{ss:memory}/p.\pageref{ss:memory}.
 
 % https://www.circuit-diagram.org/editor/c/075f8cf9d084400b94f1384cc1c3ba96
 \begin{figure}[phbt]
 \centering
 \includegraphics[width=0.9\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
+%
 \caption{%
 Bit~0 and Bit~1
 of
