@@ -1338,15 +1338,15 @@ We considered:
 	
 
 
-\subsection{Shelfing}
+\subsection{Shelving}
 
 We let 
-\ra{a trigger RNA \ce{Y} promote the translation of \ce{Xis}}
-%\ra{(or a transcription factor \ce{Y} promotes expression of \ce{Xis})}
+\ra{a trigger RNA \ce{Y} with toehold}
+encode \ce{d_1}
 in the memory subunit
-of Subtractor A
-when \ce{d_1 = 1} is intended
-(cf.~\S\ref{ss:memory}).
+of Subtractor~A (cf.~\S\ref{ss:memory}).
+%
+It triggers the translation of \ce{Xis}.
 %
 %
 Suppose
@@ -1354,7 +1354,7 @@ Suppose
 in which case \ce{d_1 = 0}.
 %
 %
-Then amount of \ce{Y} is low,
+Then \ce{Y} is low,
 but
 around the timepoint when 
 \ce{w_B} is turned off
@@ -1366,15 +1366,15 @@ This is sufficient to produce \ce{Xis}
 and thus to cause an unintended \emph{reset}
 towards \ce{d_1 = 1}.
 %
-We found two ways to mitigate this
-in the computational model.
+We found two ways to mitigate this.
 %
 One is to condition the expression of \ce{Xis}
 on \ce{w_B} also
 --
 but this requires \ce{w_B} to go down
 before other change
-and requires tuning of degradation rates.
+and requires 
+finer tuning of degradation rates.
 %
 A more robust way
 is a ``shelf'' (a buffer) for \ce{Y}
@@ -1385,28 +1385,43 @@ has high affinity for \ce{Y};
 %
 ii)
 sequesters 
-a large amount of \ce{Y}
-(about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50} of $\ce{Y} \act \ce{Xis}$);
+about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50}%
+($\ce{Y} \act \ce{Xis}$)
+copies of \ce{Y};
 %
 iii)
-releases \ce{Y} for degradation when \ce{w_A} is on.
+is degraded when \ce{w_A} is on.
 %
 In this way, 
 a transient increase in \ce{Y} is shelved
 but a sustained signal 
 (while \ce{w_B} is up)
-will overflow the shelves and activate 
-transcription of \ce{Xis}.
+will overflow the shelves and 
+allow
+translation of \ce{Xis}.
 %
 %
 This is illustrated in Fig.~\ref{f:symbio-d1-tempo}.
 %
 %
-To satisfy these requirements
-we propose 
-the following mechanism.
+%
+%
+As a concrete mechanism
+we propose
+transcription of 
+a repeated complement of \ce{Y},
+viz.~%
+$
+	\signal{\ce{w_A}} \act \protein{AraC^*} \act \promoter{BAD} 
+	\act 
+	\protein{cI} \rep \promoter{cI_-} \act
+	\ce{[Y^*]^n}
+	.
+$
+%
 
 %
+
 
 
 %
@@ -1454,8 +1469,6 @@ the following mechanism.
 \subsection{PlayerA} \label{s:sim:player}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
-
-\TODO{Some details missing}
 
 
 
@@ -1517,23 +1530,14 @@ We omit closer discussion to focus on Bit~1.
 
 \subsubsection*{c2} \label{s:sim:bit1:c2}
 
+\TODO{c2}
 
 
 \subsubsection*{d1} \label{s:sim:bit1:d1}
 
-%
+\TODO{d1}
 
 
-
-\TODO{\ra{Issue: how to implement this ``Shelf''?}}
-\ra{%
-Note: This seems similar to
-\cite[\href{{https://www.pnas.org/content/pnas/104/8/2643/F1.large.jpg?width=800&height=600&carousel=1}}{Fig.~1}]{WeberETAL2007},
-also
-\cite{NilgiriwalaETAL2014}.
-}
-
-%
 
 \begin{figure}[hpbt]
 	\begin{tabular}{cc|cc}
@@ -1550,9 +1554,9 @@ also
 		%
 		\\
 		%
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=30__c1_in=0.1}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=1__c1_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=30__c1_in=10}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=1__c1_in=10}
 		&
 		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=1__c1_in=0.1}
 		&
@@ -1606,7 +1610,7 @@ also
 \begin{figure}[phbt]
     \centering
     %
-    \begin{overpic}[width=0.99\textwidth]{Bit1/output/response_d1_tempo}
+    \begin{overpic}[width=0.99\textwidth]{Bit1/output/response_d1_tempo__Shelf=1}
     \put (50, 30) {%
     	\scalebox{0.7}{%
     		\begin{tabular}{c|ccc|c}

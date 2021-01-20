@@ -90,54 +90,59 @@ function response_d1_temporal
 % 		axis([0, T, 1e-2, 1e2]);
 % 	end
 % 	legend(spp, 'Interpreter', 'none')
-	
 
-	%%
-	responses = {};
+	
+	for MakeShelf = [1, 0]
+		
+		m1.Rules({m1.Rules.Name} == "make_Shelf").Active = MakeShelf;
+		
+		%%
+		responses = {};
 
-	[t, x] = sbiosimulate(m1);
-	assert(max(t) == T);
-	
-	close all;
-	
-	figure;
-	set(0, 'DefaultAxesFontSize', 14);
-	set(gcf, 'renderer', 'Painters');
-	
-	hold on;
-	
-	styles = containers.Map();
-	styles("wA_in") = "--k";
-	styles("wB_in") = "--r";
-	styles("Y") = "--b";
-	styles("ShelfLoaded") = "-.b";
-	styles("Xis") = "-b";
-	styles("Int") = "-r";
-	styles("d1") = "-k";
-	
-	species = ["wA_in", "wB_in", "Y", "ShelfLoaded", "Xis", "Int", "d1"];
-	
-	for S = species
-		plot(t, x(:, index_of(S)), styles(S), 'LineWidth', 2);
+		[t, x] = sbiosimulate(m1);
+		assert(max(t) == T);
+
+		close all;
+
+		figure;
+		set(0, 'DefaultAxesFontSize', 14);
+		set(gcf, 'renderer', 'Painters');
+
+		hold on;
+
+		styles = containers.Map();
+		styles("wA_in") = "--k";
+		styles("wB_in") = "--r";
+		styles("Y") = "--b";
+		styles("Shelf_Y") = "-.b";
+		styles("Xis") = "-b";
+		styles("Int") = "-r";
+		styles("d1") = "-k";
+
+		species = ["wA_in", "wB_in", "Y", "Shelf_Y", "Xis", "Int", "d1"];
+
+		for S = species
+			plot(t, x(:, index_of(S)), styles(S), 'LineWidth', 2);
+		end
+
+
+		pbaspect([3, 1, 1]);
+
+		ylabel("Molecules");
+		xlabel("Time (a.u.)");
+
+		species(species == "wA_in") = "#wA";
+		species(species == "wB_in") = "#wB";
+		species(species == "d1") = "#d1";
+		legend(species, 'Location', 'NE', 'Interpreter', 'none');
+		axis tight;
+
+		set(gcf, 'units', 'inches', 'position', [0, 0, 15, 5])
+
+		filename = ['response_d1_tempo' '__Shelf=' num2str(MakeShelf)];
+		exportgraphics(gcf, ['output/' filename '.pdf']);
+		exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
+
+		close all;
 	end
-	
-	
-	pbaspect([3, 1, 1]);
-	
-	ylabel("Molecules");
-	xlabel("Time (a.u.)");
-	
-	species(species == "wA_in") = "#wA";
-	species(species == "wB_in") = "#wB";
-	species(species == "d1") = "#d1";
-	legend(species, 'Location', 'NE', 'Interpreter', 'none');
-	axis tight;
-	
-	set(gcf, 'units', 'inches', 'position', [0, 0, 15, 5])
-	
-	filename = ['response_d1_tempo'];
-	exportgraphics(gcf, ['output/' filename '.pdf']);
-	exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
-
-	close all;
 end

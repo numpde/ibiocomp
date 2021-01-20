@@ -22,9 +22,9 @@ function response_d1_final
 	C = 'c1_in'; C_label = ['# ' C(1:2)];
 	cc = [0.01, 0.1, 1, 10, 100];
 	
-	for ShelfCapacity = [m1.Species(index_of('ShelfEmpty')).InitialAmount, 0]
+	for MakeShelf = [1, 0]
 		
-		m1.Species(index_of('ShelfEmpty')).InitialAmount = ShelfCapacity;
+		m1.Rules({m1.Rules.Name} == "make_Shelf").Active = MakeShelf;
 
 		m1.Species(index_of('wA_in')).InitialAmount = 0.01;
 		m1.Species(index_of('wB_in')).InitialAmount = 10;
@@ -104,7 +104,7 @@ function response_d1_final
 
 				grid off;
 
-				filename = ['response_' str2mat(R) '_final' '__Shelf=' num2str(ShelfCapacity) '__' str2mat(C) '=' num2str(c)];
+				filename = ['response_' str2mat(R) '_final' '__Shelf=' num2str(MakeShelf) '__' str2mat(C) '=' num2str(c)];
 				exportgraphics(gcf, ['output/' filename '.pdf']);
 				exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
 			end
