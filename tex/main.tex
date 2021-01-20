@@ -1147,7 +1147,7 @@ We propose that
 {inhibit} the downstream of \ce{b},
 and vice versa:
 %
-let $\ce{a} \act \ce{cI^a}$
+we let $\ce{a} \act \ce{cI^a}$
 and
 $\ce{b} \act \ce{cI^b}$
 produce
@@ -1186,7 +1186,7 @@ Herein,
 combine to a trigger RNA \ce{AB} as in
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
 and also have toeholds
-promoting preferential binding to 
+for preferential binding to 
 the complementary RNAs \ce{A^*} and \ce{B^*}.
 %
 %
@@ -1195,10 +1195,10 @@ if
 $\promoter{cI^a_-} > \promoter{cI^b_+}$
 and
 $\promoter{cI^b_-} > \promoter{cI^a_+}$
-in terms of the strength of the promoters.
-
+in terms of the output of the promoters.
 %
-\TODO{finish}
+%
+See Fig.~\ref{f:sub_response}.
 
 
 % see \S\ref{s:x-inh}.
@@ -1339,12 +1339,9 @@ We considered:
 %\end{figure}
 
 
-\ra{Note: we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf [delete when read]}
+
 
 %
-
-
-
 
 
 
@@ -1496,7 +1493,10 @@ also
 
 \begin{figure}[hpbt]
 	\begin{tabular}{cc|cc}
-		\multicolumn{2}{c|}{\ce{\#d_1}} & \multicolumn{2}{c}{\ce{\#c_2}}
+        \hline
+		\multicolumn{2}{c|}{\ce{\#d_1} with shelving}
+		&
+		\multicolumn{2}{c}{\ce{\#c_2} with cross-inhibition}
 		%
 		\\
 		\hline
@@ -1514,8 +1514,9 @@ also
 		&
 		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=1__c1_in=10}
 	\end{tabular}
-	%
+	
 	\begin{tabular}{cc|cc}
+        \hline
 		\multicolumn{2}{c|}{\ce{\#d_1} without shelving}
 		&
 		\multicolumn{2}{c}{\ce{\#c_2} without cross-inhibition}
@@ -1539,7 +1540,7 @@ also
 	%
 	%
 	\caption{%
-		Response surfaces of Subtractor A
+		Response of Subtractor A
 		for varying \ce{\#r_1}($\uparrow$) and \ce{\#s_1}($\rightarrow$).
 		%
 		See \S\ref{s:sim:bit1}.
@@ -1625,6 +1626,8 @@ also
 
 
 
+%%% BIBLIOGRAPHY %%%
+\clearpage
 
 \footnotesize
 \bibliographystyle{apalike}
@@ -1669,17 +1672,6 @@ when the signal \ce{w_A} is present.
 \label{f:logical-subtractor01}
 \end{figure}
 
-
-
-
-\subsection{Cross-inhibition \texorpdfstring{\AND}{AND} gate} \label{s:x-inh}
-
-\TODO{explain}
-
-\ra{
-this is implemented in \ce{c_2}
-[\href{https://i.ibb.co/86S2qfL/2021-01-17-01-42-06.png}{fig}]
-}
 
 
 \subsection{Kinetics}
