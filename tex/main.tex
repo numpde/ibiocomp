@@ -543,9 +543,9 @@ Then:
 
 \TODO{mention a microfluids setup?}
 
-
-We initialize the experiment 
-in Phases A
+\ra{
+The experiment is initialized
+in Phase A
 by supplying
 the master signal \signal{w_A}
 along with
@@ -553,6 +553,7 @@ along with
 to Subtractor B
 and
 to Player A.
+}
 
 %
 
@@ -565,13 +566,13 @@ dedicated sensor cells
 that report on signaling molecules 
 in order to 
 monitor the state of the game;
-c)
+c) \ra{
 a set of cells that emit 
 \signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
 upon one signal, say 
 tetracycline%
 \starlink{https://en.wikipedia.org/wiki/Tetracycline}.
-
+}
 
 
 
@@ -1337,6 +1338,80 @@ We considered:
 	
 
 
+\subsection{Shelfing}
+
+We let 
+\ra{a trigger RNA \ce{Y} promote the translation of \ce{Xis}}
+%\ra{(or a transcription factor \ce{Y} promotes expression of \ce{Xis})}
+in the memory subunit
+of Subtractor A
+when \ce{d_1 = 1} is intended
+(cf.~\S\ref{ss:memory}).
+%
+%
+Suppose
+\ce{w_B = 1} and \ce{s_1 r_1 c_1 = 101},
+in which case \ce{d_1 = 0}.
+%
+%
+Then amount of \ce{Y} is low,
+but
+around the timepoint when 
+\ce{w_B} is turned off
+and the inputs begin to change,
+\ce{Y} can experience a transient bump
+(which we observed in some simulations).
+%
+This is sufficient to produce \ce{Xis}
+and thus to cause an unintended \emph{reset}
+towards \ce{d_1 = 1}.
+%
+We found two ways to mitigate this
+in the computational model.
+%
+One is to condition the expression of \ce{Xis}
+on \ce{w_B} also
+--
+but this requires \ce{w_B} to go down
+before other change
+and requires tuning of degradation rates.
+%
+A more robust way
+is a ``shelf'' (a buffer) for \ce{Y}
+that 
+%
+i)
+has high affinity for \ce{Y};
+%
+ii)
+sequesters 
+a large amount of \ce{Y}
+(about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50} of $\ce{Y} \act \ce{Xis}$);
+%
+iii)
+releases \ce{Y} for degradation when \ce{w_A} is on.
+%
+In this way, 
+a transient increase in \ce{Y} is shelved
+but a sustained signal 
+(while \ce{w_B} is up)
+will overflow the shelves and activate 
+transcription of \ce{Xis}.
+%
+%
+This is illustrated in Fig.~\ref{f:symbio-d1-tempo}.
+%
+%
+To satisfy these requirements
+we propose 
+the following mechanism.
+
+%
+
+
+%
+%
+
 
 %
 
@@ -1446,66 +1521,9 @@ We omit closer discussion to focus on Bit~1.
 
 \subsubsection*{d1} \label{s:sim:bit1:d1}
 
-Consider Subtractor A.
 %
-Suppose \ce{s_1 r_1 c_1 = 101},
-in which case \ce{d_1 = 0}.
-%
-Suppose a transcription factor \ce{Y}
-promotes expression of \ce{Xis} in the memory subunit
-when \ce{d_1 = 1} is intended.
-%
-%
-When \ce{w_B = 1},
-access to memory is on.
-%
-Since we want \ce{d_1 = 0},
-the amount of \ce{Y} is low,
-but
-around the timepoint when 
-\ce{w_B} is turned off
-and the inputs begin to change,
-\ce{Y} can experience a transient bump.
-%
-This is sufficient to produce \ce{Xis}
-and thus to cause an unintended \emph{reset}
-towards \ce{d_1 = 1}.
-%
-We found two ways to mitigate this
-in the computational model.
-%
-One is to condition the expression of \ce{Xis}
-on \ce{w_B} also
---
-but this requires \ce{w_B} to go down
-before other change
-and could be sensitive to degradation rates.
-%
-A more robust way
-is a buffer for \ce{Y}
--- a ``shelf'' --
-that 
-%
-i)
-has high affinity for \ce{Y};
-%
-ii)
-sequesters 
-a large amount of \ce{Y}
-(about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50} of $\ce{Y} \act \ce{Xis}$);
-%
-iii)
-releases \ce{Y} for degradation when \ce{w_A} is on.
-%
-In this way, 
-a transient increase in \ce{Y} is shelved
-but a sustained signal 
-(while \ce{w_B} is up)
-will overflow the shelves and activate 
-transcription of \ce{Xis}.
-%
-%
-This is illustrated in Fig.~\ref{f:symbio-d1-tempo}.
+
+
 
 \TODO{\ra{Issue: how to implement this ``Shelf''?}}
 \ra{%
@@ -1642,8 +1660,7 @@ also
 
 \section{Discussion}
 
-\TODO{risks}
-
+\TODO{risks: senders and receivers in the same cell}
 
 
 \section{Acknowledgments}
@@ -1668,8 +1685,7 @@ also
 \subsection{Subtractor module}
 
 Fig.~\ref{f:logical-subtractor01} 
-shows the main principles
-behind 
+shows the principles of
 the Subtractor module (bit 0 and bit 1),
 but our implementation
 differs in the details.
@@ -1985,6 +2001,8 @@ which we implement as:
 \TODO{spacing of act and rep}
 
 \TODO{check that Table \ref{t:signals} is correct}
+
+\TODO{stars}
 
 
 \clearpage
