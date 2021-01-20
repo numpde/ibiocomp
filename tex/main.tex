@@ -6,7 +6,7 @@
 % View-only link:
 % https://www.overleaf.com/read/hkybwqtbtvjb
 
-\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{amsmath, amsfonts, amssymb, mathtools}
 \usepackage[svgnames]{xcolor}
 \usepackage{datetime2}
 \usepackage[
@@ -573,7 +573,8 @@ for the PDF file with sharp figures.
 \subsubsection*{Constitutive promoter} \label{ss:Pc}
 
 \ra{
-The iGEM part BBa\_J23100
+The iGEM part 
+\href{http://parts.igem.org/Part:BBa_J23100}{BBa\_J23100}
 is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter
 \cite{iGem_Pc}.
 %
@@ -812,7 +813,12 @@ According to
 LuxR homologs are homodimeric.
 %
 \ra{now, which ones are LuxR homologs}
-\hh{luxR & lasR\cite[Table.1]{Fuqua1996},  rpaR\cite[p.2598]{HirakawaETAL2011}, bjaR \cite{Lindemann2011}. (Most -HSL receiver proteins are dimer If the signals have similar structure then so should the protein)}
+\hh{
+luxR \& lasR \cite[Table~1]{Fuqua1996},  
+rpaR \cite[p.2598]{HirakawaETAL2011}, 
+bjaR \cite{Lindemann2011}. 
+(Most -HSL receiver proteins are dimer If the signals have similar structure then so should the protein)
+}
 
 \ra{do all the receivers here dimerize and accept two signal molecules as in \cite[Fig.~1]{DuETAL2020}}
 
@@ -870,7 +876,13 @@ promoter
 
 \subsubsection*{IV} \label{ss:IV}
 
-\TODO{describe}
+\hh{
+Isovaleryl-HSL (IV-HSL) is a branched-chain fatty acyl-HSL from soybean symbiont
+\emph{B.~japonicum}%
+\starlink{https://en.wikipedia.org/wiki/Bradyrhizobium_japonicum}
+that regulate \protein{BjaR}.
+In the presence of IV, dimerized BjaR activate the promoter \promoter{Bja}.
+}
 
 \subsubsection*{DAPG} \label{ss:DAPG}
 
@@ -1108,6 +1120,7 @@ improves the dynamic range
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 combined
 two short input/sensor RNAs
+\ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
 on the output mRNA.
@@ -1130,28 +1143,60 @@ within larger circuits.
 %
 %
 We propose that
-\emph{low} input \ce{A} 
-{inhibit} the downstream of \ce{B},
-and vice versa,
-as follows.
+\emph{low} input \ce{a} 
+{inhibit} the downstream of \ce{b},
+and vice versa:
+%
+let $\ce{a} \act \ce{cI^a}$
+and
+$\ce{b} \act \ce{cI^b}$
+produce
+two orthogonal 
+bidirectional
+transcription factors as in \S\ref{ss:cI}.
+%
+They, in turn, 
+activate \promoter{cI^a_+}/\promoter{cI^b_+}
+and 
+repress \promoter{cI^a_-}/\promoter{cI^b_-}:
 %
 %
-As in 
+\begin{align}
+    \begin{rcases*}
+        \ce{B^*} \reflectbox{\act} 
+        \promoter{cI^a_-} \reflectbox{\rep} \protein{cI^a} \act \promoter{cI^a_+} 
+        \act \ce{A}
+        \\
+        \ce{A^*} \reflectbox{\act} 
+        \promoter{cI^b_-} \reflectbox{\rep} \protein{cI^b} \act \promoter{cI^b_+} 
+        \act \ce{B}
+    \end{rcases*}
+    %
+    \act 
+    \stackrel{\hspace{-10pt}\smash{\text{trigger RNA}}\hspace{-10pt}}{\ce{AB}}
+    \act 
+    \begin{array}{c}
+        \text{opens RBS on} \\ \text{the output RNA.}
+    \end{array}
+\end{align}
+%
+%
+Herein,
+\ce{A} and \ce{B} 
+combine to a trigger RNA \ce{AB} as in
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
-let inputs A/B produce short RNAs \ce{R_A}/\ce{R_B}
-that combine to a trigger RNA.
+and also have toeholds
+promoting preferential binding to 
+the complementary RNAs \ce{A^*} and \ce{B^*}.
 %
 %
-Additionally,
-let 
-input B produce 
-let 
-$\ce{R_A} \rep \ce{RBS_a} \act \ce{R^*_B} \rep \ce{R_B}$,
-and vice versa,
-i.e.~\ce{R_A} occludes the RBS
+The cross-inhibition is more effective
+if
+$\promoter{cI^a_-} > \promoter{cI^b_+}$
+and
+$\promoter{cI^b_-} > \promoter{cI^a_+}$
+in terms of the strength of the promoters.
 
-that otherwise produces
-%
 %
 \TODO{finish}
 
@@ -1494,7 +1539,7 @@ also
 \begin{figure}[phbt]
     \centering
     %
-    \begin{overpic}[width=0.99\textwidth]{Bit1/response_d1_tempo}
+    \begin{overpic}[width=0.99\textwidth]{Bit1/output/response_d1_tempo}
     \put (50, 30) {%
     	\scalebox{0.7}{%
     		\begin{tabular}{c|ccc|c}
