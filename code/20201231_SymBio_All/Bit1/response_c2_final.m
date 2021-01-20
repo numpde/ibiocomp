@@ -2,7 +2,7 @@
 % RA, 2020-12-31
 % RA, 2020-01-16
 
-function response_c2
+function response_c2_final
 	close all;
 
 	m1 = sbioloadproject("Bit1_c2.sbproj").m1;
@@ -30,7 +30,7 @@ function response_c2
 	% Set final time
 	T = 400;
 	set(getconfigset(m1, 'active'), 'Stoptime', T);
-	
+
 	%%
 
 	for c = cc
@@ -51,31 +51,31 @@ function response_c2
 				end
 			end
 		end
-		
-		
+
+
 		for R = ["c2"]
 			close all;
-			
+
 			figure;
 			set(0, 'DefaultAxesFontSize', 16);
 			set(gcf, 'renderer', 'Painters');
-			
+
 			v = linspace(-3, 1, 21);
 			[CM, Ch] = contourf(aa, bb, log10(abs(responses{index_of(R)}')), v, '-y', 'LineWidth', 0.3);
 			clabel(CM, Ch, v(end-1:-7:1), 'FontSize', 7, 'Color', 'r')
 
 			xlabel(A_label, 'Interpreter', 'none');
 			ylabel(B_label, 'Interpreter', 'none');
-			
+
 			%title(R);
-			
+
 			shading interp;
 			view(0, 90);
 
 			ax = gca;
 			ax.XScale = 'log';
 			ax.YScale = 'log';
-			
+
 			mima = @(arr) 10 .^ (floor(log10(min(arr))):ceil(log10(max(arr))));
 			ax.XAxis.TickValues = mima(ax.XAxis.TickValues);
 			ax.YAxis.TickValues = mima(ax.YAxis.TickValues);
@@ -88,13 +88,12 @@ function response_c2
 			TickLabels = arrayfun(@(x)(['10^{' num2str(x) '}']), cb.Ticks, 'UniformOutput', false);
 			TickLabels(1) = {'...'};
 			cb.TickLabels = TickLabels;
-			
+
 			grid off;
 
-			filename = ['response_' str2mat(R) '__' str2mat(C) '=' num2str(c)];
+			filename = ['response_' str2mat(R) '_final' '__' str2mat(C) '=' num2str(c)];
 			exportgraphics(gcf, ['output/' filename '.pdf']);
 			exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
 		end
 	end
-
 end
