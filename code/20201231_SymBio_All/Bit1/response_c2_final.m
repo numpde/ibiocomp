@@ -22,78 +22,84 @@ function response_c2_final
 	C = 'c1_in'; C_label = ['# ' C(1:2)];
 	cc = [0.01, 0.1, 1, 10, 100];
 	
-	% c2 does not depend on wA/wB
-	%m1.Species(index_of('wA_in')).InitialAmount = 0;
-	%m1.Species(index_of('wB_in')).InitialAmount = 0;
+	
+	for CrossInh = [1, 0]
+		m1.Rules({m1.Rules.Name} == "make_A*").Active = CrossInh;
+		m1.Rules({m1.Rules.Name} == "make_B*").Active = CrossInh;
+		
+		% c2 does not depend on wA/wB
+		%m1.Species(index_of('wA_in')).InitialAmount = 0;
+		%m1.Species(index_of('wB_in')).InitialAmount = 0;
 
-	% https://ch.mathworks.com/help/simbio/ref/sbiosimulate.html
-	% Set final time
-	T = 400;
-	set(getconfigset(m1, 'active'), 'Stoptime', T);
+		% https://ch.mathworks.com/help/simbio/ref/sbiosimulate.html
+		% Set final time
+		T = 400;
+		set(getconfigset(m1, 'active'), 'Stoptime', T);
 
-	%%
+		%%
 
-	for c = cc
-		responses = {};
+		for c = cc
+			responses = {};
 
-		for a = aa
-			for b = bb
-				m1.Species(index_of(A)).InitialAmount = a;
-				m1.Species(index_of(B)).InitialAmount = b;
-				m1.Species(index_of(C)).InitialAmount = c;
+			for a = aa
+				for b = bb
+					m1.Species(index_of(A)).InitialAmount = a;
+					m1.Species(index_of(B)).InitialAmount = b;
+					m1.Species(index_of(C)).InitialAmount = c;
 
-				[t, x] = sbiosimulate(m1);
-				%[t, x] = sbiosteadystate(m1);
-				% for R = convertCharsToStrings({m1.Species.name})
-				assert(max(t) == T);
-				for r = (1 : length(m1.Species))
-					responses{r}(a == aa, b == bb) = x(end, r);
+					[t, x] = sbiosimulate(m1);
+					%[t, x] = sbiosteadystate(m1);
+					% for R = convertCharsToStrings({m1.Species.name})
+					assert(max(t) == T);
+					for r = (1 : length(m1.Species))
+						responses{r}(a == aa, b == bb) = x(end, r);
+					end
 				end
 			end
-		end
 
 
-		for R = ["c2"]
-			close all;
+			for R = ["c2"]
+				close all;
 
-			figure;
-			set(0, 'DefaultAxesFontSize', 16);
-			set(gcf, 'renderer', 'Painters');
+				figure;
+				set(0, 'DefaultAxesFontSize', 16);
+				set(gcf, 'renderer', 'Painters');
 
-			v = linspace(-3, 1, 21);
-			[CM, Ch] = contourf(aa, bb, log10(abs(responses{index_of(R)}')), v, '-y', 'LineWidth', 0.3);
-			clabel(CM, Ch, v(end-1:-7:1), 'FontSize', 7, 'Color', 'r')
+				v = linspace(-3, 1, 21);
+				[CM, Ch] = contourf(aa, bb, log10(abs(responses{index_of(R)}')), v, '-y', 'LineWidth', 0.3);
+				clabel(CM, Ch, v(end-1:-7:1), 'FontSize', 7, 'Color', 'r')
 
-			xlabel(A_label, 'Interpreter', 'none');
-			ylabel(B_label, 'Interpreter', 'none');
+				xlabel(A_label, 'Interpreter', 'none');
+				ylabel(B_label, 'Interpreter', 'none');
 
-			%title(R);
+				%title(R);
 
-			shading interp;
-			view(0, 90);
+				shading interp;
+				view(0, 90);
 
-			ax = gca;
-			ax.XScale = 'log';
-			ax.YScale = 'log';
+				ax = gca;
+				ax.XScale = 'log';
+				ax.YScale = 'log';
 
-			mima = @(arr) 10 .^ (floor(log10(min(arr))):ceil(log10(max(arr))));
-			ax.XAxis.TickValues = mima(ax.XAxis.TickValues);
-			ax.YAxis.TickValues = mima(ax.YAxis.TickValues);
+				mima = @(arr) 10 .^ (floor(log10(min(arr))):ceil(log10(max(arr))));
+				ax.XAxis.TickValues = mima(ax.XAxis.TickValues);
+				ax.YAxis.TickValues = mima(ax.YAxis.TickValues);
 
-			colormap(flipud(gray));
-			cb = colorbar;
-			cax = [-3, ceil(max(caxis))];
-			caxis(cax);
-			cb.Ticks = (cax(1):cax(2));
-			TickLabels = arrayfun(@(x)(['10^{' num2str(x) '}']), cb.Ticks, 'UniformOutput', false);
-			TickLabels(1) = {'...'};
-			cb.TickLabels = TickLabels;
+				colormap(flipud(gray));
+				cb = colorbar;
+				cax = [-3, ceil(max(caxis))];
+				caxis(cax);
+				cb.Ticks = (cax(1):cax(2));
+				TickLabels = arrayfun(@(x)(['10^{' num2str(x) '}']), cb.Ticks, 'UniformOutput', false);
+				TickLabels(1) = {'...'};
+				cb.TickLabels = TickLabels;
 
-			grid off;
+				grid off;
 
-			filename = ['response_' str2mat(R) '_final' '__' str2mat(C) '=' num2str(c)];
-			exportgraphics(gcf, ['output/' filename '.pdf']);
-			exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
+				filename = ['response_' str2mat(R) '_final' '__CI=' num2str(CrossInh) '__' str2mat(C) '=' num2str(c)];
+				exportgraphics(gcf, ['output/' filename '.pdf']);
+				exportgraphics(gcf, ['output/' filename '.png'], 'Resolution', 180);
+			end
 		end
 	end
 end
