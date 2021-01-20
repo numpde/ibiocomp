@@ -15,6 +15,11 @@
 ]{hyperref}
 
 
+\usepackage{natbib}
+
+% https://tex.stackexchange.com/questions/3802/how-to-get-doi-links-in-bibliography
+% \usepackage{doi}
+
 % 
 \usepackage[version=4]{mhchem}
 
@@ -31,7 +36,7 @@
 
 % https://tex.stackexchange.com/questions/202046/width-of-the-caption-of-a-figure
 % https://tex.stackexchange.com/questions/29039/how-to-limit-the-figure-caption-width
-\usepackage[margin=20px]{caption}
+\usepackage[margin=10px]{caption}
 
 % https://tex.stackexchange.com/questions/20792/how-to-superimpose-latex-on-a-picture
 \usepackage[percent]{overpic}
@@ -105,6 +110,7 @@
 \author{RA \& HH}
 \date{\today}
 \newcommand{\linktodoc}{http://bit.ly/15sticks}
+
 
 
 \begin{document}
@@ -228,10 +234,10 @@ computes the new state % \ce{s}
 and remembers the result
 in order to emit it in the subsequent Phase B.
 %
-
-We use the symbols \ce{d_3}/\ce{d_2}/\ce{d_1}/\ce{d_0}
+%
+We use the variables \ce{d_3}/\ce{d_2}/\ce{d_1}/\ce{d_0}
 for this internal state.
-
+%
 %
 The medium is cleared, before
 Phase B is initiated by
@@ -244,18 +250,6 @@ a gated memory module and a delayed response,
 cf.~\S\ref{ss:sub}.
 %
 %
-
-%
-
-Refinements could include
-a)
-dealing with
-a player who attempts to take more sticks than \eqref{e:s0123};
-b)
-dedicated sensor cells 
-that report on signaling molecules 
-in order to 
-monitor the state of the game.
 
 %
 
@@ -371,9 +365,9 @@ Bit 0/2/3,
 is in fact a ``half-subtractor'' with 2 inputs,
 whilst
 Bit~1 is a ``full subtractor'' with 3 inputs.
-
 %
-
+%
+%
 See
 Table~\ref{t:subtractor1}
 for their truth table.
@@ -549,7 +543,36 @@ Then:
 \TODO{mention a microfluids setup?}
 
 
-\TODO{Specify initial conditions}
+To initialize the experiment 
+we supply 
+the master signal \signal{w_A}
+along with
+\signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
+to Subtractor B
+and
+to Player A.
+
+%
+
+Refinements could include
+a)
+dealing with
+a player who attempts to take more sticks than \eqref{e:s0123};
+b)
+dedicated sensor cells 
+that report on signaling molecules 
+in order to 
+monitor the state of the game;
+c)
+a set of cells that emit 
+\signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
+upon one signal, say 
+tetracycline%
+\starlink{https://en.wikipedia.org/wiki/Tetracycline}%
+to start the game.
+
+
+
 
 
 \subsection{``Cite as'' and codes}
@@ -881,7 +904,7 @@ Isovaleryl-HSL (IV-HSL) is a branched-chain fatty acyl-HSL from soybean symbiont
 \emph{B.~japonicum}%
 \starlink{https://en.wikipedia.org/wiki/Bradyrhizobium_japonicum}
 that regulate \protein{BjaR}.
-In the presence of IV, dimerized BjaR activate the promoter \promoter{Bja}.
+In the presence of IV, dimerized BjaR activate \promoter{Bja}.
 }
 
 \subsubsection*{DAPG} \label{ss:DAPG}
