@@ -202,10 +202,6 @@ computing the new state and communicating it
 --
 temporally or spatially.
 %
-% For our purposes this may include
-% modest parallelism in intercellular signaling
-% (but not frequency encoding).
-\marginnote{\ra{removed sentence}}
 %
 %
 We propose 
@@ -232,10 +228,10 @@ computes the new state % \ce{s}
 and remembers the result
 in order to emit it in the subsequent Phase B.
 %
-\ra{
+
 We use the symbols \ce{d_3}/\ce{d_2}/\ce{d_1}/\ce{d_0}
 for this internal state.
-}
+
 %
 The medium is cleared, before
 Phase B is initiated by
@@ -271,7 +267,7 @@ monitor the state of the game.
 \subsection{Conventions}
 
 
-\ra{
+
 %
 As shown in Table \ref{t:signals},
 we encode \ce{w_A} by L-arabinose,
@@ -287,9 +283,6 @@ and \ce{w_A = 0} otherwise.
 We write \ce{\#w_A} for
 the \emph{number} of L-arabinose molecules 
 in the numerical simulations.
-%
-We may abbreviate
-{3OC6}{-}HSL by {3OC6}.
 %
 Where suitable,
 we indicate the semantics of an element thus:
@@ -307,16 +300,20 @@ By \signal{w_A} we mean
 i.e.~L-arabinose.
 %
 Ditto for the other signals.
-}
+
 %
 %
-%
-\ra{
+
 Abbreviations:
 RBS = ribosome binding site,
+QS = quorum sensing,
+AHL = acyl homoserine lactone,
 txn = transcription,
-tln = translation.
-}
+tln = translation,
+{3OC6} = {3OC6}{-}HSL (etc.),
+SM = supplementary material,
+DNF = disjunctive normal form.
+
 
 
 \subsection{Logic circuits}
@@ -337,7 +334,7 @@ The logic is shown in Table \ref{t:logical-playera}.
 
 \subsubsection*{Subtractor} \label{ss:sub}
 
-\ra{
+
 In Phase A,
 Subtractor B 
 senses the current number of sticks \eqref{e:s0123},
@@ -369,15 +366,14 @@ which subtracts \ce{c_2} from \ce{s_2}.
 Then Bit~3 subtracts the resulting carry flag
 \ce{c_3} from \ce{s_3}.
 %
-Importantly,
-each of
+Each of
 Bit 0/2/3,
 is in fact a ``half-subtractor'' with 2 inputs,
 whilst
 Bit~1 is a ``full subtractor'' with 3 inputs.
-}
+
 %
-\ra{
+
 See
 Table~\ref{t:subtractor1}
 for their truth table.
@@ -386,7 +382,7 @@ Fig.~\ref{f:logical-subtractor01}
 shows a reference logic circuit 
 for Bit~0 and Bit~1
 that illustrates the principle of delayed response.
-}
+
 
 
 
@@ -430,7 +426,7 @@ and
 One channel could be spared 
 at the expense
 of a more involved computation of 
-the last useful carry flag $c_3$.
+the last useful carry flag~$c_3$.
 %
 Thus we need \emph{eight} orthogonal intercellular channels,
 cf.~Table \ref{t:substeps}.
@@ -449,7 +445,7 @@ seven on the promoter level
 \cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
 %
 We have assigned the signals
-to further minimize crosstalk,
+to minimize crosstalk,
 in particular 
 avoiding LuxR and RpaR in one cell
 as warned in \cite[p.6]{DuETAL2020}.
@@ -556,12 +552,12 @@ Then:
 \TODO{Specify initial conditions}
 
 
-\subsection{Cite as}
+\subsection{``Cite as'' and codes}
 
 \MyTitle, \MyAuthor, \MyDate.
 \href{\linktodoc}{{\small\texttt{\linktodoc}}}
 
-See this link 
+See the link 
 for the Matlab/SymBiology files
 and 
 for the PDF file with sharp figures.
@@ -572,12 +568,33 @@ for the PDF file with sharp figures.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Constitutive promoters and transcription factors} \label{ss:const}
+\subsection{Constitutive parts} \label{ss:const}
 
-\subsubsection*{Promoters} \label{ss:Pc}
+\subsubsection*{Constitutive promoter} \label{ss:Pc}
 
-\cite{ShimadaETAL2014}
-\TODO{const prom}
+\ra{
+The iGEM part BBa\_J23100
+is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter
+\cite{iGem_Pc}.
+%
+We refer to it as \ce{P_c}.
+%
+\TODO{check that citation is correct}
+}
+
+\hh{
+Constitutive promoter activity requires \ra{a} RNA polymerase holoenzyme
+but no transcription factors. 
+%
+Since we work with \emph{E.~coli},
+the constitutive promoters are all from \emph{E.~coli}, 
+which utilize the bacteria's internal RNA polymerase for gene expression. 
+
+}
+
+%\url{http://parts.igem.org/Promoters/Catalog/Constitutive}
+%\cite{ShimadaETAL2014}
+
 
 \subsubsection*{cI} \label{ss:cI}
 
@@ -604,7 +621,7 @@ we propose
 that
 $\promoter{cI^*_-}$ express
 an inhibitory RNA that is complementary
-to the RBS of $\text{mRNA}_1$.
+to the RBS region of $\text{mRNA}_1$.
 }
 
 
@@ -617,16 +634,16 @@ In
 we found these gates
 among good performers:
 %
-\begin{itemize}
-\item
+%\begin{itemize}
+%\item
     $
     	\ce{r_0} = 
     	\mathop{\mathsf{%
     	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-6.large.jpg}{0x0E}%
     	}}
     	(\ce{s_0}, \ce{s_1}, \ce{w_A})
-    $,
-\item
+    $;
+%\item
     $
     	\ce{r_1} =
     	\NOT
@@ -634,8 +651,8 @@ among good performers:
     	\href{https://science.sciencemag.org/content/sci/352/6281/aac7341/F5/graphic-5.large.jpg}{0xF6}%
     	}}
     	(\ce{s_0}, \ce{s_1}, \ce{w_A})
-    $,
-\item
+    $;
+%item
     $
     	\ce{c_2}
     	=
@@ -651,18 +668,19 @@ among good performers:
        	(\ce{c_1}, \ce{s_1}, \ce{r_1}) 
     $,
     which is
-    symmetric in \ce{r_1}/\ce{c_1},
-\end{itemize}
+    symmetric in \ce{r_1}/\ce{c_1};
+%end{itemize}
 %
 but not the 3-\XOR, see \S\ref{ss:3xor}.
+
 %
-%
-We used $\mathsf{0x0E}$ for \ce{r_0},
+
+We used their $\mathsf{0x0E}$ for \ce{r_0},
 replacing the sensors 
 and
-replacing the repressor \protein{PhlF}
+replacing the repressor {PhlF}
 (which clashes with the \ce{s_0} sensor) 
-by \protein{HlyIIR}
+by {HlyIIR}
 (also from \cite{NielsenETAL2016}).
 %
 The last operation
@@ -675,23 +693,22 @@ triggers the synthesis of \signal{r_0}.
 %
 
 We observed that \ce{r_1} can reuse 
-most of this circuitry,
+most of this circuitry
 and implemented 
 the remainder using ribocomputing
 \TODO{explain}.
 
 %
 
-For \ce{c_2}, we took 
-$\NOT \mathsf{0x83}$ from \cite{NielsenETAL2016}, 
-replacing the sensors.
-%
-Also, 
-we replaced the final 
+For \ce{c_2}, we took
+$\NOT \mathsf{0x8E}$,
+replacing the sensors
+and 
+replacing the final 
 ``$\NOT (\NOT (\cdot) \OR \NOT (\cdot))$''
 by
-a ribo-\AND gate with cross-inhibition,
-see \S\ref{ss:xinh}/p.\pageref{ss:xinh}.
+a ribo-\AND gate with cross-inhibition
+(see \S\ref{ss:xinh}/p.\pageref{ss:xinh}).
 
 
 
@@ -700,8 +717,9 @@ see \S\ref{ss:xinh}/p.\pageref{ss:xinh}.
 
 \subsubsection*{AmtR}
 
-The TetR family member AmtR is 
-the central regulator of nitrogen starvation response
+The TetR-like AmtR 
+regulates
+the nitrogen starvation response
 in 
 the Gram-positive 
 \emph{C.~glutamicum}%
@@ -710,8 +728,9 @@ the Gram-positive
 %
 This repressor is released
 by
-the trimeric adenylylated $\mathrm{P_{II}}$-type 
-signal-transduction protein GlnK
+the trimeric adenylylated 
+% $\mathrm{P_{II}}$-type 
+signaling protein GlnK
 \cite{BeckersETAL2005, SevvanaETAL2017},
 which is present upon
 nitrogen starvation. 
@@ -724,7 +743,6 @@ several variants are compared
 in \cite{MuhlETAL2009}.
 %
 %
-\TODO{Do we need (to take care of) the GlnK release mechanism?}
 %
 It seems clear that 
 AmtR sits on the DNA as a dimer
@@ -754,6 +772,7 @@ a truncated \protein{AraC^*}
 that has reduced crosstalk with \signal{IPTG}.
 %
 %
+%
 \ra{
 The genetic sequences can be found 
 in
@@ -765,42 +784,75 @@ in
 for \promoter{BAD} and \promoter{Tac}.
 }
 
-% Ref on Ara>AraC>BAD: \cite{LeeETAL2007}
+% Ref on Ara>AraC>BAD: \cite{LeeETAL2007}, \cite{Schleif2000}
 % Ref on IPTG>LacI>Tac: \cite{DykxhoornStpierreLinn1996}
 
 
 
 \subsection{Intercellular pathways}
 
-\TODO{references to \cite{DuETAL2020}}
+\ra{
+Here we collect 
+key aspects of 
+the intercellular receivers.
+%
+%
+3OC6, IV and 3OC12
+belong to the AHL QS family,
+whereas pC 
+has a p-coumaric acid group 
+rather than a fatty acyl group.
+}
+%
+%
 
-\TODO{comment on toxicity, see SM of Du}
 
-\TODO{WHAT ABOUT THE SENDERS?}
+According to 
+\cite[p.2598]{HirakawaETAL2011} \cite{Fuqua1996, Kylilis2018}
+LuxR homologs are homodimeric.
+%
+\ra{now, which ones are LuxR homologs}
+\hh{luxR & lasR\cite[Table.1]{Fuqua1996},  rpaR\cite[p.2598]{HirakawaETAL2011}, bjaR \cite{Lindemann2011}. (Most -HSL receiver proteins are dimer If the signals have similar structure then so should the protein)}
+
+\ra{do all the receivers here dimerize and accept two signal molecules as in \cite[Fig.~1]{DuETAL2020}}
+
+%
+%
+%
+\ra{
+Of note,
+\cite[SM:p.8]{DuETAL2020} 
+reports that sender cells
+enter the log-phase with delay
+compared to control samples:
+up to 12h
+for Sal and DAPG;
+about 3h 
+for 3OC6, 3OC12, pC and MMF;
+no delay 
+for IV and NG.
+}
+%
+%
+\ra{
+For sequences, biosynthesis and induction curves 
+we refer to
+\cite[SM]{DuETAL2020}.
+}
 
 
-
-	
 \subsubsection*{3OC6} \label{ss:3OC6}
  
-The transcription activator \protein{LuxR}
-occurs in Gram-negative bacteria
+The transcription activator LuxR
+occurs in Gram-negatives
 such as 
 \emph{V.~fischeri}%
 \starlink{https://en.wikipedia.org/wiki/Aliivibrio_fischeri}%
-.
+,
+that is permeable to the (auto)inducer
+3‐oxo‐C6‐homoserine lactone \signal{{3OC6}{-}{HSL}}.
 %
-The bacterium is permeable to the (auto)inducer
-3‐oxo‐C6‐homoserine lactone (3OC6-HSL) .
 %
-The inducer 
-\hh{belongs to \ra{the} acyl homoserine lactone (AHL) \ra{family?}
-that \ra{is} commonly used
-\ra{by whom? ref?}
-in quorum sensing
-\ra{perhaps better to say which ones are in one place (at the beginning of this subsection) with an appropriate ref}
-}. 
-
 It binds to the N-terminal of \protein{LuxR},
 which otherwise inhibits its
 functional C-terminal \cite{StevensDolanGreenberg1994}.
@@ -814,8 +866,6 @@ together with the RNA Pol,
 it protects the \emph{lux} box and the \emph{lux} operon
 promoter
 \cite{StevensDolanGreenberg1994}.
-%
-\TODO{finish}
 
 
 \subsubsection*{IV} \label{ss:IV}
@@ -836,66 +886,57 @@ $-83$ to $-45$
 without the inducer \cite[p.10837]{HuangSchell1991}.
 %
 %
-%
 In \cite{SchellBrownRaju1990},
 it was suggested 
 that the active configuration of \protein{NahR} is a tetramer,
 while \cite{ParkLimShin2005}
 reported that 
 there could be three different complexes
-%
 $\protein{NahR} \with \promoter{Sal}$.
-
-\TODO{make coherent}
-
-\hh{
-Nevertheless, the configuration changes 
-then promotes the RNA polymerase binding near $-35$ (upstream of \promoter{Sal})\cite{HuangSchell1991}.
 %
 %
-The inducer
-(here \signal{Sal}) can induce the conformation change of \protein{NahR},
-and activates the promoter \promoter{Sal}.
-}
-
-%
-%
-Following \cite{Peking2013},
-we suppose
-that 
+Possibly \cite{Peking2013},
 $4 \times \protein{NahR}$ bind to the DNA,
 and
 transcription starts
 once a $\signal{Sal}$
 binds to each \protein{NahR}.
 %
-For the sensors we assume an abundance
-of \protein{NahR},
-hence the inactive form of the promoter
-is $\protein{NahR}_4 \with \promoter{Sal}$.
+%Thus the inactive form of the promoter
+%is $\protein{NahR}_4 \with \promoter{Sal}$.
 %
 %
-\TODO{finish}
+\TODO{note: need \ce{P_c} for NahR} 
+
+\TODO{
+\ra{
+From earlier:
+\hh{NahR to activate the expression of repressor McbR \cite{Rey2005}}
+Is \promoter{Sal} actually McbR ?
+}
+} \hh{No. McbR is a repressor protein. I think what I meant earlier is that NahR(TF) can activate Psal (promoter), which then activate the McbR gene (that encodes McbR protein). But it seems we do not need McbR now?}
+\ra{it's in \cite{NielsenETAL2016} - but I don't think I used it}
 
 
 \subsubsection*{pC} \label{ss:pC}
 
-\hh{
-The p-coumaroyl-HSL/RpaR system 
-(pC-HSL)
-works similarly to AHL/LuxR system, but the pC-HSL is composed of p-coumaric acid rather than fatty acids in AHL.
+\ra{
+P-coumaroyl-HSL/RpaR
+works with p-coumaric acid rather than 
+fatty acids of AHL/LuxR.
+\TODO{$\leftarrow$ this is said above already, can remove?}
 %
-As pC-HSLs come from an anoxygenic phototrophic soil bacterium strain, 
-the luxIR-type pair, rpaI and rpaR shows good orthogonality to many
-QS signals in use \cite{SchaeferETAL2008}.
+%Coming from anoxygenic phototrophic soil bacteria, 
+%the luxIR-type pair, rpaI and rpaR 
+It shows good orthogonality 
+to many QS signals \cite{SchaeferETAL2008}.
 }
-
+%
 \ra{
 The \emph{R.~palustris}%
 \starlink{https://en.wikipedia.org/wiki/Rhodopseudomonas_palustris}
 %
-transcriptional regulator
-\protein{RpaR},
+transcriptional regulator RpaR,
 when purified,
 binds an inverted repeat element 
 centered at $-48.5$bp
@@ -903,12 +944,7 @@ of its promoter
 \cite{HirakawaETAL2011}.
 %
 %
-Transcription depends on 
-the inducer 
-\signal{pC}
-(\emph{p}-coumaroyl-homoserine lactone).
-%
-%
+%1
 %There is
 %pC-HSL-RpaR-activated antisense transcription of \protein{rpaR}.
 %
@@ -919,66 +955,55 @@ bound to the promoter
 activates transcription
 \cite[Discussion]{HirakawaETAL2011}.
 }
-%
-%
-\TODO{finish}
 
 
 \subsubsection*{MMF} \label{ss:MMF}
 
 \TODO{describe}
 
+\cite{ORourkeETAL2009}
+
 
 \subsubsection*{3OC12} \label{ss:3OC12}
 
-\hh{
+
+Two
 3-oxo-dodecanoyl-homoserine lactone (3OC12-HSL)
-belongs to homoserine lactone signaling systems, 
-which binds to the receiver protein \ra{dimer} \protein{LasR}
+molecules
+bind ir\-rever\-sibly to the dimer \protein{LasR}
 from \emph{P.~aeruginosa}%
 \starlink{https://en.wikipedia.org/wiki/Pseudomonas_aeruginosa}%
 . 
 %
-\protein{LasR} irreversibly binds to two molecules of 3OC12-HSL.
 %
-\ra{is there a statement on ``our promoter'' -- probably not}
-The activated LasR protein can activate several lac-responsive promoters with high affinity with no cooperativity (Hill coefficients $\approx$ 1) or with positive cooperativity (Hill coefficients $>$ 1) \cite{SchusterUrbanowskiGreenberg2004}. 
+The activated LasR activates several promoters 
+with high affinity 
+with no or positive cooperativity % (Hill coefficients $\approx$ 1) 
+\cite{SchusterUrbanowskiGreenberg2004, Grant2016}. 
 %
-\TODO{the following statement is practically universally applicable}
-It is suggested that base pair changes can increase 
-the affinity of the promoter to LasR and 
-reduce the affinity to other proteins (\ra{e.g.~}LuxR) 
-\cite{Grant2016},
-\ra{thus increasing orthogonality}.
 %
-Particularly, in the work of \cite[\ra{where}]{DuETAL2020}, 
-they used the mutated
-Las-responsive promoter \promoter{Las^*}.
-}
+A custom promoter \promoter{Las^*} is used
+in \cite[p.2]{DuETAL2020}.
+
 
 
 \subsubsection*{NG} \label{ss:NG}
 
-\ra{
-Naringenin (NG) is the main flavone from grapefruits.
+Naringenin (NG) is the main flavone from grapefruits
+\cite{SiedlerETAL2014, iGEM14_TU_Darmstadt}.
 %
 It binds the homodimeric protein FdeR 
 from \emph{H.~seropedicae}%
 \starlink{https://en.wikipedia.org/wiki/Herbaspirillum_seropedicae}%
 . 
 %
-There are two recognition sites on FdeR, 
-and the binding of NG
+There are two slots for NG,
+whose binding
 induces a conformational change of the dimer. 
 %
 The activated FdeR promotes 
 the ``Flavanone degradation'' operon \promoter{fdeA}.
-\cite{SiedlerETAL2014}
-}
 
-\ra{include:}
-\cite{iGEM14_TU_Darmstadt}
-\cite[SM:p.3]{DuETAL2020}
 
 
 \subsection{Memory module} \label{ss:memory}
@@ -1015,7 +1040,7 @@ stable and responsive over several generations.
 A promoter of choice is flanked 
 by Int recognition sites
 and
-its directionality is 
+its direction is 
 \emph{set}
 by Int
 and 
@@ -1067,6 +1092,16 @@ from
 The dimer 
 binds upstream of the promoter \ce{hrpL} 
 and opens the $\ce{\sigma^{54}{-}RNAP{-}hrpL}$ transcription complex.
+%
+%
+%
+\ra{
+The promoter is weak and saturates,
+so increasing its copy number
+improves the dynamic range
+\cite[p.4]{Wong2015}.
+}
+
 
 \subsubsection*{Ribocomputing}
 
@@ -1078,21 +1113,13 @@ which opens an RBS-occluding stemloop
 on the output mRNA.
 %
 %
-A symmetric variation of the idea is this:
+%Let inputs \ce{A} and \ce{B} produce
+%output \ce{mRNA_A} and \ce{mRNA_B}, resp.,
+%whose RBS is auto-occluded by their own 5' tail.
 %
-Let inputs \ce{A} and \ce{B} 
-produce
-output \ce{mRNA_A} and \ce{mRNA_B}, resp.,
-whose RBS is auto-occluded
-by their own 5' tail.
-%
-Let \ce{A} 
-also produce a short RNA
-\ce{R^*_B}
-such that
-the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
-and vice versa.
-
+%Let \ce{A} also produce a short RNA \ce{R^*_B} such that
+%the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
+%and vice versa.
 
 \subsubsection*{Cross-inhibition} \label{ss:xinh}
 
@@ -1102,11 +1129,34 @@ within larger circuits.
 %
 %
 %
-To fix this, we propose that
+We propose that
 \emph{low} input \ce{A} 
 {inhibit} the downstream of \ce{B},
 and vice versa,
-see \S\ref{s:x-inh}.
+as follows.
+%
+%
+As in 
+\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
+let inputs A/B produce short RNAs \ce{R_A}/\ce{R_B}
+that combine to a trigger RNA.
+%
+%
+Additionally,
+let 
+input B produce 
+let 
+$\ce{R_A} \rep \ce{RBS_a} \act \ce{R^*_B} \rep \ce{R_B}$,
+and vice versa,
+i.e.~\ce{R_A} occludes the RBS
+
+that otherwise produces
+%
+%
+\TODO{finish}
+
+
+% see \S\ref{s:x-inh}.
 
 
 
@@ -1117,9 +1167,6 @@ see \S\ref{s:x-inh}.
 
 \subsection{3-input \texorpdfstring{\XOR}{XOR}} \label{ss:3xor}
 
-\ra{NEW TEXT:}
-%
-%
 The subtractor result bit
 (cf.~Table~\ref{t:subtractor1})
 \begin{align} \label{e:3xor}
@@ -1144,10 +1191,9 @@ whenever any input is flipped.
 We could not find it explicitly in \cite{NielsenETAL2016}.
 %
 %
-Observe that 3-\XOR is a concatenation
+It is a concatenation
 of two \XOR gates (cf.~Fig.~\ref{f:logical-subtractor01})
-and 
-has the DNF%
+with the DNF%
 \starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}:
 $
 	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
@@ -1159,7 +1205,7 @@ $
 	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
 $.
 %
-We considered several implementations:
+We considered:
 %
 \begin{itemize}
 \item
@@ -1174,6 +1220,7 @@ We considered several implementations:
 	\cite[\href{https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0146-0/figures/5}{Fig.~5}]{Wong2015}
 	but
 	with two orthogonal heterodimeric transcription activators
+	%$\ce{HrpR} \with \ce{HrpS}$ and $\ce{pchA} \with \ce{pchB}$
 	(cf.~\S\ref{ss:HrpRS}).
 \item
 	RNA \AND-gates
@@ -1203,66 +1250,25 @@ We considered several implementations:
 	as in 
 	\cite[\href{https://www.nature.com/articles/s41598-017-07386-3/figures/2}{Fig.~2g}]{ChiuJiang2017}.
 \item
-	\TODO{Describe the Cas variant}
+    For completeness, 
+    we mention 
+    the recombinase-based
+    \cite{WeinbergETAL2017}
+    % (\url{https://www.addgene.org/87552/}),
+    and
+    the multi-cell
+    \cite{AuslaenderETAL2017}
+    one-bit adders.
 \end{itemize}
 
+
+\TODO{Describe the Cas variant}
 	
 
-\ra{other notes:}
-
-\ra{full adder in ``mammalian'' cells \cite{WeinbergETAL2017} (\url{https://www.addgene.org/87552/}),
-communicating \cite{AuslaenderETAL2017}}
-
 
 
 %
 
-
-\TODO{migrate what's useful to \S\ref{ss:HrpRS}:}
-
-In \cite[\href{https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0146-0/figures/5}{Fig.~5}]{Wong2015}, 
-a \XOR gate is built with two plasmids. 
-%
-On the first plasmid, 
-a constitutive promoter \TODO{need to specify at some point}
-promotes the synthesis of proteins AraC and RhaS.
-%
-% Ara
-\ra{
-AraC is an arabinose-induced transcription activator
-of the promoter pBAD upstream of HrpS. 
-%
-% Rha
-Similarly, RhaS activates the promoter pRHAB in the presence of inducer rhamnose and then synthesis of HrpR.
-%
-HrpR and HrpS form a heterodimer HrpRS
-that binds to and activates the promoter pHrpL 
-upstream of the repressor $\lambda$CI 
-on the second plasmid.
-%
-At the same time, inducers arabinose and rhamnose 
-each promote the expression
-of the reporter RFP on the second plasmid via
-the promoters pBAD and pRHAB,
-which are, however,
-modified to allow $\lambda$CI to bind
-and prevent expression.
-%
-In this way, 
-RFP is expressed when either one of them is present but not both. 
-
-It is noted \TODO{by whom, where \hh{in this exact cited paper, when they discuss why the copy number is like this} 
-\TODO{what are the copy numbers?} 
-\ra{if you make a specific claim, provide a specific reference [delete when read]}
-}
-that the promoter pHrpL is relatively weak.
-%
-The authors propose to 
-increase the copy number of 
-the second plasmid (where the promoter is located)
-in order to
-increase the dynamic range of the activator dimer.
-}
 
 
 %\begin{figure}
@@ -1273,27 +1279,19 @@ increase the dynamic range of the activator dimer.
 %    \ra{cf. new figure \ref{f:logical-subtractor01}}
 %\end{figure}
 
-\hh{
-The first 2-\XOR (A and B) use the above implementation 
-(i.e.~with heterodimer HrpRS) to regulate the expression of pchB. 
-%
-The 3rd inducer C then triggers the expression of pchA.
-%
-Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger the synthesis of salicylic acid, which then regulates the activator NahR to activate the expression of repressor McbR \cite{Rey2005}.
 
-}
 
-\begin{figure}
-    \centering
-    \includegraphics[width = \linewidth]{gene_circuits_xor/P1.png}
-    \includegraphics[width = \linewidth]{gene_circuits_xor/P2.png}
-    \includegraphics[width = \linewidth]{gene_circuits_xor/P3.png}
-    \includegraphics[width = \linewidth]{gene_circuits_xor/P4.png}
-    \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with \url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the design diagram}
-    \ra{if you keep them online please provide a url and/or upload all relevant files (not just the figures); also: vector graphics [delete when read]}
-    }
-    \label{f:gene_circuit_xor}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width = \linewidth]{gene_circuits_xor/P1.png}
+%   \includegraphics[width = \linewidth]{gene_circuits_xor/P2.png}
+%    \includegraphics[width = \linewidth]{gene_circuits_xor/P3.png}
+%    \includegraphics[width = \linewidth]{gene_circuits_xor/P4.png}
+%    \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the %activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be %blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with %\url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the %design diagram}
+%    \ra{if you keep them online please provide a url and/or upload all relevant files (not just the %figures); also: vector graphics [delete when read]}
+%    }
+%    \label{f:gene_circuit_xor}
+%\end{figure}
 
 
 \ra{Note: we don't do PNG b/c that doesn't scale well (neither up nor down). unfortunately, www.circuit-diagram.org doesn't export eps or pdf, but it does export svg, from which I make pdf [delete when read]}
@@ -1306,6 +1304,9 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 
 
 \section{Simulations}
+
+\TODO{general considerations}
+
 
 \subsection{PlayerA} \label{s:sim:player}
 
@@ -1323,6 +1324,7 @@ Similarly, only when pchB and pchA are co-expressed, the dimer pchBA can trigger
 		\multicolumn{2}{c|}{\ce{\#r_1}} & \multicolumn{2}{c}{\ce{\#r_0}}
 		%
 		\\
+		\hline
 		%
 		\ce{\#w_A} = 0.1 & \ce{\#w_A} = 10 &
 		\ce{\#w_A} = 0.1 & \ce{\#w_A} = 10 
@@ -1369,26 +1371,27 @@ We omit closer discussion to focus on Bit~1.
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
 
+
 \subsubsection*{c2} \label{s:sim:bit1:c2}
 
 
 
 \subsubsection*{d1} \label{s:sim:bit1:d1}
 
-Consider bit 1 of Subtractor A.
+Consider Subtractor A.
 %
 Suppose \ce{s_1 r_1 c_1 = 101},
-in which case \ce{c_2 = 0}.
+in which case \ce{d_1 = 0}.
 %
 Suppose a transcription factor \ce{Y}
-encoding \ce{c_2},
-promotes expression of \ce{Xis} in the memory subunit.
+promotes expression of \ce{Xis} in the memory subunit
+when \ce{d_1 = 1} is intended.
 %
 %
-When \ce{w_B} is up,
+When \ce{w_B = 1},
 access to memory is on.
 %
-Since we want \ce{c_2 = 0},
+Since we want \ce{d_1 = 0},
 the amount of \ce{Y} is low,
 but
 around the timepoint when 
@@ -1398,7 +1401,7 @@ and the inputs begin to change,
 %
 This is sufficient to produce \ce{Xis}
 and thus to cause an unintended \emph{reset}
-towards \ce{c_2 = 1}.
+towards \ce{d_1 = 1}.
 %
 We found two ways to mitigate this
 in the computational model.
@@ -1412,7 +1415,7 @@ and could be sensitive to degradation rates.
 %
 A more robust way
 is a buffer for \ce{Y}
-(a ``shelf'')
+-- a ``shelf'' --
 that 
 %
 i)
@@ -1451,20 +1454,22 @@ also
 		\multicolumn{2}{c|}{\ce{\#d_1}} & \multicolumn{2}{c}{\ce{\#c_2}}
 		%
 		\\
+		\hline
 		%
 		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 &
 		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 
 		%
 		\\
 		%
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__c1_in=0.1}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=30__c1_in=0.1}
 		&
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__c1_in=10}
+		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=30__c1_in=10}
 		&
 		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2__c1_in=0.1}
 		&
 		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2__c1_in=10}
 	\end{tabular}
+	%
 	%
 	\caption{%
 		Response surfaces of Subtractor A
