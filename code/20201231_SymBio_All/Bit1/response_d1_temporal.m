@@ -45,12 +45,12 @@ function response_d1_temporal
 	% Set input
 	addevent(m1, "time >= 1250", "wB_in = 15");
 	addevent(m1, "time >= 1250", "s1_in = 10");
-	addevent(m1, "time >= 1250", "r1_in = 10");
-	addevent(m1, "time >= 1250", "c1_in = 0.01");
+	addevent(m1, "time >= 1250", "r1_in = 0.01");
+	addevent(m1, "time >= 1250", "c1_in = 10");
 
 	% Remove input
 	addevent(m1, "time >= 1500", "wB_in = 0.01");
-	addevent(m1, "time >= 1500", "s1_in = 0.01");
+	addevent(m1, "time >= 1497", "s1_in = 0.01"); % MISTIMING
 	addevent(m1, "time >= 1500", "r1_in = 0.01");
 	addevent(m1, "time >= 1500", "c1_in = 0.01");
 

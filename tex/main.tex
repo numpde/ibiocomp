@@ -395,8 +395,15 @@ shows a reference logic circuit
 for Bit~0 and Bit~1
 that illustrates the principle of delayed response.
 
+%
 
-
+\ra{
+Since
+Bits 0/2/3 
+are technically a subfunctionality of Bit~1,
+we will
+omit their discussion and focus on Bit~1.
+}
 
 
 %%% TABLE %%%
@@ -484,12 +491,13 @@ Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
 }
 
+\TODO{six tubes?}
+
 
 \ra{
 The experiment is
 \textbf{initialized in Phase A}
 by supplying
-along with
 \signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
 to Subtractor B
 and
@@ -518,7 +526,7 @@ to Bit~1, wait for response
 (with \ce{c_2}).
 %
 Admix the medium of Bit~1 
-with \ce{r_0}/\ldots/\ce{c_2})
+(with \ce{r_0}/\ldots/\ce{c_2})
 to
 Bit~2,
 wait for response
@@ -596,6 +604,9 @@ e.g.~%
 tetracycline%
 \starlink{https://en.wikipedia.org/wiki/Tetracycline}.
 }
+
+%
+
 
 
 
@@ -751,7 +762,7 @@ a ribo-\AND gate with cross-inhibition
 \subsection{Intracellular pathways (transducers)}
 
 
-\subsubsection*{AmtR}
+\subsubsection*{AmtR} \label{ss:AmtR}
 
 The TetR-like AmtR 
 regulates
@@ -1177,6 +1188,7 @@ on the output mRNA.
 
 \subsubsection*{Cross-inhibition} \label{ss:xinh}
 
+\ra{
 Even in our idealized simulations
 such \AND gates produce undesired leakage
 within larger circuits.
@@ -1240,7 +1252,7 @@ in terms of the output of the promoters.
 %
 %
 See Fig.~\ref{f:sub_response}.
-
+}
 
 % see \S\ref{s:x-inh}.
 
@@ -1373,7 +1385,7 @@ but
 around the timepoint when 
 \ce{w_B} is turned off
 and the inputs begin to change,
-\ce{Y} can experience a transient bump
+\ce{Y} can exhibit a transient bump
 (which we observed in some simulations).
 %
 This is sufficient to produce \ce{Xis}
@@ -1384,8 +1396,7 @@ We found two ways to mitigate this.
 One is to condition the expression of \ce{Xis}
 on \ce{w_B} also
 --
-but this requires \ce{w_B} to go down
-before other change
+but this requires \ce{w_B} to go down early
 and requires 
 finer tuning of degradation rates.
 %
@@ -1476,14 +1487,103 @@ $
 
 \section{Simulations}
 
-\TODO{general considerations}
+\subsection{General considerations}
+
+Recall from \S\ref{ss:AmtR}
+that 
+the dimerized \protein{AmtR} represses \promoter{AmtR},
+which we can express as
+%
+\[
+	\ce{2 \protein{AmtR}} + \promoter{AmtR}_\text{active}
+	\ce{<=>>}
+	\protein{AmtR}_2 \with \promoter{AmtR}
+	=
+	\text{repressed state}
+	.
+\]
+%
+%
+In steady state, we have the Hill equation
+\[
+	\promoter{AmtR}_\text{active}
+	& =
+	\left(
+		1 + 
+		(\protein{AmtR} / \text{EC50})^n
+	\right)^{-1}
+	\promoter{AmtR}_\text{total},
+	\quad
+	n = 2
+	.
+\]
+%
+%
+In case of an activator we use, for example,
+\[
+	\label{e:Sal}
+	%
+	\promoter{Sal}_\text{active}
+	\ce{=}
+	\left(
+		1 +
+		(\text{EC50} / \signal{Sal})^n
+	\right)^{-1}
+	\promoter{Sal}_\text{total},
+	\quad
+	n = 2
+	.
+\]
+%
+%
+All species are in units of \emph{molecules}.
+%
+We use the above Hill equations
+(without a baseline term)
+for all species with $n = 2$ 
+and 
+mostly $\text{EC50} = 1$ molecules.
+%
+%
+Note that
+\citet[SM:p.10]{NielsenETAL2016}
+report 
+$n = 1.6$ for an insulated AmtR,
+and higher coefficients for
+some other transcription factors.
+%
+%
+We simulate expression and degradation
+such that
+typically
+about $10$ molecules corresponds to the steady state,
+for example
+$
+	\tfrac{\d}{\d{t}}
+	\protein{Output}
+	=
+	k_+ \promoter{Sal}_\text{active} - k_- \protein{Output}
+$
+with
+$k_+ = 1 \ce{s^{-1}}$
+and
+$k_- = 0.1 \ce{s^{-1}}$.
+%
+%
+Generally,
+we take $0.1$ and $10$ molecules to mean \emph{off} and \emph{on},
+respectively.
+
+
+
+\TODO{more general considerations?}
 
 
 \subsection{PlayerA} \label{s:sim:player}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
-
+\TODO{on Player A}
 
 
 %
@@ -1527,15 +1627,6 @@ $
 
 
 
-\subsection{Bits 0, 2, 3}
-
-Bits 0, 2, 3 are half-subtractors
-which are technically a subfunctionality of Bit~1
-(see Table~\ref{t:subtractor1}).
-%
-We omit closer discussion to focus on Bit~1.
-
-
 \subsection{Bit 1} \label{s:sim:bit1}
 
 \url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
@@ -1554,7 +1645,6 @@ We omit closer discussion to focus on Bit~1.
 
 \begin{figure}[hpbt]
 	\begin{tabular}{cc|cc}
-        \hline
 		\multicolumn{2}{c|}{\ce{\#d_1} with shelving}
 		&
 		\multicolumn{2}{c}{\ce{\#c_2} with cross-inhibition}
@@ -1576,30 +1666,28 @@ We omit closer discussion to focus on Bit~1.
 		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=1__c1_in=10}
 	\end{tabular}
 	
-	\begin{tabular}{cc|cc}
-        \hline
-		\multicolumn{2}{c|}{\ce{\#d_1} without shelving}
-		&
-		\multicolumn{2}{c}{\ce{\#c_2} without cross-inhibition}
-		%
-		\\
-		\hline
-		%
-		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 &
-		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 
-		%
-		\\
-		%
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=0__c1_in=0.1}
-		&
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=0__c1_in=10}
-		&
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=0__c1_in=0.1}
-		&
-		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=0__c1_in=10}
-	\end{tabular}
-	%
-	%
+%	\begin{tabular}{cc|cc}
+%		\multicolumn{2}{c|}{\ce{\#d_1} without shelving}
+%		&
+%		\multicolumn{2}{c}{\ce{\#c_2} without cross-inhibition}
+%		%
+%		\\
+%		\hline
+%		%
+%		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 &
+%		\ce{\#c_1} = 0.1 & \ce{\#c_1} = 10 
+%		%
+%		\\
+%		%
+%		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=0__c1_in=0.1}
+%		&
+%		\includegraphics[width=0.22\textwidth]{Bit1/output/response_d1_final__Shelf=0__c1_in=10}
+%		&
+%		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=0__c1_in=0.1}
+%		&
+%		\includegraphics[width=0.22\textwidth]{Bit1/output/response_c2_final__CI=0__c1_in=10}
+%	\end{tabular}
+	
 	\caption{%
 		Response of Subtractor A
 		for varying \ce{\#r_1}($\uparrow$) and \ce{\#s_1}($\rightarrow$).
@@ -1634,7 +1722,7 @@ We omit closer discussion to focus on Bit~1.
     		    \\
     		    \ce{A_1} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 10 
     		    \\
-    		    \ce{B_2} & 10 & 10 & {\color{gray}$0.01$} & 0 
+    		    \ce{B_2} & 10 & {\color{gray}$0.01$} & 10 & 0 
     		    \\
     		    \ce{A_2} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & {\color{gray}$0.01$} & 0
     		    \\
@@ -1650,22 +1738,24 @@ We omit closer discussion to focus on Bit~1.
         %
         The table shows the inputs for each phase.
         %
-        As required,
-        we have
+        We have
         $\#\ce{d_1} \approx 10$ 
-        during the recall phase \ce{A_1}
+        in the recall phase \ce{A_1}
         and
         $\#\ce{d_1} \approx 0$ 
-        during the recall phase \ce{A_2}.
+        in \ce{A_2}.
         %
         Observe the slight delay in the rise of Y
-        at the beginning of \ce{B_1} while it is being ``shelved''
-        and a sustained supply by ``unshelving'' at the end
-        that helps maintaining Xis;
+        at the beginning of \ce{B_1} while it is being ``shelved'';
         conversely,
         the leakage of Y is ``shelved''
         during \ce{B_2}
         preventing unwanted expression of Xis.
+        %
+        At the end of \ce{B_2},
+		a small mistiming in signal decay
+        leads to a bump in Y 
+        that is absorbed by the shelf.
         %
         See also \S\ref{s:sim:bit1:d1}/p.\pageref{s:sim:bit1:d1}.
     }
@@ -1730,282 +1820,6 @@ when the signal \ce{w_A} is present.
 }
 \label{f:logical-subtractor01}
 \end{figure}
-
-
-
-\subsection{Kinetics}
-
-\TODO{explain guidelines}
-
-\subsubsection*{AmtR}
-
-We assume
-the mechanism
-\begin{subequations}
-\[
-	\ce{
-		2 \protein{AmtR} + \promoter{AmtR}
-		& <=>>
-		\protein{AmtR}_2 \with \promoter{AmtR}
-	}
-	%
-	\\
-	%
-	\ce{
-		\promoter{AmtR} 
-		& ->
-		\promoter{AmtR} + \protein{Output}
-	}
-\]
-\end{subequations}
-and
-the kinetics:
-\begin{subequations}
-\[
-	\label{e:AmtR_Act}
-	%
-	\promoter{AmtR} 
-	& =
-	\frac{1}{1 + k_{\ref{e:AmtR_Act}} \protein{AmtR}^{n_{\ref{e:AmtR_Act}}}}
-	\promoter{AmtR}_\text{total}
-	%
-	% here, k = forward / backward
-	%
-	,
-	\\
-	%
-	\label{e:AmtR_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output} 
-	& =
-	k_{\ref{e:AmtR_Out}}
-	\promoter{AmtR}
-	.
-\]
-\end{subequations}
-
-
-\subsubsection*{3OC6}
-
-
-We write
-$\protein{LuxR^\star}$ for $\signal{3OC6\text{-}HSL} \with \protein{LuxR}$
-and
-$\promoter{Lux^\star}$ for $\protein{LuxR^\star} \with \promoter{Lux}$.
-%
-%\TODO{
-%Let $\protein{LuxR^\star}$ denote 
-%the activated form
-%$\signal{3OC6}:\protein{LuxR}$.
-%}
-%
-%
-We assume the mechanism:
-%
-\begin{subequations}
-\[
-	\ce{
-		\signal{{3OC6}} + \protein{LuxR}
-		& <=>>
-		\protein{LuxR^\star}
-	}
-	\\
-	\ce{
-		\protein{LuxR^\star} + \promoter{Lux}
-		& <=>>
-		\promoter{Lux^\star}
-	}
-	\\
-	\ce{
-		\promoter{Lux^\star}
-		& ->
-		\promoter{Lux^\star} + \protein{Output}
-	}
-	.
-\]
-\end{subequations}
-%
-%=======
-%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{P_{Lux}}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{P_{Lux}}
-%	\\
-%	\protein{RNApol} : \promoter{P_{Lux}}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{P_{Lux}} + \protein{Output}
-%>>>>>>> c8a0f57bdb0a7b80747263819cbb64562e087765
-%\TODO{
-%\[
-%	\signal{3OC6} + \protein{LuxR}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star}
-%	\\
-%	\protein{LuxR^\star} + \protein{RNApol} + \promoter{Lux}
-%	& \longleftrightarrow
-%	\protein{LuxR^\star} + \protein{RNApol} : \promoter{Lux}
-%	\\
-%	\protein{RNApol} : \promoter{Lux}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{Lux} + \protein{Output}
-%\]
-%}
-% https://chem.libretexts.org/Bookshelves/Biological_Chemistry/Supplemental_Modules_(Biological_Chemistry)/Enzymes/Enzymatic_Kinetics/Sigmoid_Kinetics
-%
-%
-%
-and the kinetics:
-%
-\begin{subequations}
-\[
-	\label{e:LuxR_Act}
-	%
-	\protein{LuxR^\star} 
-	& =
-	\frac{
-		\signal{{3OC6}}
-	}{
-		k_{\ref{e:LuxR_Act}} + \signal{{3OC6}}
-	}
-	\protein{LuxR}_\text{total}
-%	\TEXT{initially}
-%	\protein{LuxR^\star} = 0
-	,
-	%
-	\\
-	%%
-	\label{e:P_Lux_Act}
-	%
-	\promoter{Lux^\star} 
-	& =
-	\frac{
-		\protein{LuxR^\star}
-	}{
-		k_{\ref{e:P_Lux_Act}} + \protein{LuxR^\star}
-	}
-	\promoter{Lux}_\text{total}
-%	\TEXT{initially}
-%	\promoter{Lux^\star} = 0
-	,
-	%
-	\\
-	%
-	\label{e:P_Lux_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	& =
-	k_{\ref{e:P_Lux_Out}} \promoter{Lux^\star}
-	.
-\]
-\end{subequations}
-%
-%
-In combination, we have
-\[
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	=
-	k_{\ref{e:P_Lux_Out}}
-	\promoter{Lux}_\text{total}
-	\frac{
-		\signal{} \protein{}_\text{total}
-	}{
-		k_{\ref{e:LuxR_Act}} k_{\ref{e:P_Lux_Act}}
-		+
-		k_{\ref{e:P_Lux_Act}} \signal{}
-		+
-		\signal{} \protein{}_\text{total}
-	}
-	.
-\]
-
-
-\subsubsection*{Sal}
-
-
-We write
-$
-	\promoter{Sal^\star} :=
-	\signal{Sal}_4 \with \protein{NahR}_4 \with \promoter{Sal}
-$
-for the active form.
-%
-%
-We assume the mechanism
-%
-\begin{subequations}
-\[
-	\ce{
-		\signal{Sal} + 
-		\signal{Sal}_{k - 1} \with \protein{NahR}_4 \with \promoter{Sal}
-		& <=>>
-		\signal{Sal}_k \with \protein{NahR}_4 \with \promoter{Sal}
-	}
-	,
-	\quad \text{k} = 1, 2, 3, 4,
-	%
-	%
-	\\
-	%
-	%
-	\ce{
-		\promoter{Sal^\star}
-		&
-		->
-		\promoter{Sal^\star} + \protein{Output}
-	}
-\]
-\end{subequations}
-%
-%Mechanism (here \protein{NahR^\star} denotes the activated (tetramer) form):
-%\[
-%	\signal{Sal} + \protein{NahR}
-%	& \longleftrightarrow
-%	\protein{NahR^\star}
-%	 \\
-%	 \protein{NahR^\star} + \protein{RNApol} + \promoter{P_{Sal}}
-%	& \longleftrightarrow
-%	\protein{NahR^\star} + \protein{RNApol} : \promoter{P_{Sal}}
-%	\\
-%	\protein{RNApol} : \promoter{P_{Sal}}
-%	& \longrightarrow
-%	\protein{RNApol} + \promoter{P_{Sal}} + \protein{Output}
-%	.
-%\]
-%
-%
-which we implement as:
-%
-\begin{subequations}
-\[
-	\label{e:NahR_Act}
-	%
-	\promoter{Sal^\star}
-	& =
-	\frac{
-		\signal{}^{n_{\ref{e:NahR_Act}}}
-	}{
-		k_{\ref{e:NahR_Act}} + \signal{}^{n_{\ref{e:NahR_Act}}}
-	}
-	\promoter{Sal}_\text{total}
-	,
-	%
-	%
-	\\
-	%
-	%
-	\label{e:NahR_Out}
-	%
-	\tfrac{\d}{\d{t}}
-	\protein{Output}
-	& =
-	k_{\ref{e:NahR_Out}} 
-	\promoter{Sal^\star}
-	.
-\]
-\end{subequations}
-
 
 
 
