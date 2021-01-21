@@ -16,6 +16,7 @@
 
 
 \usepackage{natbib}
+\let\cite\citep
 
 % https://tex.stackexchange.com/questions/3802/how-to-get-doi-links-in-bibliography
 % \usepackage{doi}
@@ -38,6 +39,9 @@
 % https://tex.stackexchange.com/questions/202046/width-of-the-caption-of-a-figure
 % https://tex.stackexchange.com/questions/29039/how-to-limit-the-figure-caption-width
 \usepackage[margin=10px]{caption}
+
+% http://www.texfaq.org/FAQ-ftnsect
+\usepackage[stable]{footmisc}
 
 % https://tex.stackexchange.com/questions/20792/how-to-superimpose-latex-on-a-picture
 \usepackage[percent]{overpic}
@@ -114,20 +118,31 @@
 
 
 
+
 \begin{document}
 
 \maketitle
-
-% \ra{LOCKED 'COS WORKING WITH ANOTHER COPY (WRITE EMAIL IF NEEDED)}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{The game of 15 sticks}
+\subsection{The game of 15 sticks%
+	\footnote{%
+		Cite as:
+		\MyTitle, \MyAuthor, \MyDate,
+		\href{\linktodoc}{{\texttt{\linktodoc}}}.
+		%
+		See the link 
+		for the Matlab/SymBiology files
+		and 
+		for the PDF file with sharp figures.%
+	}%
+}
+
 
 We design genetic circuits
+\ra{in \emph{E.~coli}}
 that play the following game:
 %
 \begin{quote}
@@ -138,14 +153,17 @@ that play the following game:
 	The last player to take a stick loses.
 \end{quote}
 
-Because a player can complement
-the number of sticks taken by the opponent,
-there is a deterministic winning strategy
-of the first-mover
-as shown in Table \ref{t:logical-playera}.
+%Because a player can complement
+%the number of sticks taken by the opponent,
+
+%The deterministic winning strategy
+%of the first-mover
+%in shown in Table \ref{t:logical-playera}.
+%%
+%We implement it for both players.
+
 %
-%
-We implement this strategy for both players.
+
 
 
 \subsection{General design} \label{s:general}
@@ -182,13 +200,13 @@ intercellular signaling molecules,
 cf.~\S\ref{ss:experiment}.
 %
 Although our players are essentially identical,
-we model them separately and with one difference:
+we model them separately with one difference:
 Player A (B) becomes active when 
 the extracellular signal \ce{w_A} (\ce{w_B}) is supplied.
 
 %
 
-The \emph{subtractor} module
+The \emph{Subtractor} module
 keeps track of the number of sticks left \eqref{e:s0123}.
 To appreciate the key design issue, suppose
 we manually transmit the response \ce{r_1 r_0 = 01}
@@ -200,9 +218,9 @@ and not keep subtracting the value \ce{r_1 r_0}
 that is still present.
 One solution is single-use subtractors
 but then the result of each computation
-has to be imparted to an unused subtractor.
-Barring excessive manual intervention,
-a feasible design
+has to be imparted to an unused one.
+%
+A feasible design
 seems to require some separation of
 reading/storing the current state,
 computing the new state and communicating it
@@ -245,7 +263,7 @@ Phase B is initiated by
 supplying the master signal \ce{w_B}.
 %
 %
-In short,
+Briefly,
 we require
 a gated memory module and a delayed response,
 cf.~\S\ref{ss:sub}.
@@ -271,7 +289,7 @@ we encode \ce{w_A} by L-arabinose,
 Our convention is \ce{w_A = 1}
 if 
 the corresponding messenger molecule L-arabinose 
-is present in the medium or in the cell 
+is present in the medium/cell 
 in sufficiently high quantity,
 and \ce{w_A = 0} otherwise.
 %
@@ -361,8 +379,7 @@ which subtracts \ce{c_2} from \ce{s_2}.
 Then Bit~3 subtracts the resulting carry flag
 \ce{c_3} from \ce{s_3}.
 %
-Each of
-Bit 0/2/3,
+Each Bit 0/2/3
 is in fact a ``half-subtractor'' with 2 inputs,
 whilst
 Bit~1 is a ``full subtractor'' with 3 inputs.
@@ -418,36 +435,34 @@ and
 \emph{three} for the carry flags
 (see \S\ref{ss:sub}).
 %
+Thus we need \emph{eight} orthogonal intercellular channels,
+cf.~Table \ref{t:substeps}.
+%
 One channel could be spared 
 at the expense
 of a more involved computation of 
 the last useful carry flag~$c_3$.
 %
-Thus we need \emph{eight} orthogonal intercellular channels,
-cf.~Table \ref{t:substeps}.
-%
-In \cite{DuETAL2020},
+\citet{DuETAL2020}
+designed
 ten de novo intercellular signaling pathways
-were designed
 and
-four known QS pathways
-were optimized,
-however,
+optimized
+four known QS pathways.
+%
+However,
 only \emph{eight} worked well orthogonally
 on the sensor level 
 and 
 seven on the promoter level
 \cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
 %
-We have assigned the signals
+We have assigned in Table~\ref{t:signals}
+the signals
 to minimize crosstalk,
 in particular 
-avoiding LuxR and RpaR in one cell
-as warned in \cite[p.6]{DuETAL2020}.
-%
-The signals are listed in
-Table~\ref{t:signals}.
-%
+avoiding LuxR and RpaR in one cell,
+heeding the advice in \cite[p.6]{DuETAL2020}.
 %
 %
 
@@ -470,44 +485,61 @@ the number of intercellular channels needed.
 }
 
 
-\TODO{what species are we working with}
-
-
-\TODO{experimental protocol:}
+\ra{
+The experiment is
+\textbf{initialized in Phase A}
+by supplying
+along with
+\signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
+to Subtractor B
+and
+to Player A.
+}
 %
-In phase A.
+%
+In \textbf{Phase A}.
 %
 Add \ce{w_A} everywhere.
+%)
+Admix the medium of Bit~0 and Bit~1 
+(containing the signals \ce{s_0} and \ce{s_1})
+to Player~A,
+wait for Player~A to respond
+(with \ce{r_0}/\ce{r_1}).
 %
-Then:
+Admix the medium of Player~A
+(with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1})
+to Bit~0, wait for response
+(with \ce{c_1}).
 %
-\begin{enumerate}
-\item 
-    Admix the medium of Bit~0 and Bit~1 
-    (containing the signals \ce{s_0} and \ce{s_1})
-    to Player~A,
-    wait for Player~A to respond
-    (with \ce{r_0}/\ce{r_1}).
-    
-\item
-    Admix the medium of Player~A
-    (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1})
-    to Bit~0, wait for response
-    (with \ce{c_1}).
-    
-\item
-    Admix the media of Player~A and Bit~0
-    (with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}/\ce{c_1})
-    to Bit~1, wait for response
-    (with \ce{c_2}). 
-    
-\item
-    
-\item
-    Admix the medium from Bit~3 to Bit~4.
-    
-\end{enumerate}
-
+Admix the media of Player~A and Bit~0
+(with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}/\ce{c_1})
+to Bit~1, wait for response
+(with \ce{c_2}).
+%
+Admix the medium of Bit~1 
+with \ce{r_0}/\ldots/\ce{c_2})
+to
+Bit~2,
+wait for response
+(with \ce{c_3}).
+%
+Admix the medium of Bit~2
+(with \ce{r_0}/\ldots/\ce{c_3})
+to Bit~3,
+wait for response.
+%
+%
+In \textbf{Interphase}.
+%
+Clear all media.
+%
+\ra{Wait for the signaling molecules to diffuse
+out of the cells, clear again ?}
+%
+In \textbf{Phase B}.
+%
+Mutatis mutandis.
 
 
 
@@ -543,17 +575,7 @@ Then:
 
 \TODO{mention a microfluids setup?}
 
-\ra{
-The experiment is initialized
-in Phase A
-by supplying
-the master signal \signal{w_A}
-along with
-\signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
-to Subtractor B
-and
-to Player A.
-}
+\TODO{do we need Table~\ref{t:substeps}}
 
 %
 
@@ -567,25 +589,14 @@ that report on signaling molecules
 in order to 
 monitor the state of the game;
 c) \ra{
-a set of cells that emit 
+cells that emit 
 \signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
-upon one signal, say 
+upon one signal, 
+e.g.~% 
 tetracycline%
 \starlink{https://en.wikipedia.org/wiki/Tetracycline}.
 }
 
-
-
-
-\subsection{``Cite as'' and codes}
-
-\MyTitle, \MyAuthor, \MyDate.
-\href{\linktodoc}{{\small\texttt{\linktodoc}}}
-
-See the link 
-for the Matlab/SymBiology files
-and 
-for the PDF file with sharp figures.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -603,7 +614,7 @@ The iGEM part
 is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter
 \cite{iGem_Pc}.
 %
-We refer to it as \ce{P_c}.
+%We refer to it as \ce{P_c}. % used?
 %
 \TODO{check that citation is correct}
 }
@@ -655,9 +666,8 @@ $\promoter{cI^*_-} := \promoter{{5G6G}}$.
 
 \subsection{3-input gates by Cello} \label{ss:cello}
 
-In
-\cite{NielsenETAL2016}
-we found these gates
+\citet{NielsenETAL2016}
+reported these gates
 among good performers:
 %
 %\begin{itemize}
@@ -707,7 +717,7 @@ and
 replacing the repressor {PhlF}
 (which clashes with the \ce{s_0} sensor) 
 by {HlyIIR}
-(also from \cite{NielsenETAL2016}).
+(also from \citep{NielsenETAL2016}).
 %
 The last operation
 is a ``poor man's \OR gate'';
@@ -715,17 +725,17 @@ we let it produce \ce{cI^*}
 (\S\ref{ss:cI})
 that
 triggers the synthesis of \signal{r_0}.
-
 %
-
+%
+%
 We observed that \ce{r_1} can reuse 
 most of this circuitry
 and implemented 
 the remainder using ribocomputing
-\TODO{explain}.
-
+(details omitted).
 %
-
+%
+%
 For \ce{c_2}, we took
 $\NOT \mathsf{0x8E}$,
 replacing the sensors
@@ -762,8 +772,9 @@ which is present upon
 nitrogen starvation. 
 %
 The AmtR box and the regulon is 
-characterized in 
-\cite{BeckersETAL2005},
+characterized  
+in
+\cite{BeckersETAL2005}
 and
 several variants are compared 
 in \cite{MuhlETAL2009}.
@@ -779,9 +790,10 @@ AmtR sits on the DNA as a dimer
 %\cite{MuhlETAL2009}
 %\cite{BuchingerETAL2009}
 
-\subsubsection*{...}
 
-\TODO{continue}
+\TODO{list all TF used, no details for now}
+
+\TODO{hammerheads of \cite{LouETAL2012}}
 
 
 \subsection{Extracellular signaling} \label{ss:wAB}
@@ -792,7 +804,8 @@ and are supplied by the experimenter.
 %
 %
 %
-Following \cite[SM, VII.M]{NielsenETAL2016}/\cite{LeeETAL2007}
+Following \citet[SM, VII.M]{NielsenETAL2016}
+% \citet{LeeETAL2007}
 we posit
 a truncated \protein{AraC^*}
 that has reduced crosstalk with \signal{IPTG}.
@@ -800,7 +813,7 @@ that has reduced crosstalk with \signal{IPTG}.
 %
 %
 \ra{
-The genetic sequences can be found 
+The sequences can be found 
 in
 \cite[SM, Table~S8]{NielsenETAL2016}
 for \protein{Ara^*} and \protein{LacI},
@@ -834,9 +847,10 @@ rather than a fatty acyl group.
 
 
 According to 
-\cite[p.2598]{HirakawaETAL2011} \cite{Fuqua1996, Kylilis2018}
+\citet[p.2598]{HirakawaETAL2011}
 LuxR homologs are homodimeric.
 %
+\cite{Fuqua1996, Kylilis2018}
 \ra{now, which ones are LuxR homologs}
 \hh{
 luxR \& lasR \cite[Table~1]{Fuqua1996},  
@@ -852,8 +866,8 @@ bjaR \cite{Lindemann2011}.
 %
 \ra{
 Of note,
-\cite[SM:p.8]{DuETAL2020} 
-reports that sender cells
+\citet[SM:p.8]{DuETAL2020} 
+reported that sender cells
 enter the log-phase with delay
 compared to control samples:
 up to 12h
@@ -1016,7 +1030,7 @@ from \emph{P.~aeruginosa}%
 The activated LasR activates several promoters 
 with high affinity 
 with no or positive cooperativity % (Hill coefficients $\approx$ 1) 
-\cite{SchusterUrbanowskiGreenberg2004, Grant2016}. 
+\citep{SchusterUrbanowskiGreenberg2004, Grant2016}. 
 %
 %\cite[\href{https://www.embopress.org/doi/full/10.15252/msb.20156590}{p.1}]{Grant2016}
 %
@@ -1029,7 +1043,7 @@ in \cite[p.2]{DuETAL2020}.
 \subsubsection*{NG} \label{ss:NG}
 
 Naringenin (NG) is the main flavone from grapefruits
-\cite{SiedlerETAL2014, iGEM14_TU_Darmstadt}.
+\citep{SiedlerETAL2014, iGEM14_TU_Darmstadt}.
 %
 It binds the homodimeric protein FdeR 
 from \emph{H.~seropedicae}%
@@ -1111,11 +1125,11 @@ The flanked promoter is activated by another
 external signal (say, \signal{w_A}).
 
 
-\subsection{Enhanced AND gate}
+\subsection{Enhanced \texorpdfstring{\AND}{AND} gate} \label{ss:and}
 
 \subsubsection*{HrpR/HrpS} \label{ss:HrpRS}
 
-\cite[\href{https://www.nature.com/articles/ncomms1516/figures/1}{Fig.~1}]{WangKitneyJolyBuck2011}
+\citet[\href{https://www.nature.com/articles/ncomms1516/figures/1}{Fig.~1}]{WangKitneyJolyBuck2011}
 proposed 
 an \AND gate in \emph{E.~coli}
 using the heterodimeric transcription factor 
@@ -1144,7 +1158,7 @@ improves the dynamic range
 
 \subsubsection*{Ribocomputing}
 
-\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
+\citet[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 combined
 two short input/sensor RNAs
 \ce{A} and \ce{B}
@@ -1260,7 +1274,7 @@ is particularly difficult
 because the result flips 
 whenever any input is flipped.
 %
-We could not find it explicitly in \cite{NielsenETAL2016}.
+We could not find it explicitly in \citep{NielsenETAL2016}.
 %
 %
 It is a concatenation
@@ -1325,11 +1339,11 @@ We considered:
     For completeness, 
     we mention 
     the recombinase-based
-    \cite{WeinbergETAL2017}
+    \citep{WeinbergETAL2017}
     % (\url{https://www.addgene.org/87552/}),
     and
     the multi-cell
-    \cite{AuslaenderETAL2017}
+    \citep{AuslaenderETAL2017}
     one-bit adders.
 \end{itemize}
 
@@ -1363,8 +1377,7 @@ and the inputs begin to change,
 (which we observed in some simulations).
 %
 This is sufficient to produce \ce{Xis}
-and thus to cause an unintended \emph{reset}
-towards \ce{d_1 = 1}.
+and thus to cause an unintended \emph{reset}.
 %
 We found two ways to mitigate this.
 %
@@ -1385,8 +1398,8 @@ has high affinity for \ce{Y};
 %
 ii)
 sequesters 
-about 30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50}%
-($\ce{Y} \act \ce{Xis}$)
+about 
+30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50}${}_\text{\ce{Y}\act\ce{Xis}}$
 copies of \ce{Y};
 %
 iii)
