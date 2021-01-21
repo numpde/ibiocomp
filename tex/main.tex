@@ -38,7 +38,8 @@
 
 % https://tex.stackexchange.com/questions/202046/width-of-the-caption-of-a-figure
 % https://tex.stackexchange.com/questions/29039/how-to-limit-the-figure-caption-width
-\usepackage[margin=10px]{caption}
+% https://tex.stackexchange.com/questions/822/change-the-font-of-figure-captions
+\usepackage[margin=10px,font={small}]{caption}
 
 % http://www.texfaq.org/FAQ-ftnsect
 \usepackage[stable]{footmisc}
@@ -128,7 +129,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{The game of 15 sticks%
-	\footnote{%
+	\texorpdfstring{\footnote{%
 		Cite as:
 		\MyTitle, \MyAuthor, \MyDate,
 		\href{\linktodoc}{{\texttt{\linktodoc}}}.
@@ -137,7 +138,7 @@
 		for the Matlab/SymBiology files
 		and 
 		for the PDF file with sharp figures.%
-	}%
+	}}{}%
 }
 
 
@@ -326,7 +327,7 @@ tln = translation,
 {3OC6} = {3OC6}{-}HSL (etc.),
 SM = supplementary material,
 DNF = disjunctive normal form.
-
+% EC50 = half maximal effective concentration
 
 
 \subsection{Logic circuits}
@@ -491,7 +492,28 @@ Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
 }
 
-\TODO{six tubes?}
+\hh{The experiment setup includes 6 compartments, including two for Players (A and B) and four for the subtractor (computing units Bit 0 to 3). 
+Note that in each computing unit, there are two sub-population of cells as Subtractor A and B.
+%
+\begin{enumerate}
+    \item The experiment is initialized
+by supplying
+\signal{s_1}/\signal{s_0} to Player A, \signal{s_2} to Bit 2 and \signal{s_3} to Bit 3 (i.e the number of sticks is 15 to start with).
+    \item The \ce{w_A} is added to Player A as the wake-up signal and trigger the computation in Player A. Here we assume that the consumption of \signal{w_A, s_0, s_1} is negligible (i.e, remain high concentration) during computation.
+    \item The original medium from Player A (\ce{w_A, r_0, r_1, s_0, s_1}) is admixed to Bit 0; and the compartment Player A is washed and replaced with new medium (i.e, no w/s/r present). With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_0} but do not emit the signal \ce{d_0}. With \ce{r_0, s_0} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_1}. 
+    \item The original medium from Bit 0 (\ce{w_A, r_0, r_1, s_0, s_1, c_1}) is admixed to Bit 1; the compartment Bit 0 is replaced with new medium. With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_1} silently. With \ce{r_1, s_1, c_1} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_2}.
+    \item The original medium from Bit 1 is admixed to Bit 2; and cells in Bit 1 in now washed. Computation in Bit 2 is similar to Bit 1. The similar procedure is repeated for Bit 3.
+    \item At the end of \textbf{Phase A} and \textbf{Interphase}, all players and computing units (Bit 0 ~ 3) is now in fresh medium with no signals w/s/r present. However, the Subtractor B in all computing units now contains the information of differences, i.e \ce{d_0, d_1, d_2} and \ce{d_3}). 
+    \item The phase B starts by adding \signal{w_B} to the Player B and four computing units. When \signal{w_B} is present, all Subtractor B in Bit 0 to 3 now emit \ce{d}, which is now the new \ce{s}. The medium in Bit 0 and Bit 1 (with updated \ce{s_0, s_1}) is admixed to Player B. The following experiment steps repeat previous ones.
+    \item The end of the game is marked that all signals \signal{s_0, s_1, s_2} and \signal{s_3} are zeros, i.e, all sticks are taken.
+
+\end{enumerate}
+ 
+
+}
+
+\TODO{remove redundant description from \S\ref{ss:sub} and from the following}
+
 
 
 \ra{
@@ -581,9 +603,8 @@ Mutatis mutandis.
 \end{table}
 
 
-\TODO{mention a microfluids setup?}
 
-\TODO{do we need Table~\ref{t:substeps}}
+\TODO{do we need Table~\ref{t:substeps}} \hh{perhaps no}
 
 %
 
@@ -625,13 +646,12 @@ The iGEM part
 is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter
 \cite{iGem_Pc}.
 %
-%We refer to it as \ce{P_c}. % used?
+We refer to it as \ce{P_c}. 
 %
-\TODO{check that citation is correct}
 }
 
 \hh{
-Constitutive promoter activity requires \ra{a} RNA polymerase holoenzyme
+Constitutive promoter activity requires \ra{an} RNA polymerase holoenzyme
 but no transcription factors. 
 %
 Since we work with \emph{E.~coli},
@@ -645,6 +665,9 @@ which utilize the bacteria's internal RNA polymerase for gene expression.
 
 
 \subsubsection*{cI} \label{ss:cI}
+
+
+\TODO{could you pls sanity-check that I understand this correctly}
 
 \ra{
 The optimized and orthogonal variant
@@ -671,7 +694,9 @@ $\promoter{cI^*_-} := \promoter{{5G6G}}$.
 %an inhibitory RNA that is complementary
 %to the RBS region of $\text{mRNA}_1$.
 }
-
+%
+%
+\TODO{also need \ce{cI}, perhaps optimized from Broedel}
 
 
 
@@ -761,7 +786,6 @@ a ribo-\AND gate with cross-inhibition
 
 \subsection{Intracellular pathways (transducers)}
 
-
 \subsubsection*{AmtR} \label{ss:AmtR}
 
 The TetR-like AmtR 
@@ -802,10 +826,32 @@ AmtR sits on the DNA as a dimer
 %\cite{BuchingerETAL2009}
 
 
-\TODO{list all TF used, no details for now}
+\TODO{these are the TFs / promoters used}
 
-\TODO{hammerheads of \cite{LouETAL2012}}
+Player:
+BetI, HlyIIR, \ce{cI^*}, \ce{P_{c}}
+\href{https://i.ibb.co/N2kdwJL/Screenshot-from-2021-01-21-12-06-59.png}{Figure}
 
+C2:
+AmtR, HlyIIR, \ce{cI}, \ce{cI^*}, \ce{P_{c}}
+\href{https://i.ibb.co/Mh2sWzg/Screenshot-from-2021-01-21-12-02-31.pngs}{Figure}
+
+D1:
+\ce{P_{c}}, \ce{cI^*}
+\href{https://i.ibb.co/0QRf919/Screenshot-from-2021-01-21-12-04-19.png}{Figure}
+
+
+\subsection{Insulation of genetic context}
+
+\TODO{hammerheads of \cite{LouETAL2012}, \cite{NielsenETAL2016} }
+
+\hh{In the construct of genetic circuit, insulator is often used to isolate different part of components. In the work of \cite{LouETAL2012}, a ribozyme-based insulator DNA sequence is inserted between the junction site and RBS. After transcription, the insulator mRNA forms a ribozyme structure that cuts off the leader sequence and scar downstream of +1 position. It also contains an additional hairpin structure, which helps to expose the RBS. The usage of insulator helps to prevent the interference of the upstream components to the downstream.}
+
+\subsection{RBS}
+
+\TODO{RBS}
+
+\hh{RBS refers to ribosome binding site, }
 
 \subsection{Extracellular signaling} \label{ss:wAB}
 
@@ -857,20 +903,15 @@ rather than a fatty acyl group.
 %
 
 
-According to 
+\hh{According to 
 \citet[p.2598]{HirakawaETAL2011}
-LuxR homologs are homodimeric.
+LuxR homologs, which function as homoserine lactones receivers are homodimeric.
 %
-\cite{Fuqua1996, Kylilis2018}
-\ra{now, which ones are LuxR homologs}
-\hh{
+In the work of \cite{DuETAL2020}, LuxR homologs used including 
 luxR \& lasR \cite[Table~1]{Fuqua1996},  
 rpaR \cite[p.2598]{HirakawaETAL2011}, 
 bjaR \cite{Lindemann2011}. 
-(Most -HSL receiver proteins are dimer If the signals have similar structure then so should the protein)
 }
-
-\ra{do all the receivers here dimerize and accept two signal molecules as in \cite[Fig.~1]{DuETAL2020}}
 
 %
 %
@@ -931,7 +972,7 @@ Isovaleryl-HSL (IV-HSL) is a branched-chain fatty acyl-HSL from soybean symbiont
 \emph{B.~japonicum}%
 \starlink{https://en.wikipedia.org/wiki/Bradyrhizobium_japonicum}
 that regulate \protein{BjaR}.
-In the presence of IV, dimerized BjaR activate \promoter{Bja}.
+In the presence of IV, dimerized BjaR activate \promoter{Bja}. \cite{Lindemann2011}
 }
 
 \subsubsection*{DAPG} \label{ss:DAPG}
@@ -986,11 +1027,7 @@ Is \promoter{Sal} actually McbR ?
 P-coumaroyl-HSL/RpaR
 works with p-coumaric acid rather than 
 fatty acids of AHL/LuxR.
-\TODO{$\leftarrow$ this is said above already, can remove?}
-%
-%Coming from anoxygenic phototrophic soil bacteria, 
-%the luxIR-type pair, rpaI and rpaR 
-It shows good orthogonality 
+Hence, it shows good orthogonality 
 to many QS signals \cite{SchaeferETAL2008}.
 }
 %
@@ -1361,7 +1398,6 @@ We considered:
 
 
 \TODO{Describe the Cas variant}
-	
 
 
 \subsection{Shelving}
@@ -1391,16 +1427,16 @@ and the inputs begin to change,
 This is sufficient to produce \ce{Xis}
 and thus to cause an unintended \emph{reset}.
 %
-We found two ways to mitigate this.
+We found two complementary ways to mitigate this.
 %
-One is to condition the expression of \ce{Xis}
-on \ce{w_B} also
---
-but this requires \ce{w_B} to go down early
-and requires 
-finer tuning of degradation rates.
+One is to condition 
+the expression of \ce{Xis}
+on \ce{w_B} also,
+which requires \ce{w_B} to go down early
+and requires tuning of degradation rates.
 %
-A more robust way
+We implemented another way,
+which
 is a ``shelf'' (a buffer) for \ce{Y}
 that 
 %
@@ -1410,7 +1446,7 @@ has high affinity for \ce{Y};
 ii)
 sequesters 
 about 
-30$\times$\href{https://en.wikipedia.org/wiki/EC50}{EC50}${}_\text{\ce{Y}\act\ce{Xis}}$
+30$\times$EC50${}_\text{\ce{Y}\act\ce{Xis}}$
 copies of \ce{Y};
 %
 iii)
@@ -1512,9 +1548,7 @@ In steady state, we have the Hill equation
 		1 + 
 		(\protein{AmtR} / \text{EC50})^n
 	\right)^{-1}
-	\promoter{AmtR}_\text{total},
-	\quad
-	n = 2
+	\promoter{AmtR}_\text{total}
 	.
 \]
 %
@@ -1529,26 +1563,25 @@ In case of an activator we use, for example,
 		1 +
 		(\text{EC50} / \signal{Sal})^n
 	\right)^{-1}
-	\promoter{Sal}_\text{total},
-	\quad
-	n = 2
+	\promoter{Sal}_\text{total}
 	.
 \]
 %
 %
 All species are in units of \emph{molecules}.
 %
-We use the above Hill equations
-(without a baseline term)
+For simplicity,
+we use the above Hill equations
+(which have no baseline term)
 for all species with $n = 2$ 
 and 
 mostly $\text{EC50} = 1$ molecules.
 %
 %
-Note that
 \citet[SM:p.10]{NielsenETAL2016}
-report 
-$n = 1.6$ for an insulated AmtR,
+reported
+$n = 1.6$ for an insulated AmtR
+(with a certain RBS),
 and higher coefficients for
 some other transcription factors.
 %
@@ -1574,6 +1607,10 @@ Generally,
 we take $0.1$ and $10$ molecules to mean \emph{off} and \emph{on},
 respectively.
 
+\TODO{
+EC50 of signals:
+\cite[SM:Fig.~8]{DuETAL2020}
+}
 
 
 \TODO{more general considerations?}
@@ -1588,7 +1625,7 @@ respectively.
 
 %
 
-\begin{figure}[hpbt]
+\begin{figure}[!p]
 	\begin{tabular}{cc|cc}
 		\multicolumn{2}{c|}{\ce{\#r_1}} & \multicolumn{2}{c}{\ce{\#r_0}}
 		%
@@ -1643,7 +1680,7 @@ respectively.
 
 
 
-\begin{figure}[hpbt]
+\begin{figure}[!p]
 	\begin{tabular}{cc|cc}
 		\multicolumn{2}{c|}{\ce{\#d_1} with shelving}
 		&
@@ -1708,7 +1745,7 @@ respectively.
 
 %
 
-\begin{figure}[phbt]
+\begin{figure}[!p]
     \centering
     %
     \begin{overpic}[width=0.99\textwidth]{Bit1/output/response_d1_tempo__Shelf=1}
