@@ -40,6 +40,9 @@
 % https://tex.stackexchange.com/questions/29039/how-to-limit-the-figure-caption-width
 % https://tex.stackexchange.com/questions/822/change-the-font-of-figure-captions
 \usepackage[margin=10px,font={small}]{caption}
+% https://tex.stackexchange.com/questions/25879/multiple-captions-for-a-single-figure
+\usepackage{subcaption}
+
 
 % http://www.texfaq.org/FAQ-ftnsect
 \usepackage[stable]{footmisc}
@@ -1466,9 +1469,7 @@ We considered:
     
     \TODO{Describe the Cas variant?}
 \item
-    For completeness, 
-    we mention 
-    the recombinase-based
+    The recombinase-based
     \citep{WeinbergETAL2017}
     % (\url{https://www.addgene.org/87552/}),
     and
@@ -1478,10 +1479,34 @@ We considered:
 \end{itemize}
 
 
-\TODO{Describe the final variant}
+\ra{
+Our final design 
+uses ON/OFF RBS switches. 
+%
+Each input signal produces 
+1)~%
+an output mRNA;
+2)~%
+two short RNAs
+that inhibit the mRNA
+of the other two inputs
+using 
+the ``three-way junction'' switch-OFF mechanism
+of \citet{Kim2019};
+3)~%
+a co-trigger RNA:
+when all 3 signals are present
+the co-trigger RNAs form a trimer 
+that opens the RBS of a fourth 
+(constitutively produced) 
+output mRNA
+as in 
+\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
+}
+%
+%
+Details in \S\ref{ss:3xor-details}.
 
-\hh{We propose a 3-input-xor-gate constructed combined switch ON/OFF ribocomputing designs. For each input signal, it activates the output on its own responsive circuit while producing two trigger RNAs (repressor) that switches OFF the output of the other two. The switch OFF mechanism is based on three-way junction (3WJ) repressors proposed in \cite{Kim2019}).
-A third trigger RNA (activator) is produced by each input signal; and when all 3 signals are present, three activator trigger RNAs form a trimer structure that activates the output on the fourth genetic circuit. The 3-input-AND-gate is based on the ribocomputing proposed in \cite{GreenETAL2017}.}
 
 \subsection{Shelving}
 
@@ -1559,45 +1584,6 @@ $
 	\ce{[Y^*]^n}
 	.
 $
-%
-
-%
-
-
-
-%
-%
-
-
-%
-
-
-
-%\begin{figure}
-%    \centering
-%    \includegraphics{circuits/3_input_xor.png}
-%    \caption{3 input \XOR logic gate as cascading \XOR gates}
-%    \label{f:my_label}
-%    \ra{cf. new figure \ref{f:logical-subtractor01}}
-%\end{figure}
-
-
-
-%\begin{figure}
-%    \centering
-%    \includegraphics[width = \linewidth]{gene_circuits_xor/P1.png}
-%   \includegraphics[width = \linewidth]{gene_circuits_xor/P2.png}
-%    \includegraphics[width = \linewidth]{gene_circuits_xor/P3.png}
-%    \includegraphics[width = \linewidth]{gene_circuits_xor/P4.png}
-%    \caption{Construct of layered \XOR gate. Inducer A, B and C are Ara, Rha and IPTG, which regulate the %activity of pBAD, pRHAB and pTAC respectively. Here the tagged promoters refers to the ones that can be %blocked by the upstream repressor. \hh{This is just a design sketch taht i came up with and drew with %\url{https://sboldesigner.github.io}. For the final report we would use something looked nicer for the %design diagram}
-%    \ra{if you keep them online please provide a url and/or upload all relevant files (not just the %figures); also: vector graphics [delete when read]}
-%    }
-%    \label{f:gene_circuit_xor}
-%\end{figure}
-
-
-
-
 %
 
 
@@ -1947,9 +1933,9 @@ when the signal \ce{w_A} is present.
 \label{f:logical-subtractor01}
 \end{figure}
 
-\hh{
-\subsection{3 input XOR gate}
+\subsection{3 input \texorpdfstring{\XOR}{XOR} gate} \label{ss:3xor-details}
 
+\hh{
  In figure \ref{f:p_construct_xor}, the TF circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
  
     %
@@ -1965,23 +1951,38 @@ when the signal \ce{w_A} is present.
     
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_off.pdf}
-    \caption{Switch OFF RBS. The unstable hairpin structure is sealed when the trigger RNA is present, thus repressing the gene expression.}
-    \label{f:switch_off_RBS}
-\end{figure}    
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_on.pdf}
-    \caption{Switch ON RBS. The stem of the stable hairpin structure will be opened when the trigger RNA is present, thus exposing the RBS and activate the gene expression}
-    \label{f:switch_on_rbs}
+    \subcaptionbox{%
+        Switch OFF RBS. 
+        \ra{The unstable hairpin structure is sealed by the trigger RNA, repressing translation}.
+        %
+        \label{f:switch_off_RBS}
+    }[\textwidth]{%
+        \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_off.pdf}
+    }
+    
+    
+    \subcaptionbox{%
+        Switch ON RBS.
+        \ra{The stem of the stable hairpin structure is opened by trigger RNA, 
+        exposing the RBS for translation}.
+        %
+        \label{f:switch_on_RBS}
+    }[\textwidth]{%
+        \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_on.pdf}
+    }
+    
+    \TODO{provide \emph{specific} reference for each, incl figure no}
+    
+    \caption{Upper: Switch-OFF RBS. Lower: Switch-ON RBS.}
+    \label{f:switch_RBS}
 \end{figure}
+
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{images/xor_ribocomputing/3_trigger_rna_on.pdf}
-    \caption{3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
+    \caption{%
+    3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
     \label{f:3_RNA_on_rbs}
 \end{figure}
     
