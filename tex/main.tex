@@ -23,6 +23,7 @@
 
 % 
 \usepackage[version=4]{mhchem}
+\mhchemoptions{font=sf}
 
 \usepackage{fullpage}
 
@@ -883,6 +884,7 @@ inserted a ribozyme
 After transcription, 
 it
 \hh{cuts off the leader sequence and scar}
+\TODO{what is leader and what is scar}
 downstream of +1 position. 
 %
 An additional hairpin helps expose the RBS.
@@ -890,6 +892,7 @@ An additional hairpin helps expose the RBS.
 
 \subsection{RBS}
 
+\TODO{simplify, keep what's relevant:}
 \hh{RBS refers to ribosome binding site, the sequence of nucleotides that is responsible for the recruitment of a ribosome and initiation of translation, which in turn plays an important role in controlling the level and rate of protein expression. 
 Mutation in RBS sequences can change its strength \cite{Salis2011}. 
 %
@@ -974,10 +977,9 @@ via a conformational change.
 %
 It is suggested 
 \cite{Ramos2005}
-\TODO{specific claim requires a specific reference}
+\TODO{where? cldn't find this claim \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1197418/pdf/0030-04.pdf}}
 that the TetR-type proteins are usually homodimers
-with 
-two slots for the inducer.
+with two slots for the inducer.
 %
 \ra{PhlF} and MmfR are TetR homologs.
 % ref? %\citet{DuETAL2020} ?
@@ -1131,7 +1133,7 @@ activates transcription
 
 \subsubsection*{MMF} \label{ss:MMF}
 
-Methylenomycin is an antibioitic produced 
+Methylenomycin is an antibioitic \TODO{a what} produced 
 by \emph{S.~coelicolor}%
 \starlink{https://en.wikipedia.org/wiki/Streptomyces_coelicolor}%
 .
@@ -1148,14 +1150,14 @@ but
 accumulation of \signal{Mmf} releases \protein{MmfR} \cite{ORourkeETAL2009}. 
 }
 %
-\hh{
-The TetR homolog protein MmfR is a homodimer \cite{Zhou2020}, 
-which contains two Mmf recognition sites,
-while different R-groups may alter the binding affinity \cite[p.2-3]{Zhou2020}. 
+The TetR homolog MmfR is a homodimer \cite{Zhou2020}, 
+\TODO{is a dimer or forms a dimer?}
+which contains two Mmf recognition sites.
+%
+Different R-groups \TODO{whats the connection} may alter the binding affinity \cite[p.2-3]{Zhou2020}. 
 %
 \citet{DuETAL2020} use an MMF with a branched side chain.
 \ra{they do?} \hh{p.2 MMF has the chemical structure} \TODO{exact ref}
-}
 
 
 
@@ -1992,7 +1994,7 @@ The circuit consists of 3 trigger RNAs with their own promoter and terminator, a
 %
 %
 
-The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
+The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate \TODO{fix:}(figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
 } 
 
 \begin{figure}
@@ -2023,7 +2025,8 @@ The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{
     
     \TODO{either put all those figures in one PDF or in separate ones}
     
-    \TODO{provide \emph{specific} reference for each, incl figure number}
+    \TODO{these are facsimiles; provide \emph{specific} reference for each, incl figure number}
+    \TODO{include backref in caption}
 \end{figure}
 
 
@@ -2031,20 +2034,26 @@ The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{
     \centering
     \includegraphics[width=\textwidth]{xor_ribocomputing/3_trigger_rna_on.pdf}
     \caption{%
+    \hh{
     3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
+    }
     \label{f:3_RNA_on_RBS}
     
-    \TODO{provide \emph{specific} reference, incl figure number}
+    \TODO{facsimile; provide \emph{specific} reference, incl figure number}
+    \TODO{include backref in caption}
 \end{figure}
     
 \begin{figure}
     \centering
     \includegraphics[height=0.95\textheight]{xor_ribocomputing/plot-3.pdf}
-    \caption{Genetic circuit construct of 3 input XOR gate.}
+    \caption{Genetic circuits for the 3-input \XOR gate.}
     \label{f:p_construct_xor}
+    \TODO{backref in caption}
 \end{figure}
 
 \clearpage
+
+
 
 \section*{Final TODOs}
 
