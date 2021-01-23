@@ -1283,7 +1283,7 @@ two short input/sensor RNAs
 \ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
-on the output mRNA. \hh{We may refer to it as switch ON RBS regulation (appendix, figure \ref{f:switch_on_rbs})}
+on the output mRNA. \hh{We may refer to it as switch ON RBS regulation (appendix, figure \ref{f:switch_on_RBS})}
 
 %
 %
@@ -1946,48 +1946,52 @@ when the signal \ce{w_A} is present.
     %
     %
     
-    The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_rbs} and \ref{f:3_RNA_on_rbs}).
+    The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
    } 
     
 \begin{figure}
     \centering
-    \subcaptionbox{%
-        Switch OFF RBS. 
-        \ra{The unstable hairpin structure is sealed by the trigger RNA, repressing translation}.
-        %
+    
+    
+    \begin{subfigure}{\linewidth}
+        \includegraphics[width=\textwidth]{xor_ribocomputing/switch_off.pdf}
+        \caption{%
+            \ra{The unstable hairpin structure is sealed by 
+            the trigger RNA, repressing translation.}
+        }
         \label{f:switch_off_RBS}
-    }[\textwidth]{%
-        \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_off.pdf}
-    }
+    \end{subfigure}
     
-    \subcaptionbox{%
-        Switch ON RBS.
-        \ra{The stem of the stable hairpin structure is opened by trigger RNA, 
-        exposing the RBS for translation}.
-        %
+    \begin{subfigure}{\linewidth}
+        \includegraphics[width=\textwidth]{xor_ribocomputing/switch_on.pdf}
+        \caption{%
+            \ra{The stem of the stable hairpin structure 
+            is opened by trigger RNA, 
+            exposing the RBS for translation.}
+        }
         \label{f:switch_on_RBS}
-    }[\textwidth]{%
-        \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_on.pdf}
-    }
-    
-    \TODO{provide \emph{specific} reference for each, incl figure no}
+    \end{subfigure}
     
     \caption{Upper: Switch-OFF RBS. Lower: Switch-ON RBS.}
     \label{f:switch_RBS}
+    
+    \TODO{same figure twice, for some reason}
+    
+    \TODO{provide \emph{specific} reference for each, incl figure no}
 \end{figure}
 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{images/xor_ribocomputing/3_trigger_rna_on.pdf}
+    \includegraphics[width=\textwidth]{xor_ribocomputing/3_trigger_rna_on.pdf}
     \caption{%
     3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
-    \label{f:3_RNA_on_rbs}
+    \label{f:3_RNA_on_RBS}
 \end{figure}
     
 \begin{figure}
     \centering
-    \includegraphics{images/xor_ribocomputing/plot-3.pdf}
+    \includegraphics{xor_ribocomputing/plot-3.pdf}
     \caption{Genetic circuit construct of 3 input XOR gate.}
     \label{f:p_construct_xor}
 \end{figure}
