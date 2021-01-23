@@ -1405,18 +1405,7 @@ whenever any input is flipped.
 %
 %
 It is a concatenation
-of two \XOR gates (cf.~Fig.~\ref{f:logical-subtractor01})
-with the DNF%
-\starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}:
-$
-	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
-	\vee
-	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
-	\vee
-	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
-	\vee
-	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
-$.
+of two \XOR gates (cf.~Fig.~\ref{f:logical-subtractor01}).
 %
 %
 %We could not find it explicitly in \citep{NielsenETAL2016}.
@@ -1482,6 +1471,18 @@ We considered:
 
 \ra{
 Our final design 
+implements the 
+with the DNF%
+\starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}:
+$
+	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
+	\vee
+	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
+$.
 uses ON/OFF RBS switches. 
 %
 Each input signal produces 
