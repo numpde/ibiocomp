@@ -895,7 +895,9 @@ Mutation in RBS sequences can change its strength \cite{Salis2011}.
 %
 Additionally, RBS can be regulated by 
 endogenous short RNA sequences based on RNA-RNA interactions, 
-which is referred to as toehold swithes \cite{Green2014}.
+\TODO{this is inaccurate:}
+which is referred to as toehold swithes 
+\cite{Green2014}.
 }
 
 \hh{In this experiment, RBS sequence  tctagaGAAAGAGGGGACAAactagt may be used.  (\href{http://parts.igem.org/wiki/index.php/Part:BBa_J61100}{Part:BBa\_J61100}
@@ -1035,19 +1037,33 @@ promoter
 
 \subsubsection*{IV} \label{ss:IV}
 
-\hh{
-Isovaleryl-HSL (IV-HSL) is a branched-chain fatty acyl-HSL from soybean symbiont
+Isovaleryl-HSL (IV) is a branched-chain fatty acyl-HSL from soybean symbiont
 \emph{B.~japonicum}%
 \starlink{https://en.wikipedia.org/wiki/Bradyrhizobium_japonicum}
-that regulate \protein{BjaR}.
-In the presence of IV, dimerized BjaR activate \promoter{Bja}. \cite{Lindemann2011}
-}
+that regulates \protein{BjaR}.
+%
+In the presence of IV, 
+dimerized BjaR activates \promoter{Bja} \cite{Lindemann2011}.
+
 
 \subsubsection*{DAPG} \label{ss:DAPG}
 
-\TODO{describe}
-
-\hh{2,4-diacetylphloroglucinol (DAPG) is a natural phenol found in specific strains of the Gram-negative bacterium \emph{Pseudomonas fluorescens}. \citet{SchniderKeel2000} suggest that DAPG is involved in phl gene clusters. The Tet repressor homolog protein phlF bound its operator sequence (phlO) in the absence of DAPG but dissociated from phlO in the presence of DAPG. Thus, DAPG acts as inducer to the phlF promoter.
+\hh{
+2,4-diacetylphloroglucinol (DAPG) is a phenol found in some Gram-negatives 
+\emph{P.~fluorescens}%
+\starlink{https://en.wikipedia.org/wiki/Pseudomonas_fluorescens}%
+.
+}
+%
+\hh{
+\citet{SchniderKeel2000} suggested that DAPG is involved 
+\TODO{``involved''?}
+in phl gene clusters. 
+}
+%
+\ra{
+The Tet \TODO{TetR?} repressor homolog phlF binds its operator sequence (phlO)
+but dissociates in the presence of DAPG.
 }
 
 \subsubsection*{Sal} \label{ss:Sal}
@@ -1075,19 +1091,14 @@ and
 transcription starts
 once a $\signal{Sal}$
 binds to each \protein{NahR}.
-%
-%Thus the inactive form of the promoter
-%is $\protein{NahR}_4 \with \promoter{Sal}$.
-%
-%
-\TODO{note: need \ce{P_c} for NahR} 
 
 
 \subsubsection*{pC} \label{ss:pC}
 
 \ra{
 P-coumaroyl-HSL/RpaR
-works with p-coumaric acid rather than 
+works  \TODO{don't understand ``works''}
+with p-coumaric acid rather than 
 fatty acids of AHL/LuxR.
 Hence, it shows good orthogonality 
 to many QS signals \cite{SchaeferETAL2008}.
@@ -1120,16 +1131,30 @@ activates transcription
 
 \subsubsection*{MMF} \label{ss:MMF}
 
-\TODO{describe}
-
-\hh{Methylenomycin (Mm) is a type of antibioitics produced in \emph{Streptomyces coelicolor}, whose synthesis involves methylenomycin furans (Mmf). 
-It is suggested 
-that TetR family transcriptional regulator, protein \href{https://www.uniprot.org/uniprot/Q9JN89}{MmfR} repress the Mmf promoter. 
-Accumulation of \signal{Mmf} releases the repression of repressor \protein{MmfR} \cite{ORourkeETAL2009}. 
+Methylenomycin is an antibioitic produced 
+by \emph{S.~coelicolor}%
+\starlink{https://en.wikipedia.org/wiki/Streptomyces_coelicolor}%
+.
 %
-The TetR homolog protein MmfR is a homodimer \cite{Zhou2020}, which contains two Mmf recognition site, while different R-groups may alter the binding affinity \cite[p.2, p.3]{Zhou2020}. 
+\hh{
+It's synthesis involves \TODO{``involves''?} methylenomycin furans (Mmf). 
+}
+%
+\ra{
+As a TetR-family transcriptional regulator,
+\href{https://www.uniprot.org/uniprot/Q9JN89}{MmfR} 
+represses \promoter{Mmf},
+but
+accumulation of \signal{Mmf} releases \protein{MmfR} \cite{ORourkeETAL2009}. 
+}
+%
+\hh{
+The TetR homolog protein MmfR is a homodimer \cite{Zhou2020}, 
+which contains two Mmf recognition sites,
+while different R-groups may alter the binding affinity \cite[p.2-3]{Zhou2020}. 
+%
 \citet{DuETAL2020} use an MMF with a branched side chain.
-\ra{they do? p.2 MMF has the chemical structure}
+\ra{they do?} \hh{p.2 MMF has the chemical structure} \TODO{exact ref}
 }
 
 
@@ -1283,15 +1308,30 @@ two short input/sensor RNAs
 \ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
-on the output mRNA. \hh{We may refer to it as switch ON RBS regulation (appendix, figure \ref{f:switch_on_RBS})}
-
+on the output mRNA.
 %
-%
-
 \hh{
-\citet[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
-used an unstable hairpin structure, which can be disrupted by ribosome and thus the gene expression remains active.
-However, when a trigger RNA ab that can "sealed" the hairpin, the translation is then blocked. We may refer to it as switch OFF RBS regulation (appendix, figure \ref{f:switch_off_RBS})
+We refer to it 
+\ra{what is ``it''}
+as switch-ON RBS regulation 
+(appendix \TODO{ref}, \ra{Fig.~}\ref{f:switch_on_RBS}).
+}
+%
+%
+%
+%
+\ra{
+If the hairpin is less stable
+as in
+\citet[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019},
+translation is active.
+}
+%
+\hh{
+%
+\TODO{fix text}
+However, when a trigger RNA ab that can "sealed" the hairpin, the translation is then blocked. 
+We refer to it as switch-OFF RBS regulation (appendix, figure \ref{f:switch_off_RBS})
 }
 %
 %
@@ -1470,20 +1510,21 @@ We considered:
 
 
 \ra{
-Our final design 
-implements the 
-with the DNF%
-\starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}:
+Eventually, we implemented the DNF%
+\starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}
+%
 $
-	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
-	\vee
 	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
 	\vee
 	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
 	\vee
 	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
-$.
-uses ON/OFF RBS switches. 
+	\vee
+	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
+$
+%
+using ON/OFF RBS switches. 
+%
 %
 Each input signal produces 
 1)~%
@@ -1500,7 +1541,7 @@ a co-trigger RNA:
 when all 3 signals are present
 the co-trigger RNAs form a trimer 
 that opens the RBS of a fourth 
-(constitutively produced) 
+(constitutively transcribed) 
 output mRNA
 as in 
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
@@ -1979,7 +2020,7 @@ when the signal \ce{w_A} is present.
     
     \TODO{either put all those figures in one PDF or in separate ones}
     
-    \TODO{provide \emph{specific} reference for each, incl figure no}
+    \TODO{provide \emph{specific} reference for each, incl figure number}
 \end{figure}
 
 
@@ -1989,13 +2030,16 @@ when the signal \ce{w_A} is present.
     \caption{%
     3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
     \label{f:3_RNA_on_RBS}
+    
+    \TODO{provide \emph{specific} reference for each, incl figure number}
 \end{figure}
     
 \begin{figure}
     \centering
-    \includegraphics{xor_ribocomputing/plot-3.pdf}
+    \includegraphics[width=\textwidth]{xor_ribocomputing/plot-3.pdf}
     \caption{Genetic circuit construct of 3 input XOR gate.}
     \label{f:p_construct_xor}
+    \TODO{trim PDF}
 \end{figure}
 
 \clearpage
