@@ -1978,20 +1978,23 @@ when the signal \ce{w_A} is present.
 
 \subsection{3 input \texorpdfstring{\XOR}{XOR} gate} \label{ss:3xor-details}
 
+
 \hh{
- In figure \ref{f:p_construct_xor}, the TF circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
- 
-    %
-    %
-    
-    The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa*. The circuit consists of 3 trigger RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in figure.\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. In short, signal \ce{s_1, r_1, c_1} activates the production of output on its own responsive circuit while represses the other two.
-    
-    %
-    %
-    
-    The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
-   } 
-    
+In figure \ref{f:p_construct_xor}, the TF \TODO{TF?} circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+
+%
+%
+
+The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa*
+\TODO{inconsistent notation}. 
+The circuit consists of 3 trigger RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in figure.\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. In short, signal \ce{s_1, r_1, c_1} activates the production of output on its own responsive circuit while represses the other two.
+
+%
+%
+
+The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
+} 
+
 \begin{figure}
     \centering
     
@@ -2031,15 +2034,14 @@ when the signal \ce{w_A} is present.
     3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
     \label{f:3_RNA_on_RBS}
     
-    \TODO{provide \emph{specific} reference for each, incl figure number}
+    \TODO{provide \emph{specific} reference, incl figure number}
 \end{figure}
     
 \begin{figure}
     \centering
-    \includegraphics[height=0.9\textheight]{xor_ribocomputing/plot-3.pdf}
+    \includegraphics[height=0.95\textheight]{xor_ribocomputing/plot-3.pdf}
     \caption{Genetic circuit construct of 3 input XOR gate.}
     \label{f:p_construct_xor}
-    \TODO{crop PDF}
 \end{figure}
 
 \clearpage
