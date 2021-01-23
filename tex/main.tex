@@ -395,15 +395,14 @@ Fig.~\ref{f:logical-subtractor01}
 shows a reference logic circuit 
 for Bit~0 and Bit~1
 that illustrates the principle of delayed response.
-
 %
-
+%
+%
 \ra{
 Since
 Bits 0/2/3 
-are technically a subfunctionality of Bit~1,
-we will
-omit their discussion and focus on Bit~1.
+are a subfunctionality of Bit~1,
+we will not discuss them in detail.
 }
 
 
@@ -483,36 +482,95 @@ heeding the advice in \cite[p.6]{DuETAL2020}.
 \ra{
 To facilitate debugging
 we partition the workflow
-with spatial compartments
+into six 
+spatial compartments
+\TODO{
+what is a ``compartment''?
+\hh{separated containers?}
+what is a container?
+}
 that require manual transmission of 
-the medium.
+the medium:
+two for the players (A and B)
+and
+four for the subtractor (Bits 0--3).
 %
 %
 Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
+%
+Each bit compartment
+contains two subpopulation of cells 
+as part of Subtractor A or B.
 }
 
-\hh{The experiment setup includes 6 compartments, including two for Players (A and B) and four for the subtractor (computing units Bit 0 to 3). 
-Note that in each computing unit, there are two sub-population of cells as Subtractor A and B.
 %
-\begin{enumerate}
-    \item The experiment is initialized
-by supplying
-\signal{s_1}/\signal{s_0} to Player A, \signal{s_2} to Bit 2 and \signal{s_3} to Bit 3 (i.e the number of sticks is 15 to start with).
-    \item The \ce{w_A} is added to Player A as the wake-up signal and trigger the computation in Player A. Here we assume that the consumption of \signal{w_A, s_0, s_1} is negligible (i.e, remain high concentration) during computation.
-    \item The original medium from Player A (\ce{w_A, r_0, r_1, s_0, s_1}) is admixed to Bit 0; and the compartment Player A is washed and replaced with new medium (i.e, no w/s/r present). With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_0} but do not emit the signal \ce{d_0}. With \ce{r_0, s_0} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_1}. 
-    \item The original medium from Bit 0 (\ce{w_A, r_0, r_1, s_0, s_1, c_1}) is admixed to Bit 1; the compartment Bit 0 is replaced with new medium. With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_1} silently. With \ce{r_1, s_1, c_1} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_2}.
-    \item The original medium from Bit 1 is admixed to Bit 2; and cells in Bit 1 in now washed. Computation in Bit 2 is similar to Bit 1. The similar procedure is repeated for Bit 3.
-    \item At the end of \textbf{Phase A} and \textbf{Interphase}, all players and computing units (Bit 0 ~ 3) is now in fresh medium with no signals w/s/r present. However, the Subtractor B in all computing units now contains the information of differences, i.e \ce{d_0, d_1, d_2} and \ce{d_3}). 
-    \item The phase B starts by adding \signal{w_B} to the Player B and four computing units. When \signal{w_B} is present, all Subtractor B in Bit 0 to 3 now emit \ce{d}, which is now the new \ce{s}. The medium in Bit 0 and Bit 1 (with updated \ce{s_0, s_1}) is admixed to Player B. The following experiment steps repeat previous ones.
-    \item The end of the game is marked that all signals \signal{s_0, s_1, s_2} and \signal{s_3} are zeros, i.e, all sticks are taken.
 
+\ra{
+To initialize the experiment,
+add 
+\signal{w_B} with \signal{s_i}
+to each Bit~$i$,
+causing Subtractor A to compute and remember $\ce{d_i} = 1$.
+%
+Then wash and replace the medium.
+}
+%
+\hh{
+%
+Phase A:
+\begin{enumerate}
+\item
+    \ra{
+    Add \signal{w_A} to Bit~0 and Bit~1,
+    wait for emission of \signal{s_1} and \signal{s_0}.
+    }
+
+\item
+    Add \ce{w_A} and the media from Bits~0/1 to Player~A,
+    wait for response.
+    %
+    \hh{
+    Here we assume that the consumption of \signal{w_A}/\signal{s_0}/\signal{s_1}
+    is negligible 
+    (i.e., remain high concentration) during computation.
+    }
+    \ra{still necessary to assume?}
+
+\item
+    \ra{
+    Admix the medium from Player~A (containing \ce{w_A, r_0, r_1, s_0, s_1}) to Bit~0.
+    %
+    Wash the compartment of Player~A, replenish with fresh medium.
+    }
+    %
+    \TODO{necessary to add more \ce{w_A}?}
+    %
+    \ra{
+    Wait for:
+    Subtractor B to compute the difference \ce{d_0};
+    Subtractor A to compute the carry flag \ce{c_1}. 
+    }
+
+\item 
+    Admix the medium from Bit~0 containing (among others) \signal{c_1} to Bit~1.
+    %
+    Refresh the medium of Bit~0.
+    %
+    With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_1} silently. 
+    %
+    With \ce{r_1, s_1, c_1} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_2}.
+    \item The original medium from Bit 1 is admixed to Bit 2; and cells in Bit 1 in now washed. Computation in Bit 2 is similar to Bit 1. The similar procedure is repeated for Bit 3.
+    \item At the end of \textbf{Phase A} and \textbf{Interphase}, all players and computing units (Bit 0 ~ 3) is now in fresh medium with no signals w/s/r present. However, the Subtractor B in all computing units now contains the information of differences, i.e., \ce{d_0, d_1, d_2} and \ce{d_3}). 
+    \item The phase B starts by adding \signal{w_B} to the Player B and four computing units. When \signal{w_B} is present, all Subtractor B in Bit 0 to 3 now emit \ce{d}, which is now the new \ce{s}. The medium in Bit 0 and Bit 1 (with updated \ce{s_0, s_1}) is admixed to Player B. The following experiment steps repeat previous ones.
+    \item The end of the game is marked that all signals \signal{s_0, s_1, s_2} and \signal{s_3} are zeros, i.e., all sticks are taken.
+    \TODO{how to know} For the signal indicator, additional fluorescent protein genes are placed downstream of the  intercellular synthesis pathway of QS molecule. Under such construction,  each signal \ce{s_0, s_1, s_2, s_3} is co-expressed with fluorescent protein EGFP, YFP, mCherry and mPlum respectively.   \cite{DuETAL2020}
 \end{enumerate}
  
 
 }
 
-\TODO{remove redundant description from \S\ref{ss:sub} and from the following}
+\TODO{remove redundant description from the following}
 
 
 
@@ -603,9 +661,6 @@ Mutatis mutandis.
 \end{table}
 
 
-
-\TODO{do we need Table~\ref{t:substeps}} \hh{perhaps no}
-
 %
 
 Refinements could include
@@ -650,61 +705,35 @@ We refer to it as \ce{P_c}.
 %
 }
 
-\hh{
-Constitutive promoter activity requires \ra{an} RNA polymerase holoenzyme
-but no transcription factors. 
-%
-Since we work with \emph{E.~coli},
-the constitutive promoters are all from \emph{E.~coli}, 
-which utilize the bacteria's internal RNA polymerase for gene expression. 
-
-}
-
 %\url{http://parts.igem.org/Promoters/Catalog/Constitutive}
 %\cite{ShimadaETAL2014}
 
 
 \subsubsection*{cI} \label{ss:cI}
 
-
-\TODO{could you pls sanity-check that I understand this correctly}
-
-\ra{
-The optimized and orthogonal variant
-$\ce{cI^*} := \ce{cI_{5G6G,P}}$
+The optimized and orthogonal variants
+$\ce{cI^a} := \ce{cI_{opt}}$
+and
+$\ce{cI^b} := \ce{cI_{5G6G,P}}$
 of the transcription factor 
 \href{https://www.uniprot.org/uniprot/P03034}{$\lambda$~\ce{cI}}
 from
 \cite[\href{https://www.nature.com/articles/ncomms13858/figures/4}{Fig.~4c/d}]{BroedelJaramilloIsalan2016}
-requires no cofactors
-and
-shows 
-about 10-fold activation of the promoter
-$\promoter{cI^*_+} := \promoter{M,{5G6G}}$
+require no cofactors and show 
+about 10-fold activation of their
+``forward'' promoter
+(\promoter{cI^a_+} and \promoter{cI^b_+})
 and 
-a similar-fold repression of 
-$\promoter{cI^*_-} := \promoter{{5G6G}}$.
-%
-%
-%To improve the dynamic range of 
-%$\promoter{cI^*_+} \act \text{mRNA}_1$
-%we propose 
-%that
-%$\promoter{cI^*_-}$ express
-%an inhibitory RNA that is complementary
-%to the RBS region of $\text{mRNA}_1$.
-}
-%
-%
-\TODO{also need \ce{cI}, perhaps optimized from Broedel}
-
+a similar-fold repression of their 
+``backward'' promoter
+(\promoter{cI^a_-} and \promoter{cI^b_-}).
 
 
 \subsection{3-input gates by Cello} \label{ss:cello}
 
 \citet{NielsenETAL2016}
-reported these gates
-among good performers:
+reported 
+among the good performers:
 %
 %\begin{itemize}
 %\item
@@ -757,7 +786,7 @@ by {HlyIIR}
 %
 The last operation
 is a ``poor man's \OR gate'';
-we let it produce \ce{cI^*}
+we let it produce \ce{cI^a}
 (\S\ref{ss:cI})
 that
 triggers the synthesis of \signal{r_0}.
@@ -829,36 +858,53 @@ AmtR sits on the DNA as a dimer
 \TODO{these are the TFs / promoters used}
 
 Player:
-BetI, HlyIIR, \ce{cI^*}, \ce{P_{c}}
+BetI, HlyIIR, \ce{cI^a}, \ce{P_{c}}
 \href{https://i.ibb.co/N2kdwJL/Screenshot-from-2021-01-21-12-06-59.png}{Figure}
 
 C2:
-AmtR, HlyIIR, \ce{cI}, \ce{cI^*}, \ce{P_{c}}
+AmtR, HlyIIR, \ce{cI}, \ce{cI^a}, \ce{P_{c}}
 \href{https://i.ibb.co/Mh2sWzg/Screenshot-from-2021-01-21-12-02-31.pngs}{Figure}
 
 D1:
-\ce{P_{c}}, \ce{cI^*}
+\ce{P_{c}}, \ce{cI^a}
 \href{https://i.ibb.co/0QRf919/Screenshot-from-2021-01-21-12-04-19.png}{Figure}
 
 
 \subsection{Insulation of genetic context}
 
-\TODO{hammerheads of \cite{LouETAL2012}, \cite{NielsenETAL2016} }
+To reduce interference of genetic components,
+\citet{LouETAL2012} and \citet{NielsenETAL2016}
+inserted a ribozyme
+\hh{between the junction site and the RBS}. 
+%
+After transcription, 
+it
+\hh{cuts off the leader sequence and scar}
+downstream of +1 position. 
+%
+An additional hairpin helps expose the RBS.
 
-\hh{In the construct of genetic circuit, insulator is often used to isolate different part of components. In the work of \cite{LouETAL2012}, a ribozyme-based insulator DNA sequence is inserted between the junction site and RBS. After transcription, the insulator mRNA forms a ribozyme structure that cuts off the leader sequence and scar downstream of +1 position. It also contains an additional hairpin structure, which helps to expose the RBS. The usage of insulator helps to prevent the interference of the upstream components to the downstream.}
 
 \subsection{RBS}
 
-\TODO{RBS}
+\hh{RBS refers to ribosome binding site, the sequence of nucleotides that is responsible for the recruitment of a ribosome and initiation of translation, which in turn plays an important role in controlling the level and rate of protein expression. 
+Mutation in RBS sequences can change its strength \cite{Salis2011}. 
+%
+Additionally, RBS can be regulated by 
+endogenous short RNA sequences based on RNA-RNA interactions, 
+which is referred to as toehold swithes \cite{Green2014}.
+}
 
-\hh{RBS refers to ribosome binding site, }
+\hh{In this experiment, RBS sequence  tctagaGAAAGAGGGGACAAactagt may be used.  (\href{http://parts.igem.org/wiki/index.php/Part:BBa_J61100}{Part:BBa\_J61100}
+\TODO{make a proper citation; no need to state the sequence}
+}
+
 
 \subsection{Extracellular signaling} \label{ss:wAB}
 
-The two master signals \ce{w_A}/\ce{w_B}
-are encoded by L-arabinose/IPTG,
-and are supplied by the experimenter.
-%
+Recall that
+the two master signals \ce{w_A}/\ce{w_B}
+are encoded by L-arabinose/IPTG.
 %
 %
 Following \citet[SM, VII.M]{NielsenETAL2016}
@@ -869,7 +915,6 @@ that has reduced crosstalk with \signal{IPTG}.
 %
 %
 %
-\ra{
 The sequences can be found 
 in
 \cite[SM, Table~S8]{NielsenETAL2016}
@@ -878,7 +923,6 @@ and
 in
 \cite[SM, Table~S9]{NielsenETAL2016}
 for \promoter{BAD} and \promoter{Tac}.
-}
 
 % Ref on Ara>AraC>BAD: \cite{LeeETAL2007}, \cite{Schleif2000}
 % Ref on IPTG>LacI>Tac: \cite{DykxhoornStpierreLinn1996}
@@ -887,7 +931,6 @@ for \promoter{BAD} and \promoter{Tac}.
 
 \subsection{Intercellular pathways}
 
-\ra{
 Here we collect 
 key aspects of 
 the intercellular receivers.
@@ -898,19 +941,41 @@ belong to the AHL QS family,
 whereas pC 
 has a p-coumaric acid group 
 rather than a fatty acyl group.
-}
 %
 %
 
-
-\hh{According to 
-\citet[p.2598]{HirakawaETAL2011}
-LuxR homologs, which function as homoserine lactones receivers are homodimeric.
+According to 
+\citet[p.2598]{HirakawaETAL2011},
+LuxR homologs
+(which function as homoserine lactones receivers)
+are homodimeric.
 %
-In the work of \cite{DuETAL2020}, LuxR homologs used including 
-luxR \& lasR \cite[Table~1]{Fuqua1996},  
-rpaR \cite[p.2598]{HirakawaETAL2011}, 
-bjaR \cite{Lindemann2011}. 
+%
+\citet{DuETAL2020} used the LuxR and LuxR homologs 
+LasR \cite[Table~1]{Fuqua1996},  
+RpaR \cite[p.2598]{HirakawaETAL2011}, 
+BjaR \cite{Lindemann2011}. 
+%
+\ra{
+%
+The TetR family are transcriptional repressors
+that
+sit on the operons and block the corresponding promoters
+\cite{Ramos2005}.
+%
+They are released
+by specific inducers (often antibiotics)
+via a conformational change. 
+%
+It is suggested 
+\cite{Ramos2005}
+\TODO{specific claim requires a specific reference}
+that the TetR-type proteins are usually homodimers
+with 
+two slots for the inducer.
+%
+\ra{PhlF} and MmfR are TetR homologs.
+% ref? %\citet{DuETAL2020} ?
 }
 
 %
@@ -979,6 +1044,9 @@ In the presence of IV, dimerized BjaR activate \promoter{Bja}. \cite{Lindemann20
 
 \TODO{describe}
 
+\hh{2,4-diacetylphloroglucinol (DAPG) is a natural phenol found in specific strains of the Gram-negative bacterium \emph{Pseudomonas fluorescens}. \citet{SchniderKeel2000} suggest that DAPG is involved in phl gene clusters. The Tet repressor homolog protein phlF bound its operator sequence (phlO) in the absence of DAPG but dissociated from phlO in the presence of DAPG. Thus, DAPG acts as inducer to the phlF promoter.
+}
+
 \subsubsection*{Sal} \label{ss:Sal}
 
 According to 
@@ -999,7 +1067,7 @@ $\protein{NahR} \with \promoter{Sal}$.
 %
 %
 Possibly \cite{Peking2013},
-$4 \times \protein{NahR}$ bind to the DNA,
+4$\times$\protein{NahR} bind to the DNA,
 and
 transcription starts
 once a $\signal{Sal}$
@@ -1010,15 +1078,6 @@ binds to each \protein{NahR}.
 %
 %
 \TODO{note: need \ce{P_c} for NahR} 
-
-\TODO{
-\ra{
-From earlier:
-\hh{NahR to activate the expression of repressor McbR \cite{Rey2005}}
-Is \promoter{Sal} actually McbR ?
-}
-} \hh{No. McbR is a repressor protein. I think what I meant earlier is that NahR(TF) can activate Psal (promoter), which then activate the McbR gene (that encodes McbR protein). But it seems we do not need McbR now?}
-\ra{it's in \cite{NielsenETAL2016} - but I don't think I used it}
 
 
 \subsubsection*{pC} \label{ss:pC}
@@ -1060,7 +1119,17 @@ activates transcription
 
 \TODO{describe}
 
-\cite{ORourkeETAL2009}
+\hh{Methylenomycin (Mm) is a type of antibioitics produced in \emph{Streptomyces coelicolor}, whose synthesis involves methylenomycin furans (Mmf). 
+It is suggested 
+that TetR family transcriptional regulator, protein \href{https://www.uniprot.org/uniprot/Q9JN89}{MmfR} repress the Mmf promoter. 
+Accumulation of \signal{Mmf} releases the repression of repressor \protein{MmfR} \cite{ORourkeETAL2009}. 
+%
+The TetR homolog protein MmfR is a homodimer \cite{Zhou2020}, which contains two Mmf recognition site, while different R-groups may alter the binding affinity \cite[p.2, p.3]{Zhou2020}. 
+\citet{DuETAL2020} use an MMF with a branched side chain.
+\ra{they do? p.2 MMF has the chemical structure}
+}
+
+
 
 
 \subsubsection*{3OC12} \label{ss:3OC12}
@@ -1083,8 +1152,7 @@ with no or positive cooperativity % (Hill coefficients $\approx$ 1)
 %\cite[\href{https://www.embopress.org/doi/full/10.15252/msb.20156590}{p.1}]{Grant2016}
 %
 %
-A custom promoter \promoter{Las^*} is used
-in \cite[p.2]{DuETAL2020}.
+\citet[p.2]{DuETAL2020} use a custom promoter \promoter{Las^*}.
 
 
 
@@ -1212,7 +1280,16 @@ two short input/sensor RNAs
 \ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
-on the output mRNA.
+on the output mRNA. \hh{We may refer to it as switch ON RBS regulation (appendix, figure \ref{f:switch_on_rbs})}
+
+%
+%
+
+\hh{
+\citet[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
+used an unstable hairpin structure, which can be disrupted by ribosome and thus the gene expression remains active.
+However, when a trigger RNA ab that can "sealed" the hairpin, the translation is then blocked. We may refer to it as switch OFF RBS regulation (appendix, figure \ref{f:switch_off_RBS})
+}
 %
 %
 %Let inputs \ce{A} and \ce{B} produce
@@ -1323,8 +1400,6 @@ is particularly difficult
 because the result flips 
 whenever any input is flipped.
 %
-We could not find it explicitly in \citep{NielsenETAL2016}.
-%
 %
 It is a concatenation
 of two \XOR gates (cf.~Fig.~\ref{f:logical-subtractor01})
@@ -1339,6 +1414,9 @@ $
 	\vee
 	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
 $.
+%
+%
+%We could not find it explicitly in \citep{NielsenETAL2016}.
 %
 We considered:
 %
@@ -1385,6 +1463,9 @@ We considered:
 	as in 
 	\cite[\href{https://www.nature.com/articles/s41598-017-07386-3/figures/2}{Fig.~2g}]{ChiuJiang2017}.
 \item
+    
+    \TODO{Describe the Cas variant?}
+\item
     For completeness, 
     we mention 
     the recombinase-based
@@ -1397,8 +1478,10 @@ We considered:
 \end{itemize}
 
 
-\TODO{Describe the Cas variant}
+\TODO{Describe the final variant}
 
+\hh{We propose a 3-input-xor-gate constructed combined switch ON/OFF ribocomputing designs. For each input signal, it activates the output on its own responsive circuit while producing two trigger RNAs (repressor) that switches OFF the output of the other two. The switch OFF mechanism is based on three-way junction (3WJ) repressors proposed in \cite{Kim2019}).
+A third trigger RNA (activator) is produced by each input signal; and when all 3 signals are present, three activator trigger RNAs form a trimer structure that activates the output on the fourth genetic circuit. The 3-input-AND-gate is based on the ribocomputing proposed in \cite{GreenETAL2017}.}
 
 \subsection{Shelving}
 
@@ -1458,10 +1541,8 @@ but a sustained signal
 (while \ce{w_B} is up)
 will overflow the shelves and 
 allow
-translation of \ce{Xis}.
-%
-%
-This is illustrated in Fig.~\ref{f:symbio-d1-tempo}.
+translation of \ce{Xis},
+cf.~Fig.~\ref{f:symbio-d1-tempo}.
 %
 %
 %
@@ -1572,7 +1653,7 @@ All species are in units of \emph{molecules}.
 %
 For simplicity,
 we use the above Hill equations
-(which have no baseline term)
+(which, notably, have no baseline term)
 for all species with $n = 2$ 
 and 
 mostly $\text{EC50} = 1$ molecules.
@@ -1586,10 +1667,12 @@ and higher coefficients for
 some other transcription factors.
 %
 %
-We simulate expression and degradation
+We simulate production and degradation
 such that
 typically
-about $10$ molecules corresponds to the steady state,
+about $10$ molecules of output 
+from a fully active promoter
+correspond to the steady state,
 for example
 $
 	\tfrac{\d}{\d{t}}
@@ -1600,7 +1683,9 @@ $
 with
 $k_+ = 1 \ce{s^{-1}}$
 and
-$k_- = 0.1 \ce{s^{-1}}$.
+$k_- = 0.1 \ce{s^{-1}}$
+models 
+$\promoter{Sal}_\text{active} \act \protein{Output}$.
 %
 %
 Generally,
@@ -1804,7 +1889,11 @@ EC50 of signals:
 
 \section{Discussion}
 
-\TODO{risks: senders and receivers in the same cell}
+\TODO{risks}
+\begin{itemize}
+\item 
+    senders and receivers in the same cell
+\end{itemize}
 
 
 \section{Acknowledgments}
@@ -1858,9 +1947,50 @@ when the signal \ce{w_A} is present.
 \label{f:logical-subtractor01}
 \end{figure}
 
+\hh{
+\subsection{3 input XOR gate}
+
+ In figure \ref{f:p_construct_xor}, the TF circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+ 
+    %
+    %
+    
+    The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa*. The circuit consists of 3 trigger RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in figure.\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. In short, signal \ce{s_1, r_1, c_1} activates the production of output on its own responsive circuit while represses the other two.
+    
+    %
+    %
+    
+    The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate (figure.\ref{f:switch_on_rbs} and \ref{f:3_RNA_on_rbs}).
+   } 
+    
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_off.pdf}
+    \caption{Switch OFF RBS. The unstable hairpin structure is sealed when the trigger RNA is present, thus repressing the gene expression.}
+    \label{f:switch_off_RBS}
+\end{figure}    
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/xor_ribocomputing/switch_on.pdf}
+    \caption{Switch ON RBS. The stem of the stable hairpin structure will be opened when the trigger RNA is present, thus exposing the RBS and activate the gene expression}
+    \label{f:switch_on_rbs}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/xor_ribocomputing/3_trigger_rna_on.pdf}
+    \caption{3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
+    \label{f:3_RNA_on_rbs}
+\end{figure}
+    
+\begin{figure}
+    \centering
+    \includegraphics{images/xor_ribocomputing/plot-3.pdf}
+    \caption{Genetic circuit construct of 3 input XOR gate.}
+    \label{f:p_construct_xor}
+\end{figure}
 
 \clearpage
 
