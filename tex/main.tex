@@ -82,7 +82,6 @@
 [.]% punctuation or other commands following subsection title
 
 
-\newcommand{\TODO}[1]{\textrm{\color{red}TODO: #1}}
 \input{todomech}
 
 
@@ -326,11 +325,12 @@ Abbreviations:
 RBS = ribosome binding site,
 QS = quorum sensing,
 AHL = acyl homoserine lactone,
-txn = transcription,
-tln = translation,
+%txn = transcription,
+%tln = translation,
 {3OC6} = {3OC6}{-}HSL (etc.),
 SM = supplementary material,
-DNF = disjunctive normal form.
+DNF = disjunctive normal form,
+TF = transcription factor.  % just in case
 % EC50 = half maximal effective concentration
 
 
@@ -1517,16 +1517,18 @@ cf.~Fig.~\ref{f:switch_on_RBS}.
 %
 %
 \ra{
-If the hairpin is less stable as in
-\citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019},
-however,
+However,
+if the hairpin is less stable as in
+\citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
+then
 translation is active.
 }
 %
 \hh{
 %
 When a trigger RNA \ce{ab} that can "sealed" the hairpin, the translation is then blocked. 
-We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation (cf. Figure \ref{f:switch_off_RBS})
+We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation
+(Fig.~\ref{f:switch_off_RBS}).
 }
 
 
@@ -1554,12 +1556,15 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
         \includegraphics[width=\linewidth]{xor_ribocomputing/switch_off}
         \caption{%
             \ra{The unstable hairpin structure is sealed by 
-            the trigger RNA, repressing translation. The design is based on the 3-way-junction repressor \cite{Kim2019}.}
+            the trigger RNA, repressing translation. 
+            }
+            \hh{The design is based on the 3-way-junction repressor \cite{Kim2019}.
+            }
         }
         \label{f:switch_off_RBS}
     \end{subfigure}
     
-    {\ }
+    \vspace{1.5\baselineskip}
     
     \begin{subfigure}{\linewidth}
         \centering
@@ -1568,28 +1573,32 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
             \ra{The stem of the stable hairpin structure 
             is opened by trigger RNA, 
             exposing the RBS for translation. 
+            }
+            \hh{
             The design is based on the toehold switch \cite{Green2014}.}
         }
         \label{f:switch_on_RBS}
     \end{subfigure}
     
-    {\ }
+    \vspace{1.5\baselineskip}
     
     \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{xor_ribocomputing/3_trigger_rna_on}
         \caption{%
         The co-trigger RNAs form a trimer that switches ON the RBS.
+        \hh{
         The design is based on the 3-RNA-\AND gate \cite{GreenETAL2017}.
+        }
         }
         \label{f:3_RNA_on_RBS}
     \end{subfigure}
- 
     
     \caption{%
-        Switch-OFF RBS (\ref{f:switch_off_RBS}),
-        Switch-ON RBS (\ref{f:switch_on_RBS})
+        Switch-OFF (\ref{f:switch_off_RBS})
         and 
+        Switch-ON (\ref{f:switch_on_RBS}) RBS;
+        %
         RNAs 3-\AND gate (\ref{f:3_RNA_on_RBS}). 
         %
         Cf.~\S\ref{ss:3xor}/\S\ref{ss:ribocomputing}.
@@ -1603,7 +1612,7 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
     
 \begin{figure}
     \centering
-    \includegraphics[height=0.9\textheight]{xor_ribocomputing/plot-3.pdf}
+    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/plot-3.pdf}
     \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
     \label{f:p_construct_xor}
 \end{figure}
@@ -1643,9 +1652,9 @@ and the inputs begin to change,
 \ce{Y} can exhibit a transient bump
 (which we observed in some simulations).
 %
-This can be sufficient to produce \ce{Xis}
+This can cause production of \ce{Xis}
 and 
-to cause an unintended \emph{reset}.
+an unintended \emph{reset}.
 %
 One way to mitigate this is to condition 
 the expression of \ce{Xis}
