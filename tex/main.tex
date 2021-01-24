@@ -182,7 +182,8 @@ the number of sticks left as
 \]
 %
 %
-By the 4-periodicity of the winning strategy,
+By the 4-periodicity of the winning strategy
+(see \S\ref{ss:players}),
 only the two lowest bits \ce{s_1}/\ce{s_0}
 matter to the player.
 %
@@ -325,11 +326,11 @@ Abbreviations:
 RBS = ribosome binding site,
 QS = quorum sensing,
 AHL = acyl homoserine lactone,
-%txn = transcription,
 %tln = translation,
 {3OC6} = {3OC6}{-}HSL (etc.),
 SM = supplementary material,
 DNF = disjunctive normal form,
+txn = transcription,
 TF = transcription factor.  % just in case
 % EC50 = half maximal effective concentration
 
@@ -680,7 +681,8 @@ of the transcription factor
 \href{https://www.uniprot.org/uniprot/P03034}{$\lambda$~\ce{cI}}
 from
 \cite[\href{https://www.nature.com/articles/ncomms13858/figures/4}{Fig.~4c/d}]{BroedelJaramilloIsalan2016}
-require no cofactors and show 
+require no cofactors and 
+show 
 about 10-fold activation of their
 ``forward'' promoter
 (\promoter{cI^a_+} and \promoter{cI^b_+})
@@ -1045,19 +1047,16 @@ members of the TetR/AcrR family of a series of other microorganisms (data not sh
 
 \subsubsection*{Sal} \label{ss:Sal}
 
-According to 
-\cite{SchellWender1986, HuangSchell1991},
-the transcription activator \protein{NahR}
+The transcription activator \protein{NahR}
 binds to the recognition site of \promoter{Sal} at
 $-83$ to $-45$
-without the inducer \cite[p.10837]{HuangSchell1991}.
+without the inducer \cite[p.10837]{HuangSchell1991}, \cite{SchellWender1986}.
 %
 %
-In \cite{SchellBrownRaju1990},
-it was suggested 
+\citet{SchellBrownRaju1990} suggested 
 that the active configuration of \protein{NahR} is a tetramer,
-while \cite{ParkLimShin2005}
-reported that 
+while 
+\citet{ParkLimShin2005} reported that 
 there could be three different complexes
 $\protein{NahR} \with \promoter{Sal}$.
 %
@@ -1276,12 +1275,11 @@ improves the dynamic range
 
 \citet[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 combined
-short input/sensor RNAs
-\ce{A} and \ce{B}
+short RNAs \ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
 on the output mRNA
-(similarly to Fig.~\ref{f:3_RNA_on_RBS}).
+(cf.~Fig.~\ref{f:3_RNA_on_RBS}).
 %
 %
 %
@@ -1326,13 +1324,17 @@ repress \promoter{cI^a_-}/\promoter{cI^b_-}:
 %
 \begin{align}
     \begin{rcases*}
-        \ce{B^*} \reflectbox{\act} 
+        \ce{B^*} 
+        \stackrel{\text{txn}}{\reflectbox{\act}}
         \promoter{cI^a_-} \reflectbox{\rep} \protein{cI^a} \act \promoter{cI^a_+} 
-        \act \ce{A}
+        \stackrel{\text{txn}}{\act}
+        \ce{A}
         \\
-        \ce{A^*} \reflectbox{\act} 
+        \ce{A^*}
+        \stackrel{\text{txn}}{\reflectbox{\act}}
         \promoter{cI^b_-} \reflectbox{\rep} \protein{cI^b} \act \promoter{cI^b_+} 
-        \act \ce{B}
+        \stackrel{\text{txn}}{\act}
+        \ce{B}
     \end{rcases*}
     %
     \act 
@@ -1346,11 +1348,11 @@ repress \promoter{cI^a_-}/\promoter{cI^b_-}:
 %
 Herein,
 \ce{A} and \ce{B} 
-combine to a trigger RNA \ce{AB} as in
+form a trigger RNA \ce{AB} as in
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
-and also have toeholds
-for preferential binding to 
-the complementary RNAs \ce{A^*} and \ce{B^*}.
+including toeholds
+for preferential binding 
+of the complementary RNAs $\ce{A^*}$ and $\ce{B^*}$.
 %
 %
 The cross-inhibition is more effective
@@ -1376,7 +1378,7 @@ in terms of the output of the promoters.
 \subsection{3-input \texorpdfstring{\XOR}{XOR}} \label{ss:3xor}
 
 The subtractor result bit
-(cf.~Table~\ref{t:subtractor1})
+(cf.~Table~\ref{t:subtractor1} and \S\ref{ss:cello})
 \begin{align} \label{e:3xor}
 	\ce{d_1} 
 	= 
