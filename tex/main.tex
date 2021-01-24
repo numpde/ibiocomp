@@ -89,9 +89,9 @@
 \renewcommand{\d}{\mathrm{d}}
 
 \newcommand{\NOT}{\ensuremath{\mathop{\mathsf{not}}}\xspace}
-\newcommand{\AND}{\ensuremath{\mathop{\mathsf{and}}}\xspace}
-\newcommand{\OR}{\ensuremath{\mathop{\mathsf{or}}}\xspace}
-\newcommand{\XOR}{\ensuremath{\mathop{\mathsf{xor}}}\xspace}
+\newcommand{\AND}{\ensuremath{\mathop{\mathsf{AND}}}\xspace}
+\newcommand{\OR}{\ensuremath{\mathop{\mathsf{OR}}}\xspace}
+\newcommand{\XOR}{\ensuremath{\mathop{\mathsf{XOR}}}\xspace}
 
 \newcommand{\TEXT}[1]{\quad\text{#1}\quad}
 \newcommand{\with}{\text{$\,{:}\,$}}
@@ -473,7 +473,7 @@ the signals
 to minimize crosstalk,
 in particular 
 avoiding LuxR and RpaR in one cell,
-heeding the advice in \cite[p.6]{DuETAL2020}.
+heeding the advice of \citet[p.6]{DuETAL2020}.
 %
 %
 
@@ -488,11 +488,7 @@ To facilitate debugging
 we partition the workflow
 into six 
 spatial compartments
-\TODO{
-what is a ``compartment''?
-\hh{separated containers?}
-what is a container?
-}
+(for example, {10 mL centrifuge tubes})
 that require manual transmission of 
 the medium:
 two for the players (A and B)
@@ -503,9 +499,10 @@ four for the subtractor (Bits 0--3).
 Unfortunately, this does not automatically reduce
 the number of intercellular channels needed.
 %
-Each bit compartment
-contains two subpopulation of cells 
-as part of Subtractor A or B.
+Each Bit compartment
+contains two subpopulations of cells 
+as part of Subtractor A or B,
+referred to as Bit~0A, Bit~0B, etc.
 }
 
 %
@@ -520,150 +517,109 @@ causing Subtractor A to compute and remember $\ce{d_i} = 1$.
 Then wash and replace the medium.
 }
 %
-\hh{
 %
-Phase A:
+In Phase A,
+do the following steps,
+\ra{adding \signal{w_A} before each step}.
+%
 \begin{enumerate}
 \item
     \ra{
-    Add \signal{w_A} to Bit~0 and Bit~1,
-    wait for emission of \signal{s_1} and \signal{s_0}.
+    Having added \signal{w_A} to Bit~0 and Bit~1,
+    wait for emission of \ce{s_1} and \ce{s_0}.
     }
-
 \item
-    Add \ce{w_A} and the media from Bits~0/1 to Player~A,
+    Admix the media from Bits~0/1
+    containing \ce{s_0}/\ce{s_1} to Player~A,
     wait for response.
     %
-    \hh{
-    Here we assume that the consumption of \signal{w_A}/\signal{s_0}/\signal{s_1}
-    is negligible 
-    (i.e., remain high concentration) during computation.
+    \ra{
+    Note, the medium may or may not contain
+    the actual signal molecules \signal{s_0}/\signal{s_1}.
     }
-    \ra{still necessary to assume?}
-
 \item
     \ra{
-    Admix the medium from Player~A (containing \ce{w_A, r_0, r_1, s_0, s_1}) to Bit~0.
+    Admix the medium from Player~A 
+    containing \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}
+    to Bit~0.
     %
-    Wash the compartment of Player~A, replenish with fresh medium.
+    Wash Player~A, replenish with fresh medium.
     }
     %
-    \TODO{necessary to add more \ce{w_A}?}
     %
     \ra{
     Wait for:
-    Subtractor B to compute the difference \ce{d_0};
-    Subtractor A to compute the carry flag \ce{c_1}. 
+    Bit~0B to compute the difference \ce{d_0} (silent);
+    Bit~0A to compute the carry flag \ce{c_1}. 
     }
-
-\item 
-    Admix the medium from Bit~0 containing (among others) \signal{c_1} to Bit~1.
+\item
+    \ra{
+    Admix the medium from Bit~0 containing \ce{c_1} to Bit~1.
+    }
     %
-    Refresh the medium of Bit~0.
+    Wash and replenish Bit~0.
     %
-    With \ce{w_A} present, Subtractor B in Bit 0 is now waken up and computes the difference \ce{d_1} silently. 
+    \ra{
+    Wait for:
+    Bit~1B to compute the difference \ce{d_1} (silent);
+    Bit~1A to compute the carry flag \ce{c_2}. 
+    }
+\item
+    \ra{
+    Admix the medium from Bit~1 containing \ce{c_2}
+    to Bit~2.
+    }
     %
-    With \ce{r_1, s_1, c_1} present, Subtractor A in Bit 0 now computes the carrier flag \ce{c_2}.
-    \item The original medium from Bit 1 is admixed to Bit 2; and cells in Bit 1 in now washed. Computation in Bit 2 is similar to Bit 1. The similar procedure is repeated for Bit 3.
-    \item At the end of \textbf{Phase A} and \textbf{Interphase}, all players and computing units (Bit 0 ~ 3) is now in fresh medium with no signals w/s/r present. However, the Subtractor B in all computing units now contains the information of differences, i.e., \ce{d_0, d_1, d_2} and \ce{d_3}). 
-    \item The phase B starts by adding \signal{w_B} to the Player B and four computing units. When \signal{w_B} is present, all Subtractor B in Bit 0 to 3 now emit \ce{d}, which is now the new \ce{s}. The medium in Bit 0 and Bit 1 (with updated \ce{s_0, s_1}) is admixed to Player B. The following experiment steps repeat previous ones.
-    \item The end of the game is marked that all signals \signal{s_0, s_1, s_2} and \signal{s_3} are zeros, i.e., all sticks are taken.
-    \TODO{how to know} For the signal indicator, additional fluorescent protein genes are placed downstream of the  intercellular synthesis pathway of QS molecule. Under such construction,  each signal \ce{s_0, s_1, s_2, s_3} is co-expressed with fluorescent protein EGFP, YFP, mCherry and mPlum respectively.   \cite{DuETAL2020}
+    \ra{
+    Wash and replenish Bit~1.
+    }
+    %
+    \ra{
+    Wait for:
+    Bit~2B to compute the difference \ce{d_2} (silent);
+    Bit~2A to compute the carry flag \ce{c_3}. 
+    }
+\item
+    \ra{
+    Admix the medium from Bit~2 containing \ce{c_3}
+    to Bit~3.
+    }
+    %
+    \ra{
+    Wash and replenish Bit~2.
+    }
+    %
+    \ra{
+    Wait for
+    Bit~3B to compute the difference \ce{d_3} (silent).
+    }
+    %
+    Wash and replenish Bit~3.
 \end{enumerate}
- 
 
-}
-
-\TODO{remove redundant description from the following}
-
-
+%
 
 \ra{
-The experiment is
-\textbf{initialized in Phase A}
-by supplying
-\signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
-to Subtractor B
-and
-to Player A.
+This concludes Phase A.
+%
+In the interphase it may be necessary
+to clear the media again
+and generally wait for the steady state.
 }
 %
+Phase B proceeds similarly.
 %
-In \textbf{Phase A}.
+\ra{
+The game finishes when 
+the internal states \ce{d} are zero.
 %
-Add \ce{w_A} everywhere.
-%)
-Admix the medium of Bit~0 and Bit~1 
-(containing the signals \ce{s_0} and \ce{s_1})
-to Player~A,
-wait for Player~A to respond
-(with \ce{r_0}/\ce{r_1}).
-%
-Admix the medium of Player~A
-(with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1})
-to Bit~0, wait for response
-(with \ce{c_1}).
-%
-Admix the media of Player~A and Bit~0
-(with \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}/\ce{c_1})
-to Bit~1, wait for response
-(with \ce{c_2}).
-%
-Admix the medium of Bit~1 
-(with \ce{r_0}/\ldots/\ce{c_2})
-to
-Bit~2,
-wait for response
-(with \ce{c_3}).
-%
-Admix the medium of Bit~2
-(with \ce{r_0}/\ldots/\ce{c_3})
-to Bit~3,
-wait for response.
-%
-%
-In \textbf{Interphase}.
-%
-Clear all media.
-%
-\ra{Wait for the signaling molecules to diffuse
-out of the cells, clear again ?}
-%
-In \textbf{Phase B}.
-%
-Mutatis mutandis.
-
-
-
-\begin{table}[hpbt]
-    \centering
-    %
-    % Table made with
-    % https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
-    %
-    \begin{tabular}{l||cc|ccc|ccc|ccc|cc}
-    {} &      \ce{r_0} &      \ce{r_1} &    \ce{s_0} &      \ce{d_0} &      \ce{c_1} &      \ce{s_1} & \ce{d_1} &      \ce{c_2} &    \ce{s_2} &      \ce{d_2} &      \ce{c_3} &    \ce{s_3} &      \ce{d_3} \\ 
-    \hline
-    1 &  $\downarrow$ &  $\downarrow$ &  $\uparrow$ &               &               &    $\uparrow$ &          &               &             &               &               &             &               \\ 
-    \hline
-    2 &    $\uparrow$ &               &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &               &          &               &             &               &               &             &               \\ 
-    \hline
-    3 &               &    $\uparrow$ &             &               &    $\uparrow$ &  $\downarrow$ &          &  $\downarrow$ &             &               &               &             &               \\ 
-    \hline
-    4 &               &               &             &               &               &               &          &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &             &               \\ 
-    \hline
-    5 &               &               &             &               &               &               &          &               &             &               &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ \\ 
-    \hline
-    \end{tabular}
-    %
-    %
-    \caption{%
-        Substeps of each phase A/B.
-        Arrows: emit ($\uparrow$) and compute ($\downarrow$).
-    }
-    \label{t:substeps}
-\end{table}
-
+We can detect this,
+for example,
+by coupling expression of reporter proteins
+% EGFP, YFP, mCherry and mPlum
+to the memory units
+(details omitted).
+}
 
 %
 
@@ -675,14 +631,15 @@ b)
 dedicated sensor cells 
 that report on signaling molecules 
 in order to 
-monitor the state of the game;
+monitor the communication channels;
 c) \ra{
 cells that emit 
 \signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
 upon one signal, 
 e.g.~% 
 tetracycline%
-\starlink{https://en.wikipedia.org/wiki/Tetracycline}.
+\starlink{https://en.wikipedia.org/wiki/Tetracycline},
+in order to reboot the game.
 }
 
 %
@@ -874,37 +831,39 @@ D1:
 \href{https://i.ibb.co/0QRf919/Screenshot-from-2021-01-21-12-04-19.png}{Figure}
 
 
-\subsection{Insulation of genetic context}
+\subsection{Insulation of genetic context and RBS}
 
-To reduce interference of genetic components,
-\citet{LouETAL2012} and \citet{NielsenETAL2016}
+\ra{
+To reduce ``part-junction interference''
+and maintain relative promoter strengths,
+\citet{LouETAL2012}
+(and \citet{NielsenETAL2016})
 inserted a ribozyme
-\hh{between the junction site and the RBS}. 
+just upstream of the RBS,
+which cuts off the 5'-UTR leader sequence and the scar,
+if present.
 %
-After transcription, 
-it
-\hh{cuts off the leader sequence and scar}
-\TODO{what is leader and what is scar}
-downstream of +1 position. 
 %
-An additional hairpin helps expose the RBS.
-
-
-\subsection{RBS}
-
-\TODO{simplify, keep what's relevant:}
-\hh{RBS refers to ribosome binding site, the sequence of nucleotides that is responsible for the recruitment of a ribosome and initiation of translation, which in turn plays an important role in controlling the level and rate of protein expression. 
-Mutation in RBS sequences can change its strength \cite{Salis2011}. 
+This remedies early saturation 
+of {transcription}
+\cite[SM:Fig.~5]{LouETAL2012}
+and
+thus increases the choice of RBS for 
+regulating expression on 
+the {translation} level
+\cite[SM:Fig.~4]{LouETAL2012}, \cite{Salis2011}.
 %
-Additionally, RBS can be regulated by 
-endogenous short RNA sequences based on RNA-RNA interactions, 
-\TODO{this is inaccurate:}
-which is referred to as toehold swithes 
-\cite{Green2014}.
+An additional hairpin helps expose the RBS
+\cite{LouETAL2012, CarrierKeasling1997}.
 }
-
-\hh{In this experiment, RBS sequence  tctagaGAAAGAGGGGACAAactagt may be used.  (\href{http://parts.igem.org/wiki/index.php/Part:BBa_J61100}{Part:BBa\_J61100}
-\TODO{make a proper citation; no need to state the sequence}
+%
+%
+\ra{
+For our purposes,
+standard RBS sequences 
+such as 
+\href{http://parts.igem.org/wiki/index.php/Part:BBa_J61100}{BBa\_J61100}
+can be used.
 }
 
 
@@ -919,7 +878,7 @@ Following \citet[SM, VII.M]{NielsenETAL2016}
 % \citet{LeeETAL2007}
 we posit
 a truncated \protein{AraC^*}
-that has reduced crosstalk with \signal{IPTG}.
+that has reduced crosstalk with IPTG.
 %
 %
 %
@@ -976,12 +935,11 @@ by specific inducers (often antibiotics)
 via a conformational change. 
 %
 It is suggested 
-\cite{Ramos2005}
-\TODO{where? cldn't find this claim \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1197418/pdf/0030-04.pdf}}
+\cite{Ramos2005, Cuthbertson2013}
 that the TetR-type proteins are usually homodimers
 with two slots for the inducer.
 %
-\ra{PhlF} and MmfR are TetR homologs.
+PhlF and MmfR are TetR homologs.
 % ref? %\citet{DuETAL2020} ?
 }
 
@@ -1050,23 +1008,40 @@ dimerized BjaR activates \promoter{Bja} \cite{Lindemann2011}.
 
 \subsubsection*{DAPG} \label{ss:DAPG}
 
-\hh{
-2,4-diacetylphloroglucinol (DAPG) is a phenol found in some Gram-negatives 
+\ra{
+2,4-diacetylphloroglucinol (DAPG) is 
+a broad-spectrum antibiotic 
+phenol 
+found in some
+strains of the Gram-negative
 \emph{P.~fluorescens}%
-\starlink{https://en.wikipedia.org/wiki/Pseudomonas_fluorescens}%
-.
+\starlink{https://en.wikipedia.org/wiki/Pseudomonas_fluorescens}
+\citet{SchniderkeelETAL2000}.
 }
 %
 \hh{
-\citet{SchniderKeel2000} suggested that DAPG is involved 
-\TODO{``involved''?}
-in phl gene clusters. 
+\citet{SchniderkeelETAL2000} suggested that phl gene clusters is involved 
+\TODO{involved?}
+in synthesis and detection of DAPG. 
 }
 %
 \ra{
-The Tet \TODO{TetR?} repressor homolog phlF binds its operator sequence (phlO)
+The TetR repressor homolog phlF binds its operator sequence (phlO)
 but dissociates in the presence of DAPG.
 }
+
+\ra{
+from \cite{SchniderkeelETAL2000}:
+In the biological control agent P. fluorescens Q2-87, Bangera and Thomashow (2) have identified a gene cluster that comprises the 2,4-DAPG biosynthetic genes phlACBD flanked by genes encoding, respectively, a regulator (phlF) and an efflux protein (phlE). The phlACBDE operon is indispensable for the production of 2,4-DAPG and monoacetylphloroglucinol (MAPG), a potential precursor of 2,4-DAPG (2, 48).
+}
+
+\ra{ 
+from \cite{SchniderkeelETAL2000}:
+The deduced product PhlH (223 amino acids, 24.3 kDa) of the adjacent ORF shows similarities to [..]
+members of the TetR/AcrR family of a series of other microorganisms (data not shown).
+-- nothing else about TetR
+}
+
 
 \subsubsection*{Sal} \label{ss:Sal}
 
@@ -1098,12 +1073,13 @@ binds to each \protein{NahR}.
 \subsubsection*{pC} \label{ss:pC}
 
 \ra{
-P-coumaroyl-HSL/RpaR
-works  \TODO{don't understand ``works''}
+The transcription factor RpaR protein 
+senses
+P-coumaroyl-HSL
 with p-coumaric acid rather than 
-fatty acids of AHL/LuxR.
+fatty acids.
 Hence, it shows good orthogonality 
-to many QS signals \cite{SchaeferETAL2008}.
+to many AHL-HSL receiver proteins \cite{SchaeferETAL2008}.
 }
 %
 \ra{
@@ -1133,31 +1109,25 @@ activates transcription
 
 \subsubsection*{MMF} \label{ss:MMF}
 
-Methylenomycin is an antibioitic \TODO{a what} produced 
+Methylenomycin furans (Mmf) are precursors of methylenomycin, 
+an antibiotic produced 
 by \emph{S.~coelicolor}%
-\starlink{https://en.wikipedia.org/wiki/Streptomyces_coelicolor}%
-.
+\starlink{https://en.wikipedia.org/wiki/Streptomyces_coelicolor}
+\cite{Zhou2020}.
 %
-\hh{
-It's synthesis involves \TODO{``involves''?} methylenomycin furans (Mmf). 
-}
-%
-\ra{
 As a TetR-family transcriptional regulator,
 \href{https://www.uniprot.org/uniprot/Q9JN89}{MmfR} 
 represses \promoter{Mmf},
 but
-accumulation of \signal{Mmf} releases \protein{MmfR} \cite{ORourkeETAL2009}. 
-}
+accumulation of \signal{Mmf} releases it
+\cite{ORourkeETAL2009}. 
 %
-The TetR homolog MmfR is a homodimer \cite{Zhou2020}, 
-\TODO{is a dimer or forms a dimer?}
+The TetR homolog MmfR forms a homodimer \cite{Zhou2020}, 
 which contains two Mmf recognition sites.
 %
-Different R-groups \TODO{whats the connection} may alter the binding affinity \cite[p.2-3]{Zhou2020}. 
+Different R-groups of Mmfs may alter the binding affinity \cite[p.2-3]{Zhou2020}. 
 %
-\citet{DuETAL2020} use an MMF with a branched side chain.
-\ra{they do?} \hh{p.2 MMF has the chemical structure} \TODO{exact ref}
+\citet[p.2]{DuETAL2020} use an MMF with a branched side chain.
 
 
 
@@ -1168,7 +1138,8 @@ Different R-groups \TODO{whats the connection} may alter the binding affinity \c
 Two
 3-oxo-dodecanoyl-homoserine lactone (3OC12-HSL)
 molecules
-bind ir\-rever\-sibly to the dimer \protein{LasR}
+bind ir\-rever\-sibly to the
+ dimerized \protein{LasR}
 from \emph{P.~aeruginosa}%
 \starlink{https://en.wikipedia.org/wiki/Pseudomonas_aeruginosa}%
 . 
@@ -1201,7 +1172,7 @@ whose binding
 induces a conformational change of the dimer. 
 %
 The activated FdeR promotes 
-the ``Flavanone degradation'' operon \promoter{fdeA}.
+the ``Flavanone degradation'' operon \promoter{FdeA}.
 
 
 
@@ -1295,47 +1266,26 @@ and opens the $\ce{\sigma^{54}{-}RNAP{-}hrpL}$ transcription complex.
 %
 %
 \ra{
-The promoter is weak and saturates,
-so increasing its copy number
+Increasing the copy number of this weak promoter
 improves the dynamic range
 \cite[p.4]{Wong2015}.
 }
 
 
-\subsubsection*{Ribocomputing}
+\subsubsection*{Ribocomputing} \label{ss:ribocomputing}
 
 \citet[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 combined
-two short input/sensor RNAs
+short input/sensor RNAs
 \ce{A} and \ce{B}
 into a ``trigger'' RNA
 which opens an RBS-occluding stemloop
-on the output mRNA.
-%
-\hh{
-We refer to it 
-\ra{what is ``it''}
-as switch-ON RBS regulation 
-(appendix \TODO{ref}, \ra{Fig.~}\ref{f:switch_on_RBS}).
-}
+on the output mRNA
+(similarly to Fig.~\ref{f:3_RNA_on_RBS}).
 %
 %
 %
-%
-\ra{
-If the hairpin is less stable
-as in
-\citet[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019},
-translation is active.
-}
-%
-\hh{
-%
-\TODO{fix text}
-However, when a trigger RNA ab that can "sealed" the hairpin, the translation is then blocked. 
-We refer to it as switch-OFF RBS regulation (appendix, figure \ref{f:switch_off_RBS})
-}
-%
+%We mention here a potential symmetric variant:
 %
 %Let inputs \ce{A} and \ce{B} produce
 %output \ce{mRNA_A} and \ce{mRNA_B}, resp.,
@@ -1344,6 +1294,7 @@ We refer to it as switch-OFF RBS regulation (appendix, figure \ref{f:switch_off_
 %Let \ce{A} also produce a short RNA \ce{R^*_B} such that
 %the 5' tail of \ce{mRNA_B} preferentially binds \ce{R^*_B},
 %and vice versa.
+
 
 \subsubsection*{Cross-inhibition} \label{ss:xinh}
 
@@ -1410,7 +1361,7 @@ $\promoter{cI^b_-} > \promoter{cI^a_+}$
 in terms of the output of the promoters.
 %
 %
-See Fig.~\ref{f:sub_response}.
+% See Fig.~\ref{f:sub_response}. % include if has comparison vs no-cross-inhibition
 }
 
 % see \S\ref{s:x-inh}.
@@ -1497,8 +1448,13 @@ We considered:
 	as in 
 	\cite[\href{https://www.nature.com/articles/s41598-017-07386-3/figures/2}{Fig.~2g}]{ChiuJiang2017}.
 \item
-    Cas13 ssRNA-cutting enzyme with guide RNAs.
-    This is similar to our final design.
+    Cas13/ribozymes
+    to cut mRNA
+    instead of zipping up the RBS as
+    in the final design.
+    %
+    % Checkpoint:
+    % https://github.com/numpde/ibiocomp/tree/09dfc328ba151b4d0e443af2edd228d3c3181eed
 \item
     The recombinase-based
     \citep{WeinbergETAL2017}
@@ -1525,7 +1481,7 @@ $
 	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
 $
 %
-using ON/OFF RBS switches. 
+using RBS switches. 
 %
 %
 Each input signal produces 
@@ -1548,23 +1504,133 @@ output mRNA
 as in 
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
 }
+
+
+\TODO{\hh{it seems this switch-OFF thing is not used in the enhanced AND gate? Should we put it in the XOR?} \ra{I just dumped it here:}}
+
+We refer to the opening of 
+the RBS-occluding stemloop
+as ``switch-ON RBS'',
+cf.~Fig.~\ref{f:switch_on_RBS}.
 %
 %
-Details in \S\ref{ss:3xor-details}.
+%
+%
+\ra{
+If the hairpin is less stable as in
+\citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019},
+however,
+translation is active.
+}
+%
+\hh{
+%
+When a trigger RNA \ce{ab} that can "sealed" the hairpin, the translation is then blocked. 
+We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation (cf. Figure \ref{f:switch_off_RBS})
+}
+
+
+
+\hh{
+In Fig.~\ref{f:p_construct_xor}, the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+
+%
+%
+
+The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa$^*$. 
+The circuit consists of 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. 
+
+%
+%
+
+When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce{mn} exposed, which can switch on the RBS on the RNA co-trigger-AND-gate (Figs.~\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
+} 
+
+\begin{figure}
+    \centering
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_off}
+        \caption{%
+            \ra{The unstable hairpin structure is sealed by 
+            the trigger RNA, repressing translation. The design is based on the 3-way-junction repressor \cite{Kim2019}.}
+        }
+        \label{f:switch_off_RBS}
+    \end{subfigure}
+    
+    {\ }
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_on}
+        \caption{%
+            \ra{The stem of the stable hairpin structure 
+            is opened by trigger RNA, 
+            exposing the RBS for translation. 
+            The design is based on the toehold switch \cite{Green2014}.}
+        }
+        \label{f:switch_on_RBS}
+    \end{subfigure}
+    
+    {\ }
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/3_trigger_rna_on}
+        \caption{%
+        The co-trigger RNAs form a trimer that switches ON the RBS.
+        The design is based on the 3-RNA-\AND gate \cite{GreenETAL2017}.
+        }
+        \label{f:3_RNA_on_RBS}
+    \end{subfigure}
+ 
+    
+    \caption{%
+        Switch-OFF RBS (\ref{f:switch_off_RBS}),
+        Switch-ON RBS (\ref{f:switch_on_RBS})
+        and 
+        RNAs 3-\AND gate (\ref{f:3_RNA_on_RBS}). 
+        %
+        Cf.~\S\ref{ss:3xor}/\S\ref{ss:ribocomputing}.
+    }
+    \label{f:switch_RBS}
+\end{figure}
+
+
+
+    
+    
+\begin{figure}
+    \centering
+    \includegraphics[height=0.9\textheight]{xor_ribocomputing/plot-3.pdf}
+    \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
+    \label{f:p_construct_xor}
+\end{figure}
+
+
+
 
 
 \subsection{Shelving}
 
-We let 
-\ra{a trigger RNA \ce{Y} with toehold}
-encode \ce{d_1}
-in the memory subunit
-of Subtractor~A (cf.~\S\ref{ss:memory}).
+\ra{
+The 3-\XOR gate from \S\ref{ss:3xor}
+activates or represses translation of an output mRNA.
 %
-It triggers the translation of \ce{Xis}.
+We take this output to be 
+the transcription factor \ce{cI^a}
+that activates the expression of 
+a trigger RNA \ce{Y} with toehold,
+which 
+in turn triggers the translation of \ce{Xis}.
+%
+Thus, the presence of \ce{Y} stands for $d_1 = 1$.
+}
 %
 %
-Suppose
+%
+Now, suppose
 \ce{w_B = 1} and \ce{s_1 r_1 c_1 = 101},
 in which case \ce{d_1 = 0}.
 %
@@ -1577,18 +1643,17 @@ and the inputs begin to change,
 \ce{Y} can exhibit a transient bump
 (which we observed in some simulations).
 %
-This is sufficient to produce \ce{Xis}
-and thus to cause an unintended \emph{reset}.
+This can be sufficient to produce \ce{Xis}
+and 
+to cause an unintended \emph{reset}.
 %
-We found two complementary ways to mitigate this.
-%
-One is to condition 
+One way to mitigate this is to condition 
 the expression of \ce{Xis}
-on \ce{w_B} also,
+on \ce{w_B} as well,
 which requires \ce{w_B} to go down early
-and requires tuning of degradation rates.
+and also tuning of degradation rates.
 %
-We implemented another way,
+We implemented another, complementary way,
 which
 is a ``shelf'' (a buffer) for \ce{Y}
 that 
@@ -1625,7 +1690,7 @@ viz.~%
 $
 	\signal{\ce{w_A}} \act \protein{AraC^*} \act \promoter{BAD} 
 	\act 
-	\protein{cI} \rep \promoter{cI_-} \act
+	\protein{cI^b} \rep \promoter{cI^b_-} \act
 	\ce{[Y^*]^n}
 	.
 $
@@ -1687,15 +1752,11 @@ we use the above Hill equations
 (which, notably, have no baseline term)
 for all species with $n = 2$ 
 and 
-mostly $\text{EC50} = 1$ molecules.
+mostly $\text{EC50} = 1$ molecules
+(cf.~\S\ref{s:discussion}).
 %
 %
-\citet[SM:p.10]{NielsenETAL2016}
-reported
-$n = 1.6$ for an insulated AmtR
-(with a certain RBS),
-and higher coefficients for
-some other transcription factors.
+%
 %
 %
 We simulate production and degradation
@@ -1722,11 +1783,6 @@ $\promoter{Sal}_\text{active} \act \protein{Output}$.
 Generally,
 we take $0.1$ and $10$ molecules to mean \emph{off} and \emph{on},
 respectively.
-
-\TODO{
-EC50 of signals:
-\cite[SM:Fig.~8]{DuETAL2020}
-}
 
 
 \TODO{more general considerations?}
@@ -1868,7 +1924,7 @@ EC50 of signals:
     \put (50, 30) {%
     	\scalebox{0.7}{%
     		\begin{tabular}{c|ccc|c}
-    		    & \ce{\#s_1} & \ce{\#r_1} & \ce{\#c_1} & $\approx \ce{\#d_1}$
+    		    & \ce{\#s_1} & \ce{\#r_1} & \ce{\#c_1} & $\ce{\#d_1} \approx$
     		    \\
     		    \hline
     		    \ce{B_1} & 10 & 10 & 10 & 0 
@@ -1918,12 +1974,27 @@ EC50 of signals:
 
 %
 
-\section{Discussion}
+\section{Discussion} \label{s:discussion}
 
 \TODO{risks}
+
 \begin{itemize}
 \item 
     senders and receivers in the same cell
+\item
+    In reality,
+    the EC50 of the signals
+    varies over several orders of magnitude
+    \cite[SM:Fig.~8]{DuETAL2020}.
+\item
+    \citet[SM:p.10]{NielsenETAL2016}
+    reported
+    $n = 1.6$ for an insulated AmtR
+    (with a certain RBS),
+    and higher coefficients for
+    some other transcription factors.
+\item
+    Timing could be an issue.
 \end{itemize}
 
 
@@ -1941,10 +2012,14 @@ EC50 of signals:
 \bibliography{refs}
 \normalsize
 
+
+
+
 \clearpage
 
 
 \section*{Appendix}
+
 
 \subsection{Subtractor module}
 
@@ -1978,78 +2053,44 @@ when the signal \ce{w_A} is present.
 \label{f:logical-subtractor01}
 \end{figure}
 
-\subsection{3 input \texorpdfstring{\XOR}{XOR} gate} \label{ss:3xor-details}
 
 
-\hh{
-In figure \ref{f:p_construct_xor}, the TF \TODO{TF?} circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+\subsection{Phases}
 
-%
-%
-
-The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa*
-\TODO{inconsistent notation}. 
-The circuit consists of 3 trigger RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in figure.\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. In short, signal \ce{s_1, r_1, c_1} activates the production of output on its own responsive circuit while represses the other two.
-
-%
-%
-
-The third trigger RNAs in each responsive circuit (\ce{mk}, \ce{k^*p^*} and \ce{p^*n}), when all present, form a trimer with only \ce{mn} exposed. The trimer is equivalent to trigger RNA \ce{mn}, which can switch on the RBS on the 3-trigger-RNA-AND-gate \TODO{fix:}(figure.\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
-} 
-
-\begin{figure}
+\begin{table}[hpbt]
     \centering
-    
-    
-    \begin{subfigure}{\linewidth}
-        \includegraphics[width=\textwidth,page=1]{xor_ribocomputing/switch_off.pdf}
-        \caption{%
-            \ra{The unstable hairpin structure is sealed by 
-            the trigger RNA, repressing translation.}
-        }
-        \label{f:switch_off_RBS}
-    \end{subfigure}
-    
-    \begin{subfigure}{\linewidth}
-        \includegraphics[width=\textwidth,page=2]{xor_ribocomputing/switch_on.pdf}
-        \caption{%
-            \ra{The stem of the stable hairpin structure 
-            is opened by trigger RNA, 
-            exposing the RBS for translation.}
-        }
-        \label{f:switch_on_RBS}
-    \end{subfigure}
-    
-    \caption{Upper: Switch-OFF RBS. Lower: Switch-ON RBS.}
-    \label{f:switch_RBS}
-    
-    \TODO{either put all those figures in one PDF or in separate ones}
-    
-    \TODO{these are facsimiles; provide \emph{specific} reference for each, incl figure number}
-    \TODO{include backref in caption}
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{xor_ribocomputing/3_trigger_rna_on.pdf}
+    %
+    % Table made with
+    % https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
+    %
+    \begin{tabular}{l||cc|ccc|ccc|ccc|cc}
+    {} &      \ce{r_0} &      \ce{r_1} &    \ce{s_0} &      \ce{d_0} &      \ce{c_1} &      \ce{s_1} & \ce{d_1} &      \ce{c_2} &    \ce{s_2} &      \ce{d_2} &      \ce{c_3} &    \ce{s_3} &      \ce{d_3} \\ 
+    \hline
+    1 &  $\downarrow$ &  $\downarrow$ &  $\uparrow$ &               &               &    $\uparrow$ &          &               &             &               &               &             &               \\ 
+    \hline
+    2 &    $\uparrow$ &               &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &               &          &               &             &               &               &             &               \\ 
+    \hline
+    3 &               &    $\uparrow$ &             &               &    $\uparrow$ &  $\downarrow$ &          &  $\downarrow$ &             &               &               &             &               \\ 
+    \hline
+    4 &               &               &             &               &               &               &          &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &             &               \\ 
+    \hline
+    5 &               &               &             &               &               &               &          &               &             &               &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ \\ 
+    \hline
+    \end{tabular}
+    %
+    %
     \caption{%
-    \hh{
-    3 trigger RNAs AND gate. When all 3 trigger RNAs are present, a trimer is formed, which then switch ON the RBS.}
+        Substeps of each phase A/B.
+        Arrows: emit ($\uparrow$) and compute ($\downarrow$).
     }
-    \label{f:3_RNA_on_RBS}
-    
-    \TODO{facsimile; provide \emph{specific} reference, incl figure number}
-    \TODO{include backref in caption}
-\end{figure}
-    
-\begin{figure}
-    \centering
-    \includegraphics[height=0.95\textheight]{xor_ribocomputing/plot-3.pdf}
-    \caption{Genetic circuits for the 3-input \XOR gate.}
-    \label{f:p_construct_xor}
-    \TODO{backref in caption}
-\end{figure}
+    \label{t:substeps}
+\end{table}
+
+
+
+
+
+
 
 \clearpage
 
