@@ -735,7 +735,7 @@ among the good performers:
     symmetric in \ce{r_1}/\ce{c_1};
 %end{itemize}
 %
-but not the 3-\XOR, see \S\ref{ss:3xor}.
+but we couldn't find the 3-\XOR, see \S\ref{ss:3xor}.
 
 %
 
@@ -749,7 +749,7 @@ by {HlyIIR}
 %
 The last operation
 is a ``poor man's \OR gate'';
-we let it produce \ce{cI^a}
+we let it control \protein{cI^a}
 (\S\ref{ss:cI})
 that
 triggers the synthesis of \signal{r_0}.
@@ -1014,16 +1014,15 @@ dimerized BjaR activates \promoter{Bja} \cite{Lindemann2011}.
 2,4-diacetylphloroglucinol (DAPG) is 
 a broad-spectrum antibiotic 
 phenol 
-found in some
-strains of the Gram-negative
+found in some strains of the Gram-negative
 \emph{P.~fluorescens}%
 \starlink{https://en.wikipedia.org/wiki/Pseudomonas_fluorescens}
-\citet{SchniderkeelETAL2000}.
+\cite{SchniderkeelETAL2000}.
 }
 %
 \hh{
 \citet{SchniderkeelETAL2000} suggested that phl gene clusters is involved 
-\TODO{involved?}
+% \TODO{involved?}
 in synthesis and detection of DAPG. 
 }
 %
@@ -1034,7 +1033,7 @@ but dissociates in the presence of DAPG.
 
 \ra{
 from \cite{SchniderkeelETAL2000}:
-In the biological control agent P. fluorescens Q2-87, Bangera and Thomashow (2) have identified a gene cluster that comprises the 2,4-DAPG biosynthetic genes phlACBD flanked by genes encoding, respectively, a regulator (phlF) and an efflux protein (phlE). The phlACBDE operon is indispensable for the production of 2,4-DAPG and monoacetylphloroglucinol (MAPG), a potential precursor of 2,4-DAPG (2, 48).
+In the biological control agent P. fluorescens Q2-87, Bangera and Thomashow (2) have identified a gene cluster that comprises the 2,4-DAPG biosynthetic genes phlACBD flanked by genes encoding, respectively, a regulator (phlF) and an efflux protein (phlE). The phlACBDE operon is indispensable for the production of 2,4-DAPG and monoacetylphloroglucinol (MAPG), a potential precursor of 2,4-DAPG.
 }
 
 \ra{ 
@@ -1341,7 +1340,7 @@ repress \promoter{cI^a_-}/\promoter{cI^b_-}:
     \stackrel{\hspace{-10pt}\smash{\text{trigger RNA}}\hspace{-10pt}}{\ce{AB}}
     \act 
     \begin{array}{c}
-        \text{opens RBS on} \\ \text{the output RNA.}
+        \text{opens RBS on} \\ \text{the output mRNA.}
     \end{array}
 \end{align}
 %
@@ -1508,7 +1507,7 @@ as in
 }
 
 
-\TODO{\hh{it seems this switch-OFF thing is not used in the enhanced AND gate? Should we put it in the XOR?} \ra{I just dumped it here:}}
+\TODO{\hh{it seems this switch-OFF thing is not used in the enhanced AND gate? Should we put it in the XOR?} \ra{moved here:}}
 
 We refer to the opening of 
 the RBS-occluding stemloop
@@ -1526,7 +1525,7 @@ then
 translation is active.
 }
 %
-\hh{
+\ra{
 %
 When a trigger RNA \ce{ab} that can "sealed" the hairpin, the translation is then blocked. 
 We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation
@@ -1536,13 +1535,15 @@ We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regula
 
 
 \hh{
-In Fig.~\ref{f:p_construct_xor}, the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+In Fig.~\ref{f:p_construct_xor}, 
+the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
 
 %
 %
 
 The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa$^*$. 
-The circuit consists of 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. IV-HSL and Sal responsive circuits follow the similar topology. 
+The circuit consists of 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. 
+IV-HSL and Sal responsive circuits follow the similar topology. 
 
 %
 %
@@ -1557,11 +1558,12 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
         \centering
         \includegraphics[width=\linewidth]{xor_ribocomputing/switch_off}
         \caption{%
-            \ra{The unstable hairpin structure is sealed by 
-            the trigger RNA, repressing translation. 
-            }
-            \hh{The design is based on the 3-way-junction repressor \cite{Kim2019}.
-            }
+            The unstable hairpin is sealed by 
+            the trigger RNA \ce{ab},
+            repressing translation.
+            %
+            Following 
+            \cite[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/1}{Fig.~1c}]{Kim2019}.
         }
         \label{f:switch_off_RBS}
     \end{subfigure}
@@ -1572,12 +1574,12 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
         \centering
         \includegraphics[width=\linewidth]{xor_ribocomputing/switch_on}
         \caption{%
-            \ra{The stem of the stable hairpin structure 
-            is opened by trigger RNA, 
+            The stem of the stable hairpin 
+            is opened by the trigger RNA \ce{ab}, 
             exposing the RBS for translation. 
-            }
-            \hh{
-            The design is based on the toehold switch \cite{Green2014}.}
+            %
+            Following 
+            \cite[\href{https://www.sciencedirect.com/science/article/pii/S0092867414012896}{Fig.~1b}]{Green2014}.
         }
         \label{f:switch_on_RBS}
     \end{subfigure}
@@ -1588,10 +1590,10 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
         \centering
         \includegraphics[width=\linewidth]{xor_ribocomputing/3_trigger_rna_on}
         \caption{%
-        The co-trigger RNAs form a trimer that switches ON the RBS.
-        \hh{
-        The design is based on the 3-RNA-\AND gate \cite{GreenETAL2017}.
-        }
+            The co-trigger RNAs form a trimer that switches ON the RBS.
+            %
+            Following
+            \cite[\href{https://www.nature.com/articles/nature23271/figures/3}{Fig.~3a}]{GreenETAL2017}.
         }
         \label{f:3_RNA_on_RBS}
     \end{subfigure}
@@ -1837,7 +1839,7 @@ respectively.
 		%
 		The log-colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
 		%
-		The yellow contour lines are at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
+		Yellow contours at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
 	}
 	%
 	\label{f:player_response}
@@ -1920,7 +1922,7 @@ respectively.
 		%
 		The log-colorbar goes from $10^{-3}$-or-less (white) to $10^1$ (black).
 		%
-		The yellow contour lines are at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
+		Yellow contours at $10^t$, $t = 0.8, 0.6, 0.4, \ldots$.
 	}
 	%
 	\label{f:sub_response}
@@ -1952,7 +1954,7 @@ respectively.
     \end{overpic}
     %
     \caption{%
-        Subtractor A, bit 1, output \ce{\#d_1}
+        Subtractor A, Bit 1, output \ce{\#d_1}
         across phases \ce{B_1}-\ce{A_1}-\ce{B_2}-\ce{A_2}
         (with interphases).
         %
@@ -1973,7 +1975,7 @@ respectively.
         preventing unwanted expression of Xis.
         %
         At the end of \ce{B_2},
-		a small mistiming in signal decay
+		a small deliberate mistiming in signal decay
         leads to a bump in Y 
         that is absorbed by the shelf.
         %
