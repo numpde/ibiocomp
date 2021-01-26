@@ -1535,7 +1535,6 @@ as in
 }
 
 
-\TODO{\hh{it seems this switch-OFF thing is not used in the enhanced AND gate? Should we put it in the XOR?} \ra{moved here. please revise all:}}
 
 We refer to the opening of 
 the RBS-occluding stemloop
@@ -1546,37 +1545,33 @@ cf.~Fig.~\ref{f:switch_on_RBS}.
 %
 %
 \ra{
-However,
-if the hairpin is less stable as in
+If the hairpin is less stable as in
 \citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
 then
 translation is active.
 }
 %
 \ra{
-%
-When a trigger RNA \ce{ab} that can "sealed" the hairpin, the translation is then blocked. 
+With the presence of a trigger RNA \ce{ab}, which can "sealed" the hairpin, the translation is then blocked. 
 We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation
 (Fig.~\ref{f:switch_off_RBS}).
 }
 
-
-
 \hh{
 In Fig.~\ref{f:p_construct_xor}, 
-the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} pC-HSL, \ce{r_1} IV-HSL and \ce{c_1} Sal.
+the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
 
 %
 %
 
-The pC-HSL responsive circuit is activated by pC-HSL through the promoter Prpa$^*$. 
-The circuit consists of 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the IV-HSL triggered output and the trigger RNA \ce{cd} switches off the Sal triggered output. The switch OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. 
+The pC-HSL responsive circuit is activated by pC-HSL through the promoter \promoter{Rpa$^*$}. 
+The circuit transcribes 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the output from IV-HSL responsive circuit, and the trigger RNA \ce{cd} switches off the Sal-triggered output. The switch-OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. 
 IV-HSL and Sal responsive circuits follow the similar topology. 
-
+As such, the output from the responsive circuits is only expressed when only one of the inducers is present.
 %
 %
 
-When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce{mn} exposed, which can switch on the RBS on the RNA co-trigger-AND-gate (Figs.~\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}).
+Additionally, the 3 co-trigger RNAs form a trimer with only \ce{mn} exposed, which switches on the RBS on the co-trigger RNA AND gate (Figs.~\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}). Therefore, the output is also expressed when all 3 signals are present.
 } 
 
 \begin{figure}
@@ -1644,7 +1639,7 @@ When all 3 inducers are present, the co-trigger RNAs form a trimer with only \ce
     
 \begin{figure}
     \centering
-    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/plot-3.pdf}
+    \includegraphics[height=(\textheight-2\baselineskip)]{images/xor_ribocomputing/xor_circuit_plot_2.pdf}
     \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
     \label{f:p_construct_xor}
 \end{figure}

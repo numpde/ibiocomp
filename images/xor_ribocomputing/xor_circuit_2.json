@@ -1,0 +1,347 @@
+{
+ "title": "",
+ "note": "",
+ "constructs": [
+  {
+   "name": "Transcription factors",
+   "note": "",
+   "id": "a4ee6dd3-2380-4576-a6f3-167e5416beef",
+   "parts": [
+    {
+     "category": "promoter",
+     "bg_color": null,
+     "label": "P_c",
+     "reversed": false,
+     "sublabel": "constitutive promoter",
+     "subscript": "",
+     "id": 0
+    },
+    {
+     "category": "RBS",
+     "bg_color": null,
+     "label": "RBS",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 6
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "RpaR",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 1
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "BjaR",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 7
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "NahR",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 8
+    },
+    {
+     "category": "terminator",
+     "bg_color": null,
+     "label": "",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "Some subscript",
+     "id": 2
+    }
+   ]
+  },
+  {
+   "name": "pC-HSL responsive circuit",
+   "note": "",
+   "id": 6,
+   "parts": [
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA bd",
+     "reversed": false,
+     "sublabel": "[Rpa*]",
+     "subscript": "",
+     "id": "baa01d50-5fef-11eb-ab1d-75ee875fe19c"
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA cd",
+     "reversed": false,
+     "sublabel": "[Rpa*]",
+     "subscript": "",
+     "id": 6
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "co-trigger RNA mk",
+     "reversed": false,
+     "sublabel": "[Rpa*]",
+     "subscript": "",
+     "id": 7
+    },
+    {
+     "category": "promoter",
+     "bg_color": null,
+     "label": "[Rpa*]",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 8
+    },
+    {
+     "category": "insulator",
+     "bg_color": null,
+     "label": "insulator",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 9
+    },
+    {
+     "category": "RBS",
+     "bg_color": null,
+     "label": "switch RBS",
+     "reversed": false,
+     "sublabel": "ad - OFF",
+     "subscript": "",
+     "id": 10
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "output",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 11
+    },
+    {
+     "category": "terminator",
+     "bg_color": null,
+     "label": "",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 12
+    }
+   ]
+  },
+  {
+   "name": "IV-HSL responsive circuit",
+   "note": "",
+   "id": "38cab2d0-5ff0-11eb-ab1d-75ee875fe19c",
+   "parts": [
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA ad",
+     "reversed": false,
+     "sublabel": "[Bja*]",
+     "subscript": "",
+     "id": "baa01d50-5fef-11eb-ab1d-75ee875fe19c"
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA cd",
+     "reversed": false,
+     "sublabel": "[Bja*]",
+     "subscript": "",
+     "id": 6
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "co-trigger RNA k*p*",
+     "reversed": false,
+     "sublabel": "[Bja*]",
+     "subscript": "",
+     "id": 7
+    },
+    {
+     "category": "promoter",
+     "bg_color": null,
+     "label": "[Bja*]",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 8
+    },
+    {
+     "category": "insulator",
+     "bg_color": null,
+     "label": "insulator",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 9
+    },
+    {
+     "category": "RBS",
+     "bg_color": null,
+     "label": "switch RBS",
+     "reversed": false,
+     "sublabel": "bd - OFF",
+     "subscript": "",
+     "id": 10
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "output",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 11
+    },
+    {
+     "category": "terminator",
+     "bg_color": null,
+     "label": "",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 12
+    }
+   ]
+  },
+  {
+   "name": "Sal responsive circuit",
+   "note": "",
+   "id": "53ce2260-5ff0-11eb-ab1d-75ee875fe19c",
+   "parts": [
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA ad",
+     "reversed": false,
+     "sublabel": "[Sal]",
+     "subscript": "",
+     "id": "baa01d50-5fef-11eb-ab1d-75ee875fe19c"
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "trigger RNA bd",
+     "reversed": false,
+     "sublabel": "[Sal]",
+     "subscript": "",
+     "id": 6
+    },
+    {
+     "category": "expression-cassette",
+     "bg_color": null,
+     "label": "co-trigger RNA k*n",
+     "reversed": false,
+     "sublabel": "[Sal]",
+     "subscript": "",
+     "id": 7
+    },
+    {
+     "category": "promoter",
+     "bg_color": null,
+     "label": "[Sal]",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 8
+    },
+    {
+     "category": "insulator",
+     "bg_color": null,
+     "label": "insulator",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 9
+    },
+    {
+     "category": "RBS",
+     "bg_color": null,
+     "label": "switch RBS",
+     "reversed": false,
+     "sublabel": "cd - OFF",
+     "subscript": "",
+     "id": 10
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "output",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 11
+    },
+    {
+     "category": "terminator",
+     "bg_color": null,
+     "label": "",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 12
+    }
+   ]
+  },
+  {
+   "name": "co-trigger RNA AND gate",
+   "note": "",
+   "id": 7,
+   "parts": [
+    {
+     "category": "promoter",
+     "bg_color": null,
+     "label": "P_c",
+     "reversed": false,
+     "sublabel": "constitutive promoter",
+     "subscript": "",
+     "id": "8907ed80-5ff0-11eb-ab1d-75ee875fe19c"
+    },
+    {
+     "category": "RBS",
+     "bg_color": null,
+     "label": "switch RBS",
+     "reversed": false,
+     "sublabel": "mn - ON",
+     "subscript": "",
+     "id": 6
+    },
+    {
+     "category": "CDS",
+     "bg_color": null,
+     "label": "output",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 7
+    },
+    {
+     "category": "terminator",
+     "bg_color": null,
+     "label": "",
+     "reversed": false,
+     "sublabel": "",
+     "subscript": "",
+     "id": 8
+    }
+   ]
+  }
+ ]
+}
