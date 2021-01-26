@@ -1495,8 +1495,8 @@ We considered:
     mentioned here for completeness.
 \end{itemize}
 
+%
 
-\ra{
 Eventually, we implemented the DNF%
 \starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}
 %
@@ -1521,45 +1521,54 @@ two short RNAs
 that inhibit the mRNA
 of the other two inputs
 using 
-the ``three-way junction'' switch-OFF mechanism
+the ``three-way junction'' mechanism
 of \citet{Kim2019};
 3)~%
 a co-trigger RNA:
-when all 3 signals are present
+upon all 3 signals,
 the co-trigger RNAs form a trimer 
 that opens the RBS of a fourth 
 (constitutively transcribed) 
 output mRNA
 as in 
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
-}
 
 
 
 We refer to the opening of 
 the RBS-occluding stemloop
-as ``switch-ON RBS'',
-cf.~Fig.~\ref{f:switch_on_RBS}.
+by a trigger RNA
+as ``Switch-ON RBS'',
+\ra{see Fig.~\ref{f:switch_on_RBS}/\ref{f:3_RNA_on_RBS}}.
 %
 %
 %
 %
-\ra{
 If the hairpin is less stable as in
 \citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
 then
-translation is active.
-}
+translation is active;
 %
-\ra{
-With the presence of a trigger RNA \ce{ab}, which can "sealed" the hairpin, the translation is then blocked. 
-We refer to the stabilization of RBS-occluding stemloop as switch-OFF RBS regulation
-(Fig.~\ref{f:switch_off_RBS}).
-}
+however,
+the trigger RNA \ce{ab}
+can \emph{seal} the hairpin
+to deactivate translation.
+%
+We refer to 
+this stabilization of RBS-occluding stemloop as ``Switch-OFF RBS''
+see Fig.~\ref{f:switch_off_RBS}.
 
 \hh{
 In Fig.~\ref{f:p_construct_xor}, 
 the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
+
+\ra{
+Fig.~\ref{f:p_construct_xor}
+shows the genetic circuits implementing our 3-\XOR gate.
+%
+The first circuit provides the transcription factors
+for the signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
+}
 
 %
 %
@@ -1640,7 +1649,7 @@ Additionally, the 3 co-trigger RNAs form a trimer with only \ce{mn} exposed, whi
 \begin{figure}
     \centering
     % don't add path: it's set globally
-    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/xor_circuit_plot_2.pdf}
+    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/xor_circuit_plot_2}
     \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
     \label{f:p_construct_xor}
 \end{figure}
