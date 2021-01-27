@@ -115,7 +115,7 @@
 \newcommand{\ra}[1]{{\color{Blue}#1}}
 
 
-\title{ibiocomp project}
+\title{The game of 15 sticks in \emph{E.~coli}}
 \author{RA \& HH}
 \date{\today}
 \newcommand{\linktodoc}{http://bit.ly/15sticks}
@@ -140,13 +140,15 @@
 		See the link 
 		for the Matlab/SymBiology files
 		and 
-		for the PDF file with sharp figures.%
+		for the PDF file with sharp figures.
+		%
+		%Acknowledgements:
 	}}{}%
 }
 
 
 We design genetic circuits
-\ra{in \emph{E.~coli}}
+in \emph{E.~coli}
 that play the following game:
 %
 \begin{quote}
@@ -353,7 +355,6 @@ The logic is shown in Table \ref{t:logical-playera}.
 
 \subsubsection*{Subtractor} \label{ss:sub}
 
-
 In Phase A,
 Subtractor B 
 senses the current number of sticks \eqref{e:s0123},
@@ -367,8 +368,8 @@ It has four compute units Bit~0 to Bit~3
 that are also
 spatially separated (cf.~\S\ref{ss:experiment}). 
 %
-The subtraction proceeds from Bit~0 to Bit~3
-(cf.~Table~\ref{t:substeps}).
+The subtraction proceeds from Bit~0 to Bit~3.
+%(cf.~Table~\ref{t:substeps}).
 %
 Bit~0 senses the current \ce{s_0}/\ce{r_0}
 and computes \ce{d_0} (silently)
@@ -406,7 +407,7 @@ that illustrates the principle of delayed response.
 \ra{
 Since
 Bits 0/2/3 
-are a subfunctionality of Bit~1,
+are a subfunctionality of Bit~1
 we will not discuss them in detail.
 }
 
@@ -447,8 +448,8 @@ and
 \emph{three} for the carry flags
 (see \S\ref{ss:sub}).
 %
-Thus we need \emph{eight} orthogonal intercellular channels,
-cf.~Table \ref{t:substeps}.
+Thus we need \emph{eight} orthogonal intercellular channels.
+%cf.~Table \ref{t:substeps}.
 %
 One channel could be spared 
 at the expense
@@ -660,8 +661,8 @@ in order to reboot the game.
 \ra{
 The iGEM part 
 \href{http://parts.igem.org/Part:BBa_J23100}{BBa\_J23100}
-is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter
-\cite{iGem_Pc}.
+is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter.
+%\cite{iGem_Pc}.
 %
 We refer to it as \ce{P_c}. 
 %
@@ -824,19 +825,19 @@ AmtR sits on the DNA as a dimer
 %\cite{BuchingerETAL2009}
 
 
-\TODO{these are the TFs / promoters used}
+\ra{
+Further, we use the transcription repressors BetI and HlyIIR,
+see \cite{NielsenETAL2016}.
+}
 
-Player:
-BetI, HlyIIR, \ce{cI^a}, \ce{P_{c}}
-\href{https://i.ibb.co/N2kdwJL/Screenshot-from-2021-01-21-12-06-59.png}{Figure}
+% Player: BetI, HlyIIR, \ce{cI^a}, \ce{P_{c}}
+% \href{https://i.ibb.co/N2kdwJL/Screenshot-from-2021-01-21-12-06-59.png}{Figure}
 
-C2:
-AmtR, HlyIIR, \ce{cI}, \ce{cI^a}, \ce{P_{c}}
-\href{https://i.ibb.co/Mh2sWzg/Screenshot-from-2021-01-21-12-02-31.pngs}{Figure}
+% C2: AmtR, HlyIIR, \ce{cI}, \ce{cI^a}, \ce{P_{c}}
+% \href{https://i.ibb.co/Mh2sWzg/Screenshot-from-2021-01-21-12-02-31.pngs}{Figure}
 
-D1:
-\ce{P_{c}}, \ce{cI^a}
-\href{https://i.ibb.co/0QRf919/Screenshot-from-2021-01-21-12-04-19.png}{Figure}
+% D1: \ce{P_{c}}, \ce{cI^a}
+% \href{https://i.ibb.co/0QRf919/Screenshot-from-2021-01-21-12-04-19.png}{Figure}
 
 
 \subsection{Insulation of genetic context and RBS}
@@ -959,20 +960,14 @@ Of note,
 \citet[SM:p.8]{DuETAL2020} 
 reported that sender cells
 enter the log-phase with delay
-compared to control samples:
-up to 12h
-for Sal and DAPG;
-about 3h 
-for 3OC6, 3OC12, pC and MMF;
-no delay 
-for IV and NG.
-}
+compared to control samples
+(Sal, DAPG: $\approx$12h;
+3OC6, 3OC12, pC, MMF: $\approx$3h;
+IV, NG: no delay).
 %
 %
-\ra{
-For sequences, biosynthesis and induction curves 
-we refer to
-\cite[SM]{DuETAL2020}.
+See \cite[SM]{DuETAL2020}
+for sequences, biosynthesis and induction curves.
 }
 
 
@@ -1376,6 +1371,7 @@ repress \promoter{cI^a_-}/\promoter{cI^b_-}:
 Herein,
 \ce{A} and \ce{B} 
 form a trigger RNA \ce{AB} as in
+% Fig.~\ref{f:switch_on_RBS} and
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017},
 including toeholds
 for preferential binding 
@@ -1470,7 +1466,10 @@ We considered:
 	(cf.~\S\ref{ss:HrpRS}).
 \item
 	RNA \AND-gates
-	\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
+	as in 
+	Fig.~\ref{f:switch_on_RBS}
+	%\cite[\href{https://www.nature.com/articles/nature23271/figures/3}{Fig.~3a}]{GreenETAL2017}
+	%\cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}
 	instead of the protein heterodimer.
 \item
 	\href{https://bit.ly/wsgxfDv}{RNA-only gate}
@@ -1521,17 +1520,29 @@ Eventually, we implemented the DNF%
 \eqref{e:3xor-dnf}
 using RBS switches. 
 %
+$
+	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
+	\vee
+	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
+	\vee
+	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
+$
+%
+using RBS switches. 
+%
 %
 Each input signal produces 
 1)~%
 an output mRNA;
 2)~%
 two short RNAs
-that inhibit the mRNA
+that inhibit the output mRNA
 of the other two inputs
 using 
-the ``three-way junction'' mechanism
-of \citet{Kim2019};
+the ``three-way junction'' mechanism of 
+\cite[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/1}{Fig.~1c}]{Kim2019};
 3)~%
 a co-trigger RNA:
 upon all 3 signals,
@@ -1541,133 +1552,51 @@ that opens the RBS of a fourth
 output mRNA
 as in 
 \cite[\href{https://www.nature.com/articles/nature23271/figures/2}{Fig.~2e}]{GreenETAL2017}.
-
-
-
-We refer to the opening of 
-the RBS-occluding stemloop
-by a trigger RNA
-as ``Switch-ON RBS'',
-\ra{see Fig.~\ref{f:switch_on_RBS}/\ref{f:3_RNA_on_RBS}}.
 %
 %
 %
-%
-If the hairpin is less stable as in
-\citep[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/3}{Fig.~3}]{Kim2019}
-then
-translation is active;
-%
-however,
-the trigger RNA \ce{ab}
-can \emph{seal} the hairpin
-to deactivate translation.
-%
-We refer to 
-this stabilization of RBS-occluding stemloop as ``Switch-OFF RBS''
-see Fig.~\ref{f:switch_off_RBS}.
-
-\hh{
-In Fig.~\ref{f:p_construct_xor}, 
-the transcription factor circuit provides the transcription factors required to sense the QS signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
-
 \ra{
 Fig.~\ref{f:p_construct_xor}
-shows the genetic circuits implementing our 3-\XOR gate.
-%
-The first circuit provides the transcription factors
-for the signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
+shows the corresponding genetic circuits:
+\begin{itemize}
+\item
+    The first circuit constitutively provides 
+    the transcription factors
+    to sense
+    the signals \ce{s_1} (pC-HSL), \ce{r_1} (IV-HSL) and \ce{c_1} (Sal).
+\item
+    The second circuit is activated by pC-HSL 
+    through four independent promoters \promoter{Rpa^*}
+    (the copy number and strength of each may have to be tuned):
+    %
+    two kinds of inhibitory trigger RNAs (\ce{bd} and \ce{cd}),
+    one ``co-trigger'' RNA \ce{mk}
+    and an output mRNA. 
+    %
+    %
+    The trigger RNA \ce{bd} / \ce{cd}
+    inhibits the output from the IV-HSL / Sal responsive circuit
+    as in Fig.~\ref{f:switch_off_RBS}.
+\item
+    IV-HSL and Sal responsive circuits work analogously. 
+    %
+    Thus, the output from the responsive circuits is 
+    translated if exactly one of the inducers is present.
+\item
+    Another copy of output mRNA is constitutively transcribed
+    but is silenced by its RBS stemloop by default. 
+    %
+    Only when the 3 co-trigger RNAs form a trimer,
+    the exposed sequence \ce{mn} pries open the RBS,
+    see Fig.~\ref{f:3_RNA_on_RBS}.
+    %
+    Therefore, the output is expressed when all 3 signals are present.
+\end{itemize}
 }
 
-%
-%
-
-The pC-HSL responsive circuit is activated by pC-HSL through the promoter \promoter{Rpa$^*$}. 
-The circuit transcribes 3 interfering RNAs with their own promoter and terminator, and an output. The trigger RNA \ce{bd} switches off the output from IV-HSL responsive circuit, and the trigger RNA \ce{cd} switches off the Sal-triggered output. The switch-OFF RBS follows the design in Fig.~\ref{f:switch_off_RBS}. 
-IV-HSL and Sal responsive circuits follow the similar topology. 
-As such, the output from the responsive circuits is only expressed when only one of the inducers is present.
-%
-%
-
-Additionally, the 3 co-trigger RNAs form a trimer with only \ce{mn} exposed, which switches on the RBS on the co-trigger RNA AND gate (Figs.~\ref{f:switch_on_RBS} and \ref{f:3_RNA_on_RBS}). Therefore, the output is also expressed when all 3 signals are present.
-} 
-
-\begin{figure}
-    \centering
-    
-    \begin{subfigure}{\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_off}
-        \caption{%
-            The unstable hairpin is sealed by 
-            the trigger RNA \ce{ab},
-            repressing translation.
-            %
-            Following 
-            \cite[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/1}{Fig.~1c}]{Kim2019}.
-        }
-        \label{f:switch_off_RBS}
-    \end{subfigure}
-    
-    \vspace{1.5\baselineskip}
-    
-    \begin{subfigure}{\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_on}
-        \caption{%
-            The stem of the stable hairpin 
-            is opened by the trigger RNA \ce{ab}, 
-            exposing the RBS for translation. 
-            %
-            Following 
-            \cite[\href{https://www.sciencedirect.com/science/article/pii/S0092867414012896}{Fig.~1b}]{Green2014}.
-        }
-        \label{f:switch_on_RBS}
-    \end{subfigure}
-    
-    \vspace{1.5\baselineskip}
-    
-    \begin{subfigure}{\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{xor_ribocomputing/3_trigger_rna_on}
-        \caption{%
-            The co-trigger RNAs form a trimer that switches ON the RBS.
-            %
-            Following
-            \cite[\href{https://www.nature.com/articles/nature23271/figures/3}{Fig.~3a}]{GreenETAL2017}.
-        }
-        \label{f:3_RNA_on_RBS}
-    \end{subfigure}
-    
-    \caption{%
-        Switch-OFF (\ref{f:switch_off_RBS})
-        and 
-        Switch-ON (\ref{f:switch_on_RBS}) RBS;
-        %
-        RNAs 3-\AND gate (\ref{f:3_RNA_on_RBS}). 
-        %
-        Cf.~\S\ref{ss:3xor}/\S\ref{ss:ribocomputing}.
-    }
-    \label{f:switch_RBS}
-\end{figure}
 
 
-
-    
-    
-\begin{figure}
-    \centering
-    % don't add path: it's set globally
-    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/xor_circuit_plot_2}
-    \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
-    \label{f:p_construct_xor}
-\end{figure}
-
-
-
-
-
-\subsection{Shelving}
+\subsection{Shelving} \label{ss:shelf}
 
 \ra{
 The 3-\XOR gate from \S\ref{ss:3xor}
@@ -1746,7 +1675,8 @@ $
 	\signal{\ce{w_A}} \act \protein{AraC^*} \act \promoter{BAD} 
 	\act 
 	\protein{cI^b} \rep \promoter{cI^b_-} \act
-	\ce{[Y^*]^n}
+	\ce{(Y^*)^n}
+	\rep \ce{Y} \act \protein{Xis}
 	.
 $
 %
@@ -1838,19 +1768,204 @@ $\promoter{Sal}_\text{active} \act \protein{Output}$.
 Generally,
 we take $0.1$ and $10$ molecules to mean \emph{off} and \emph{on},
 respectively.
+%
+%
+%
+In the figures we refer to ``a.u.'' 
+instead of seconds,
+because these choices lead to timescales
+that are too fast to be realistic
+(perhaps by a factor of 10).
 
 
-\TODO{more general considerations?}
+\subsection{Player A} \label{s:sim:player}
+
+\ra{
+We implemented
+the response \ce{r_0} and \ce{r_1} of Player A 
+as sketched out in \S\ref{ss:cello}.
+%
+The steady-state response is shown in Fig.~\ref{f:player_response}.
+}
+%
+%\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
 
-\subsection{PlayerA} \label{s:sim:player}
+\subsection{Bit 1} \label{s:sim:bit1}
 
-\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
+\subsubsection*{Carry flag \texorpdfstring{\ce{c_2}}{c2}} \label{s:sim:bit1:c2}
 
-\TODO{on Player A}
+\ra{
+We implemented \ce{c_2}
+as indicated in \S\ref{ss:cello}.
+%
+Recall that \ce{c_2} is emitted immediately,
+bypassing the memory unit.
+%
+The steady-state response is shown in Fig.~\ref{f:sub_response}.
+%
+%We used cross-inhibition from \S\ref{ss:xinh}
+%as the last gate.
+}
 
+\subsubsection*{Difference \texorpdfstring{\ce{d_1}}{d1}} \label{s:sim:bit1:d1}
+
+\ra{
+We implemented \ce{d_1}
+as in \S\ref{ss:3xor}
+with 
+the buffer/shelving mechanism from \S\ref{ss:shelf}
+and
+the recombinase memory unit from \S\ref{ss:memory}.
+%
+%
+Fig.~\ref{f:sub_response}
+shows 
+the write-then-emit response of this stack of circuits.
+%
+%
+Fig.~\ref{f:symbio-d1-tempo} shows
+the time-course of key components over four phases
+(compute-read-compute-read)
+with a particular choice of inputs
+and
+illustrates the effect of shelving
+for isolating 
+the memory unit
+from spurious output of the compute unit.
+}
 
 %
+%
+%
+
+\section{Discussion} \label{s:discussion}
+
+\ra{
+The focus of this note is the design
+of a multi-cell genetic count-down 
+computer which is \emph{reusable}.
+%
+%
+Our solution relies on
+computing, remembering and emitting 
+the new status in alternating phases. 
+%
+%
+In particular,
+we propose an RNA-based 3-\XOR gate.
+%
+%
+The memory unit is based on 
+a resettable recombinase.
+%
+We also propose to
+insulate undesirable fluctuations
+in the output of the compute unit
+by means of a buffer.
+
+%
+%
+
+Our simulations have helped identify some issues
+but are highly stylized.
+%
+%
+For example,
+in reality,
+the EC50 of the signals
+vary over several orders of magnitude
+\cite[SM:Fig.8]{DuETAL2020}
+and
+the Hill equation parameters depend on the context
+\cite[SM:p.10]{NielsenETAL2016};
+we rely heavily on orthogonality of the signaling channels
+and ignore 
+potential toxicity
+\cite[SM:p.8]{DuETAL2020};
+we did not simulate diffusion 
+of signaling molecules 
+in and out of the cell
+and
+have not systematically investigated
+robustness against mistiming of signaling.
+%
+}
+
+
+
+% % %
+
+\begin{figure}[!p]
+    \centering
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_off}
+        \caption{%
+            The unstable hairpin is sealed by 
+            the trigger RNA \ce{ab},
+            repressing translation.
+            %
+            Adapted from
+            \cite[\href{https://www.nature.com/articles/s41589-019-0388-1/figures/1}{Fig.~1c}]{Kim2019}.
+        }
+        \label{f:switch_off_RBS}
+    \end{subfigure}
+    
+    \vspace{1.5\baselineskip}
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/switch_on}
+        \caption{%
+            The stem of the stable hairpin 
+            is opened by the trigger RNA \ce{ab}, 
+            exposing the RBS for translation.
+            %
+            Adapted from
+            \cite[\href{https://www.sciencedirect.com/science/article/pii/S0092867414012896}{Fig.~1b}]{Green2014}.
+        }
+        \label{f:switch_on_RBS}
+    \end{subfigure}
+    
+    \vspace{1.5\baselineskip}
+    
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{xor_ribocomputing/3_trigger_rna_on}
+        \caption{%
+            The co-trigger RNAs form a trimer that switches ON the RBS.
+            %
+            Adapted from
+            \cite[\href{https://www.nature.com/articles/nature23271/figures/3}{Fig.~3a}]{GreenETAL2017}.
+        }
+        \label{f:3_RNA_on_RBS}
+    \end{subfigure}
+    
+    \caption{%
+        Switch-OFF (\ref{f:switch_off_RBS})
+        and 
+        Switch-ON (\ref{f:switch_on_RBS}) RBS;
+        %
+        RNAs 3-\AND gate (\ref{f:3_RNA_on_RBS}). 
+        %
+        Cf.~\S\ref{ss:3xor}/\S\ref{ss:ribocomputing}.
+    }
+    \label{f:switch_RBS}
+\end{figure}
+
+%
+
+\begin{figure}[!p]
+    \centering
+    % don't add path: it's set globally
+    \includegraphics[height=(\textheight-2\baselineskip)]{xor_ribocomputing/xor_circuit_plot_2}
+    \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
+    \label{f:p_construct_xor}
+\end{figure}
+
+% % %
 
 \begin{figure}[!p]
 	\begin{tabular}{cc|cc}
@@ -1887,25 +2002,7 @@ respectively.
 	\label{f:player_response}
 \end{figure}
 
-
-
-
-
-\subsection{Bit 1} \label{s:sim:bit1}
-
-\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/Bit1}
-
-
-\subsubsection*{c2} \label{s:sim:bit1:c2}
-
-\TODO{c2}
-
-
-\subsubsection*{d1} \label{s:sim:bit1:d1}
-
-\TODO{d1}
-
-
+%
 
 \begin{figure}[!p]
 	\begin{tabular}{cc|cc}
@@ -2027,35 +2124,9 @@ respectively.
     \label{f:symbio-d1-tempo}
 \end{figure}
 
-%
-
-\section{Discussion} \label{s:discussion}
-
-\TODO{risks}
-
-\begin{itemize}
-\item 
-    senders and receivers in the same cell
-\item
-    In reality,
-    the EC50 of the signals
-    varies over several orders of magnitude
-    \cite[SM:Fig.~8]{DuETAL2020}.
-\item
-    \citet[SM:p.10]{NielsenETAL2016}
-    reported
-    $n = 1.6$ for an insulated AmtR
-    (with a certain RBS),
-    and higher coefficients for
-    some other transcription factors.
-\item
-    Timing could be an issue.
-\end{itemize}
 
 
-\section{Acknowledgments}
 
-\TODO{ack}
 
 
 
@@ -2110,48 +2181,13 @@ when the signal \ce{w_A} is present.
 
 
 
-\subsection{Phases}
-
-\begin{table}[hpbt]
-    \centering
-    %
-    % Table made with
-    % https://deepnote.com/project/998c51eb-bb3f-4a0f-88e3-c8b50d4d678a#%2Ft_phases.ipynb
-    %
-    \begin{tabular}{l||cc|ccc|ccc|ccc|cc}
-    {} &      \ce{r_0} &      \ce{r_1} &    \ce{s_0} &      \ce{d_0} &      \ce{c_1} &      \ce{s_1} & \ce{d_1} &      \ce{c_2} &    \ce{s_2} &      \ce{d_2} &      \ce{c_3} &    \ce{s_3} &      \ce{d_3} \\ 
-    \hline
-    1 &  $\downarrow$ &  $\downarrow$ &  $\uparrow$ &               &               &    $\uparrow$ &          &               &             &               &               &             &               \\ 
-    \hline
-    2 &    $\uparrow$ &               &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &               &          &               &             &               &               &             &               \\ 
-    \hline
-    3 &               &    $\uparrow$ &             &               &    $\uparrow$ &  $\downarrow$ &          &  $\downarrow$ &             &               &               &             &               \\ 
-    \hline
-    4 &               &               &             &               &               &               &          &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ &  $\downarrow$ &             &               \\ 
-    \hline
-    5 &               &               &             &               &               &               &          &               &             &               &    $\uparrow$ &  $\uparrow$ &  $\downarrow$ \\ 
-    \hline
-    \end{tabular}
-    %
-    %
-    \caption{%
-        Substeps of each phase A/B.
-        Arrows: emit ($\uparrow$) and compute ($\downarrow$).
-    }
-    \label{t:substeps}
-\end{table}
-
-
-
-
-
 
 
 \clearpage
 
+\SHOWTODOS
 
-
-\section*{Final TODOs}
+Also:
 
 \TODO{spacing of act and rep}
 
@@ -2159,10 +2195,9 @@ when the signal \ce{w_A} is present.
 
 \TODO{stars}
 
+\TODO{acknowledgements}
 
-\clearpage
-
-\SHOWTODOS
+\TODO{review the references section}
 
 
 
