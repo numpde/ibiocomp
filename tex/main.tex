@@ -1406,21 +1406,40 @@ in terms of the output of the promoters.
 
 The subtractor result bit
 (cf.~Table~\ref{t:subtractor1} and \S\ref{ss:cello})
-\begin{align} \label{e:3xor}
-	\ce{d_1} 
-	= 
-	\mathop{\mathsf{0x69}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-	=
-	\NOT
-	\mathop{\mathsf{0x96}}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-	=
-	\text{3-\XOR}
-	(\ce{s_1}, \ce{r_1}, \ce{c_1})
-	=
-	((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mathbin{\mathrm{mod}} 2)
-\end{align}
+\begin{subequations}
+	\begin{align} 
+		\label{e:3xor}
+		%
+		\ce{d_1} 
+		& = 
+		\mathop{\mathsf{0x69}}
+		(\ce{s_1}, \ce{r_1}, \ce{c_1})
+		=
+		\NOT
+		\mathop{\mathsf{0x96}}
+		(\ce{s_1}, \ce{r_1}, \ce{c_1})
+		=
+		\text{3-\XOR}
+		(\ce{s_1}, \ce{r_1}, \ce{c_1})
+		=
+		((\ce{s_1} + \ce{r_1} + \ce{c_1}) \mathbin{\mathrm{mod}} 2)
+		%
+		\\
+		%
+		\label{e:3xor-dnf}
+		%
+		& =
+		(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
+		\vee
+		(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
+		\vee
+		(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
+		\vee
+		(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
+		.
+		%
+	\end{align}
+\end{subequations}
 is particularly difficult
 because the result flips 
 whenever any input is flipped.
@@ -1499,17 +1518,7 @@ We considered:
 
 Eventually, we implemented the DNF%
 \starlink{https://en.wikipedia.org/wiki/Disjunctive_normal_form}
-%
-$
-	(s_1 \wedge \ce{\overline{r_1}} \wedge \ce{\overline{c_1}})
-	\vee
-	(\ce{\overline{s_1}} \wedge \ce{r_1} \wedge \ce{\overline{c_1}})
-	\vee
-	(\ce{\overline{s_1}} \wedge \ce{\overline{r_1}} \wedge \ce{c_1})
-	\vee
-	(\ce{s_1} \wedge \ce{r_1} \wedge \ce{c_1})
-$
-%
+\eqref{e:3xor-dnf}
 using RBS switches. 
 %
 %
