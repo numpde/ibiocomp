@@ -506,9 +506,7 @@ contains two subpopulations of cells
 as part of Subtractor A or B,
 referred to as Bit~0A, Bit~0B, etc.
 
-
 %
-
 
 To initialize the experiment,
 add 
@@ -526,7 +524,6 @@ adding \signal{w_A} before each step.
 %
 \begin{enumerate}
 \item
-    
     Having added \signal{w_A} to Bit~0 and Bit~1,
     wait for emission of \ce{s_1} and \ce{s_0}.
     
@@ -535,83 +532,61 @@ adding \signal{w_A} before each step.
     containing \ce{s_0}/\ce{s_1} to Player~A,
     wait for response.
     %
-    
     Note, the medium may or may not contain
     the actual signal molecules \signal{s_0}/\signal{s_1}.
     
 \item
-    
     Admix the medium from Player~A 
     containing \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}
     to Bit~0.
     %
     Wash Player~A, replenish with fresh medium.
-    
     %
-    %
-    
     Wait for:
     Bit~0B to compute the difference \ce{d_0} (silent);
     Bit~0A to compute the carry flag \ce{c_1}. 
     
 \item
-    
     Admix the medium from Bit~0 containing \ce{c_1} to Bit~1.
-    
     %
     Wash and replenish Bit~0.
     %
-    
     Wait for:
     Bit~1B to compute the difference \ce{d_1} (silent);
     Bit~1A to compute the carry flag \ce{c_2}. 
     
 \item
-    
     Admix the medium from Bit~1 containing \ce{c_2}
-    to Bit~2.
-    
+    to Bit~2.x
     %
-    
     Wash and replenish Bit~1.
-    
     %
-    
     Wait for:
     Bit~2B to compute the difference \ce{d_2} (silent);
     Bit~2A to compute the carry flag \ce{c_3}. 
     
 \item
-    
     Admix the medium from Bit~2 containing \ce{c_3}
     to Bit~3.
-    
     %
-    
     Wash and replenish Bit~2.
-    
     %
-    
     Wait for
     Bit~3B to compute the difference \ce{d_3} (silent).
-    
     %
     Wash and replenish Bit~3.
 \end{enumerate}
 
 %
 
-
 This concludes Phase A.
 %
 In the interphase it may be necessary
 to clear the media again
 and generally wait for the steady state.
-
 %
 Phase B proceeds similarly.
 %
-
 The game finishes when 
 the internal states \ce{d} are zero.
 %
@@ -919,7 +894,6 @@ has a p-coumaric acid group
 rather than a fatty acyl group.
 %
 %
-
 According to 
 \citet[p.2598]{HirakawaETAL2011},
 LuxR homologs
@@ -932,7 +906,6 @@ LasR \cite[Table~1]{Fuqua1996},
 RpaR \cite[p.2598]{HirakawaETAL2011}, 
 BjaR \cite{Lindemann2011}. 
 %
-
 %
 The TetR family are transcriptional repressors
 that
@@ -950,12 +923,10 @@ with two slots for the inducer.
 %
 PhlF and MmfR are TetR homologs.
 % ref? %\citet{DuETAL2020} ?
-
-
 %
 %
 %
-
+%
 Of note,
 \citet[SM:p.8]{DuETAL2020} 
 reported that sender cells
@@ -1055,15 +1026,20 @@ but the phlF mutant was unaffected by it.
 CHA0 also contains the gene 
 \href{https://www.pseudomonas.com/feature/show/?id=9748193&view=sequence}{phlG}
 to specifically degrade DAPG to MAPG
-\cite{BottiglieriKeel2006},
-and
-another TetR-analog PhlH 
-already found by \citet[p.1219]{SchniderkeelETAL2000}
-was shown 
-by \citet{YanETAL2017}
-to repress phlG.
-} \hh{For the purpose of the experiment, protein PhlF is used as the transcription factor responsive to DAPG and the corresponding promoter PhlF. For intercellular synthesis of DAPG, gene cluster PhlABCD is used as in \cite[Fig. 2a]{DuETAL2020}.}
+\cite{BottiglieriKeel2006}.
+%
+%Another TetR-analog PhlH 
+%already found by \citet[p.1219]{SchniderkeelETAL2000}
+%was shown by \citet{YanETAL2017} to repress phlG.
+}
 
+\ra{
+We use PhlF as the transcription factor repressed by DAPG.
+%
+\citet[Fig.~2a]{DuETAL2020}
+use the gene cluster PhlABCD
+for the synthesis of DAPG.
+}
 
 
 
@@ -1101,9 +1077,7 @@ with p-coumaric acid rather than
 fatty acids.
 Hence, it shows good orthogonality 
 to many AHL-HSL receiver proteins \cite{SchaeferETAL2008}.
-
 %
-
 The \emph{R.~palustris}%
 \starlink{https://en.wikipedia.org/wiki/Rhodopseudomonas_palustris}
 %
@@ -1285,8 +1259,6 @@ binds upstream of the promoter \ce{hrpL}
 and opens the $\ce{\sigma^{54}{-}RNAP{-}hrpL}$ transcription complex.
 %
 %
-%
-
 Increasing the copy number of this weak promoter
 improves the dynamic range
 \cite[p.4]{Wong2015}.
@@ -1596,7 +1568,6 @@ which
 in turn triggers the translation of \ce{Xis}.
 %
 Thus, the presence of \ce{Y} stands for $d_1 = 1$.
-
 %
 %
 %
@@ -1662,7 +1633,8 @@ $
 	\act 
 	\protein{cI^b} \rep \promoter{cI^b_-} \act
 	\ce{(Y^*)^n}
-	\rep \ce{Y} \act \protein{Xis}
+	\rep 
+	\ce{Y} \act \protein{Xis}
 	.
 $
 %
@@ -1853,8 +1825,7 @@ by means of a buffer (shelving).
 %
 %
 
-Our simulations have helped identify some issues
-but are highly stylized.
+Our simulations are highly stylized.
 %
 %
 For example,
@@ -1941,6 +1912,17 @@ robustness against mistiming of signaling.
     \label{f:switch_RBS}
 \end{figure}
 
+%
+\begin{figure}
+    \centering
+    \includegraphics[width = \linewidth]{xor_ribocomputing/logic_gate_3xor.pdf}
+    \caption{
+    \hh{
+    Logic gates for the 3-\XOR . Signal conduction downstream of pC-HSL is highlighed in blue for illustration. The \NOT gate is constructed by producing trigger RNA that switch OFF the RBS. The co-trigger RNA \AND gate is constructed by the timer that switch ON the RBS. See \S\ref{ss:3xor} and Fig.\ref{f:switch_RBS}.
+    }
+    }
+    \label{f:logical_gates_3xor}
+\end{figure}
 %
 
 \begin{figure}[!p]
