@@ -515,7 +515,7 @@ to each Bit~$i$,
 causing Subtractor A to compute and remember $\ce{d_i} = 1$.
 %
 Then wash and replace the medium.
-
+%
 %
 %
 In Phase A,
@@ -639,7 +639,8 @@ The iGEM part
 is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter.
 %\cite{iGem_Pc}.
 %
-We refer to it as \ce{P_c}. 
+We refer to it as \ce{P_c}
+(or a close variant thereof). 
 %
 
 
@@ -1292,7 +1293,7 @@ on the output mRNA
 
 
 Even in our idealized simulations
-such \AND gates produce undesired leakage
+such \AND gates produce undesirable leakage
 within larger circuits.
 %
 %
@@ -2103,7 +2104,8 @@ robustness against mistiming of signaling.
 \includegraphics[width=0.9\linewidth]{circuits/Logical-SubtractorA.svg.pdf}
 %
 \caption{%
-Conceptual logic circuit of Bit~0 and Bit~1 of
+Conceptual/reference
+logic circuit of Bit~0 and Bit~1 of
 Subtractor~A.
 %
 The result of the compute unit is written to the memory unit
@@ -2118,19 +2120,19 @@ of the memory unit
 as a bistable switch
 with basic gates.
 %
-The right part (in red) is closer
-to our genetic circuit using
+The right part (in {\color{DarkRed}red}) is closer
+to our actual genetic circuit using
 the reversible recombinase
 \S\ref{ss:memory}/p.\pageref{ss:memory}:
 the first relay (NC: normally closed)
 is switched temporarily by \ce{Xis};
 the bistable relay is switched stably by \ce{Int}
-either from above or from below
-(but remains unchanged without \ce{Int}).
+either up (from above) or down (from below),
+but remains unchanged without \ce{Int}.
 %
 %
 The 3-\XOR gate
-is shown (in blue)
+is shown (in {\color{DarkBlue}blue})
 as two cascading \XOR gates
 but we implement the DNF~\eqref{e:3xor-dnf},
 see Fig.~\ref{f:logical_gates_3xor}.
@@ -2176,7 +2178,9 @@ Also:
 
 \TODO{review the references section}
 
+\TODO{do we need Figure \ref{f:switch_on_RBS}}
 
+\TODO{no Insulator in co-trigger RNA AND gate?}
 
 
 \leavevmode\vfill{\tiny\color{lightgray}\hfill{\DTMnow}}
