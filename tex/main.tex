@@ -2122,14 +2122,11 @@ shows the principles of
 the Subtractor module (bit 0 and bit 1),
 but our implementation
 differs in the details.
-%
-In particular, we use a reversible recombinase
-for the memory module, see \S\ref{ss:memory}/p.\pageref{ss:memory}.
 
 % https://www.circuit-diagram.org/editor/c/075f8cf9d084400b94f1384cc1c3ba96
 \begin{figure}[phbt]
 \centering
-\includegraphics[width=0.9\linewidth]{circuits/Logical-HalfSubtractor0.svg.pdf}
+\includegraphics[width=0.9\linewidth]{circuits/Logical-SubtractorA.svg.pdf}
 %
 \caption{%
 Bit~0 and Bit~1
@@ -2137,12 +2134,19 @@ of
 Subtractor~A.
 %
 The result of the compute unit is written to the memory unit
-(e.g.~a bistable switch)
 when the signal \ce{w_B} is present.
 %
 The value of the memory unit is
 forwarded to the output
 when the signal \ce{w_A} is present.
+%
+The left part shows a possible implementation
+of the memory unit with basic gates.
+%
+The right part (red) is closer
+to our genetic implementation using
+the reversible recombinase
+\S\ref{ss:memory}/p.\pageref{ss:memory}.
 }
 \label{f:logical-subtractor01}
 \end{figure}
