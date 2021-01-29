@@ -1,49 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Circuit Diagram, cdlibrary.dll 1.0.0.0 -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" width="280" height="320" xmlns="http://www.w3.org/2000/svg">
-	<line x1="140" y1="90" x2="220" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="200" y1="180" x2="230" y2="180" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="200" y1="180" x2="200" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="80" y1="180" x2="80" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="180" y1="180" x2="180" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="40" y1="180" x2="180" y2="180" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="100" y1="190" x2="130" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="130" y1="170" x2="130" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<text x="190" y="275" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="hanging" transform="rotate(0, 190, 275)">r0</text>
-	<line x1="190" y1="260" x2="190" y2="267" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="190" cy="270" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<text x="90" y="275" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="hanging" transform="rotate(0, 90, 275)">r1</text>
-	<line x1="90" y1="260" x2="90" y2="267" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="90" cy="270" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<text x="40" y="45" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="baseline" transform="rotate(0, 40, 45)">wA</text>
-	<line x1="40" y1="53" x2="40" y2="180" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="40" cy="50" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<line x1="180" y1="190" x2="180" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+<svg version="1.1" width="260" height="320" xmlns="http://www.w3.org/2000/svg">
+	<line x1="200" y1="170" x2="200" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="220" y1="180" x2="220" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="130" y1="180" x2="130" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<text x="190" y="280" style="font-family:Arial;font-size:11px;text-anchor:start" dominant-baseline="middle" transform="rotate(0, 190, 280)">r0</text>
+	<text x="100" y="280" style="font-family:Arial;font-size:11px;text-anchor:start" dominant-baseline="middle" transform="rotate(0, 100, 280)">r1</text>
+	<line x1="120" y1="90" x2="190" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="110" y1="170" x2="110" y2="190" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<text x="210" y="275" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="hanging" transform="rotate(0, 210, 275)"></text>
+	<line x1="210" y1="260" x2="210" y2="267" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="210" cy="270" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<text x="120" y="275" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="hanging" transform="rotate(0, 120, 275)"></text>
+	<line x1="120" y1="260" x2="120" y2="267" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="120" cy="270" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<text x="42" y="180" style="font-family:Arial;font-size:12px;text-anchor:end" dominant-baseline="middle" transform="rotate(0, 42, 180)">wA</text>
+	<line x1="53" y1="180" x2="230" y2="180" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="50" cy="180" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
 	<line x1="200" y1="190" x2="200" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<path d="M 180,205 M 170,205 L 210,205 L 210,229 M 170,205 L 170,229 A 5,5 90 0 0 210,229" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="190" y1="250" x2="190" y2="260" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="80" y1="190" x2="80" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="100" y1="190" x2="100" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<path d="M 80,205 M 70,205 L 110,205 L 110,229 M 70,205 L 70,229 A 5,5 90 0 0 110,229" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="90" y1="250" x2="90" y2="260" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="120" y1="70" x2="240" y2="70" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="120" y1="70" x2="120" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<text x="140" y="45" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="baseline" transform="rotate(0, 140, 45)">s1</text>
-	<line x1="140" y1="53" x2="140" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="140" cy="50" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<text x="240" y="45" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="baseline" transform="rotate(0, 240, 45)">s0</text>
-	<line x1="240" y1="53" x2="240" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="240" cy="50" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<line x1="220" y1="190" x2="220" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<path d="M 200,205 M 190,205 L 230,205 L 230,229 M 190,205 L 190,229 A 5,5 90 0 0 230,229" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="210" y1="250" x2="210" y2="260" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="110" y1="190" x2="110" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="130" y1="190" x2="130" y2="205" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<path d="M 110,205 M 100,205 L 140,205 L 140,229 M 100,205 L 100,229 A 5,5 90 0 0 140,229" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="120" y1="250" x2="120" y2="260" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="100" y1="70" x2="210" y2="70" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="100" y1="70" x2="100" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<text x="120" y="45" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="baseline" transform="rotate(0, 120, 45)">s1</text>
+	<line x1="120" y1="53" x2="120" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="120" cy="50" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<text x="210" y="45" style="font-family:Arial;font-size:12px;text-anchor:middle" dominant-baseline="baseline" transform="rotate(0, 210, 45)">s0</text>
+	<line x1="210" y1="53" x2="210" y2="90" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="210" cy="50" rx="3" ry="3" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<line x1="100" y1="90" x2="100" y2="110" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="120" y1="90" x2="120" y2="110" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="140" y1="90" x2="140" y2="110" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<path d="M 120,104 M 110,104 Q 130,124 150,104 M 110,112 Q 130,132 150,112 M 150,111 Q 145,146 130,161 Q 115,146 110,111 M 130,162 A 2,2 5 0 0 130,168 A 2,2 5 0 0 130,162" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="130" y1="168" x2="130" y2="170" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="220" y1="90" x2="220" y2="115" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="240" y1="90" x2="240" y2="115" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<path d="M 220,115 M 210,115 L 250,115 L 250,139 M 210,115 L 210,139 A 5,5 90 0 0 250,139 M 230,159 A 2,2 5 0 0 230,165 A 2,2 5 0 0 230,159" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="230" y1="165" x2="230" y2="180" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<ellipse cx="140" cy="90" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<ellipse cx="80" cy="180" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
-	<ellipse cx="240" cy="70" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<path d="M 100,104 M 90,104 Q 110,124 130,104 M 90,112 Q 110,132 130,112 M 130,111 Q 125,146 110,161 Q 95,146 90,111 M 110,162 A 2,2 5 0 0 110,168 A 2,2 5 0 0 110,162" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="110" y1="168" x2="110" y2="170" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="190" y1="90" x2="190" y2="110" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="210" y1="90" x2="210" y2="110" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<path d="M 190,110 M 180,110 L 220,110 L 220,134 M 180,110 L 180,134 A 5,5 90 0 0 220,134 M 200,154 A 2,2 5 0 0 200,160 A 2,2 5 0 0 200,154" style="fill-opacity:0;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="200" y1="160" x2="200" y2="170" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<ellipse cx="220" cy="180" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<ellipse cx="130" cy="180" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<ellipse cx="120" cy="90" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
+	<ellipse cx="210" cy="70" rx="2" ry="2" style="fill-opacity:1;fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:2" />
 </svg>
