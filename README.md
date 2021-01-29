@@ -15,9 +15,9 @@ that play the following game:
 
 ### Report
 
-- [PDF file](https://github.com/numpde/ibiocomp/blob/main/tex/main.pdf)
+- [PDF file](tex/main.pdf)
 - [Individual codes](https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All)
-- [Both one zip archive](report/15sticks.zip)
+- [Both in one zip archive](report/15sticks.zip)
 
 
 ### Cite as
