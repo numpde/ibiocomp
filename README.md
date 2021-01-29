@@ -1,11 +1,9 @@
 ## The game of 15 sticks in *E. coli* 
 
-RA & HH, Oct 2020 -- Feb 2021
-
 
 ### About
 
-We design genetic circuits in *E. coli*
+We design genetic circuits 
 that play the following game:
 
     Two players start with 15 sticks and
@@ -15,7 +13,7 @@ that play the following game:
 
 ### Report
 
-- [PDF file](tex/main.pdf)
+- [PDF file](report/15sticks.pdf)
 - [Individual codes](https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All)
 - [Both in one zip archive](report/15sticks.zip)
 
