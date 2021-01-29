@@ -404,12 +404,12 @@ that illustrates the principle of delayed response.
 %
 %
 %
-\ra{
+
 Since
 Bits 0/2/3 
 are a subfunctionality of Bit~1,
 we will not discuss them in detail.
-}
+
 
 
 %%% TABLE %%%
@@ -467,7 +467,7 @@ However,
 only \emph{eight} worked well orthogonally
 on the sensor level 
 and 
-seven on the promoter level
+\emph{seven} on the promoter level
 \cite[\href{https://www.nature.com/articles/s41467-020-17993-w/figures/3}{Fig.~3c/g}]{DuETAL2020}.
 %
 We have assigned in Table~\ref{t:signals}
@@ -485,7 +485,7 @@ heeding the advice of \citet[p.6]{DuETAL2020}.
 
 %
 
-\ra{
+
 To facilitate debugging
 we partition the workflow
 into six 
@@ -505,11 +505,11 @@ Each Bit compartment
 contains two subpopulations of cells 
 as part of Subtractor A or B,
 referred to as Bit~0A, Bit~0B, etc.
-}
+
 
 %
 
-\ra{
+
 To initialize the experiment,
 add 
 \signal{w_B} with \signal{s_i}
@@ -517,101 +517,101 @@ to each Bit~$i$,
 causing Subtractor A to compute and remember $\ce{d_i} = 1$.
 %
 Then wash and replace the medium.
-}
+
 %
 %
 In Phase A,
 do the following steps,
-\ra{adding \signal{w_A} before each step}.
+adding \signal{w_A} before each step.
 %
 \begin{enumerate}
 \item
-    \ra{
+    
     Having added \signal{w_A} to Bit~0 and Bit~1,
     wait for emission of \ce{s_1} and \ce{s_0}.
-    }
+    
 \item
     Admix the media from Bits~0/1
     containing \ce{s_0}/\ce{s_1} to Player~A,
     wait for response.
     %
-    \ra{
+    
     Note, the medium may or may not contain
     the actual signal molecules \signal{s_0}/\signal{s_1}.
-    }
+    
 \item
-    \ra{
+    
     Admix the medium from Player~A 
     containing \ce{r_0}/\ce{r_1}/\ce{s_0}/\ce{s_1}
     to Bit~0.
     %
     Wash Player~A, replenish with fresh medium.
-    }
+    
     %
     %
-    \ra{
+    
     Wait for:
     Bit~0B to compute the difference \ce{d_0} (silent);
     Bit~0A to compute the carry flag \ce{c_1}. 
-    }
+    
 \item
-    \ra{
+    
     Admix the medium from Bit~0 containing \ce{c_1} to Bit~1.
-    }
+    
     %
     Wash and replenish Bit~0.
     %
-    \ra{
+    
     Wait for:
     Bit~1B to compute the difference \ce{d_1} (silent);
     Bit~1A to compute the carry flag \ce{c_2}. 
-    }
+    
 \item
-    \ra{
+    
     Admix the medium from Bit~1 containing \ce{c_2}
     to Bit~2.
-    }
+    
     %
-    \ra{
+    
     Wash and replenish Bit~1.
-    }
+    
     %
-    \ra{
+    
     Wait for:
     Bit~2B to compute the difference \ce{d_2} (silent);
     Bit~2A to compute the carry flag \ce{c_3}. 
-    }
+    
 \item
-    \ra{
+    
     Admix the medium from Bit~2 containing \ce{c_3}
     to Bit~3.
-    }
+    
     %
-    \ra{
+    
     Wash and replenish Bit~2.
-    }
+    
     %
-    \ra{
+    
     Wait for
     Bit~3B to compute the difference \ce{d_3} (silent).
-    }
+    
     %
     Wash and replenish Bit~3.
 \end{enumerate}
 
 %
 
-\ra{
+
 This concludes Phase A.
 %
 In the interphase it may be necessary
 to clear the media again
 and generally wait for the steady state.
-}
+
 %
 Phase B proceeds similarly.
 %
-\ra{
+
 The game finishes when 
 the internal states \ce{d} are zero.
 %
@@ -621,7 +621,7 @@ by coupling expression of reporter proteins
 % EGFP, YFP, mCherry and mPlum
 to the memory units
 (details omitted).
-}
+
 
 %
 
@@ -658,7 +658,7 @@ in order to reboot the game.
 
 \subsubsection*{Constitutive promoter} \label{ss:Pc}
 
-\ra{
+
 The iGEM part 
 \href{http://parts.igem.org/Part:BBa_J23100}{BBa\_J23100}
 is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter.
@@ -666,7 +666,7 @@ is a strong constitutive \emph{E.~coli} $\sigma^{70}$ promoter.
 %
 We refer to it as \ce{P_c}. 
 %
-}
+
 
 %\url{http://parts.igem.org/Promoters/Catalog/Constitutive}
 %\cite{ShimadaETAL2014}
@@ -842,7 +842,7 @@ see \cite{NielsenETAL2016}.
 
 \subsection{Insulation of genetic context and RBS}
 
-\ra{
+
 To reduce ``part-junction interference''
 and maintain relative promoter strengths,
 \citet{LouETAL2012}
@@ -864,16 +864,16 @@ the {translation} level
 %
 An additional hairpin helps expose the RBS
 \cite{LouETAL2012, CarrierKeasling1997}.
-}
+
 %
 %
-\ra{
+
 For our purposes,
 standard RBS sequences 
 such as 
 \href{http://parts.igem.org/wiki/index.php/Part:BBa_J61100}{BBa\_J61100}
 can be used.
-}
+
 
 
 \subsection{Extracellular signaling} \label{ss:wAB}
@@ -932,14 +932,14 @@ LasR \cite[Table~1]{Fuqua1996},
 RpaR \cite[p.2598]{HirakawaETAL2011}, 
 BjaR \cite{Lindemann2011}. 
 %
-\ra{
+
 %
 The TetR family are transcriptional repressors
 that
 sit on the operons and block the corresponding promoters
 \cite{Ramos2005}.
 %
-They are released
+The repression are released
 by specific inducers (often antibiotics)
 via a conformational change. 
 %
@@ -950,12 +950,12 @@ with two slots for the inducer.
 %
 PhlF and MmfR are TetR homologs.
 % ref? %\citet{DuETAL2020} ?
-}
+
 
 %
 %
 %
-\ra{
+
 Of note,
 \citet[SM:p.8]{DuETAL2020} 
 reported that sender cells
@@ -968,7 +968,7 @@ IV, NG: no delay).
 %
 See \cite[SM]{DuETAL2020}
 for sequences, biosynthesis and induction curves.
-}
+
 
 
 \subsubsection*{3OC6} \label{ss:3OC6}
@@ -1062,7 +1062,7 @@ already found by \citet[p.1219]{SchniderkeelETAL2000}
 was shown 
 by \citet{YanETAL2017}
 to repress phlG.
-}
+} \hh{For the purpose of the experiment, protein PhlF is used as the transcription factor responsive to DAPG and the corresponding promoter PhlF. For intercellular synthesis of DAPG, gene cluster PhlABCD is used as in \cite[Fig. 2a]{DuETAL2020}.}
 
 
 
@@ -1093,7 +1093,7 @@ binds to each \protein{NahR}.
 
 \subsubsection*{pC} \label{ss:pC}
 
-\ra{
+
 The transcription factor RpaR protein 
 senses
 P-coumaroyl-HSL
@@ -1101,9 +1101,9 @@ with p-coumaric acid rather than
 fatty acids.
 Hence, it shows good orthogonality 
 to many AHL-HSL receiver proteins \cite{SchaeferETAL2008}.
-}
+
 %
-\ra{
+
 The \emph{R.~palustris}%
 \starlink{https://en.wikipedia.org/wiki/Rhodopseudomonas_palustris}
 %
@@ -1125,7 +1125,7 @@ $\signal{pC} : \protein{RpaR}$
 bound to the promoter
 activates transcription
 \cite[Discussion]{HirakawaETAL2011}.
-}
+
 
 
 \subsubsection*{MMF} \label{ss:MMF}
@@ -1286,11 +1286,11 @@ and opens the $\ce{\sigma^{54}{-}RNAP{-}hrpL}$ transcription complex.
 %
 %
 %
-\ra{
+
 Increasing the copy number of this weak promoter
 improves the dynamic range
 \cite[p.4]{Wong2015}.
-}
+
 
 
 \subsubsection*{Ribocomputing} \label{ss:ribocomputing}
@@ -1318,7 +1318,7 @@ on the output mRNA
 
 \subsubsection*{Cross-inhibition} \label{ss:xinh}
 
-\ra{
+
 Even in our idealized simulations
 such \AND gates produce undesired leakage
 within larger circuits.
@@ -1387,7 +1387,7 @@ in terms of the output of the promoters.
 %
 %
 % See Fig.~\ref{f:sub_response}. % include if has comparison vs no-cross-inhibition
-}
+
 
 % see \S\ref{s:x-inh}.
 
@@ -1541,7 +1541,7 @@ as in
 %
 %
 %
-\ra{
+
 Fig.~\ref{f:p_construct_xor}
 shows the corresponding genetic circuits:
 \begin{itemize}
@@ -1578,13 +1578,13 @@ shows the corresponding genetic circuits:
     %
     Therefore, the output is expressed when all 3 signals are present.
 \end{itemize}
-}
+
 
 
 
 \subsection{Shelving} \label{ss:shelf}
 
-\ra{
+
 The 3-\XOR gate from \S\ref{ss:3xor}
 activates or represses translation of an output mRNA.
 %
@@ -1596,7 +1596,7 @@ which
 in turn triggers the translation of \ce{Xis}.
 %
 Thus, the presence of \ce{Y} stands for $d_1 = 1$.
-}
+
 %
 %
 %
@@ -1766,13 +1766,13 @@ that are too fast to be realistic
 
 \subsection{Player A} \label{s:sim:player}
 
-\ra{
+
 We implemented
 the response \ce{r_0} and \ce{r_1} of Player A 
 as sketched out in \S\ref{ss:cello}.
 %
 The steady-state response is shown in Fig.~\ref{f:player_response}.
-}
+
 %
 %\url{https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All/PlayerA}
 
@@ -1781,7 +1781,7 @@ The steady-state response is shown in Fig.~\ref{f:player_response}.
 
 \subsubsection*{Carry flag \texorpdfstring{\ce{c_2}}{c2}} \label{s:sim:bit1:c2}
 
-\ra{
+
 We implemented \ce{c_2}
 as indicated in \S\ref{ss:cello}.
 %
@@ -1792,11 +1792,11 @@ The steady-state response is shown in Fig.~\ref{f:sub_response}.
 %
 %We used cross-inhibition from \S\ref{ss:xinh}
 %as the last gate.
-}
+
 
 \subsubsection*{Difference \texorpdfstring{\ce{d_1}}{d1}} \label{s:sim:bit1:d1}
 
-\ra{
+
 We implemented \ce{d_1}
 as in \S\ref{ss:3xor}
 with 
@@ -1819,7 +1819,7 @@ illustrates the effect of shelving
 for isolating 
 the memory unit
 from spurious output of the compute unit.
-}
+
 
 %
 %
@@ -1827,7 +1827,7 @@ from spurious output of the compute unit.
 
 \section{Discussion} \label{s:discussion}
 
-\ra{
+
 The focus of this note is the design
 of a multi-cell genetic count-down 
 computer which is \emph{reusable}.
@@ -1838,7 +1838,7 @@ computing, remembering and emitting
 the new status in alternating phases. 
 %
 %
-In particular,
+As part of the subtractor,
 we propose an RNA-based 3-\XOR gate.
 %
 %
@@ -1848,7 +1848,7 @@ a resettable recombinase.
 We also propose to
 insulate undesirable fluctuations
 in the output of the compute unit
-by means of a buffer.
+by means of a buffer (shelving).
 
 %
 %
@@ -1865,18 +1865,18 @@ vary over several orders of magnitude
 and
 the Hill equation parameters depend on the context
 \cite[SM:p.10]{NielsenETAL2016};
-we rely heavily on orthogonality of the signaling channels
+we rely on orthogonality of the signaling channels
 and ignore 
 potential toxicity
 \cite[SM:p.8]{DuETAL2020};
 we did not simulate diffusion 
 of signaling molecules 
-in and out of the cell
+in/out of the cell
 and
-have not systematically investigated
+nor systematically investigate
 robustness against mistiming of signaling.
 %
-}
+
 
 
 
