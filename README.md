@@ -1,13 +1,11 @@
-## The game of 15 sticks in E. coli 
+## The game of 15 sticks in *E. coli* 
 
-Intro to biological computers -- final project.
-
-RA & HH, Feb 2021.
+RA & HH, Oct 2020 -- Feb 2021
 
 
 ### About
 
-We design genetic circuits in E. coli
+We design genetic circuits in *E. coli*
 that play the following game:
 
     Two players start with 15 sticks and
@@ -17,15 +15,14 @@ that play the following game:
 
 ### Report
 
-[PDF](https://github.com/numpde/ibiocomp/blob/main/tex/main.pdf)
-and
-[codes](https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All).
+- [PDF file](https://github.com/numpde/ibiocomp/blob/main/tex/main.pdf)
+- [Individual codes](https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All)
+- [Both one zip archive](report/15sticks.zip)
 
 
 ### Cite as
 
 RA & HH,
 The game of 15 sticks in E. coli,
-2020-02-02,
-[http://bit.ly/15sticks](http://bit.ly/15sticks).
-
+2020-02-10,
+[http://bit.ly/15sticks](http://bit.ly/15sticks)
