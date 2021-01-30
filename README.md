@@ -15,7 +15,7 @@ that play the following game:
 
 - [PDF file](report/15sticks.pdf)
 - [Individual codes](https://github.com/numpde/ibiocomp/tree/main/code/20201231_SymBio_All)
-- [Both in one zip archive](report/15sticks.zip)
+- [Both in one zip archive](https://github.com/numpde/ibiocomp/raw/main/report/15sticks.zip)
 
 
 ### Cite as
