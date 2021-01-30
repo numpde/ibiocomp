@@ -20,7 +20,7 @@ that play the following game:
 
 ### Cite as
 
-RA & HH,
+R. Andreev & H. Hu,
 The game of 15 sticks in E. coli,
 2020-02-10,
 [http://bit.ly/15sticks](http://bit.ly/15sticks)
