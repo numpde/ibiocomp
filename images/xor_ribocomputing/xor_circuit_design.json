@@ -58,7 +58,7 @@
      "label": "",
      "reversed": false,
      "sublabel": "",
-     "subscript": "Some subscript",
+     "subscript": "",
      "id": 2
     }
    ]
@@ -247,7 +247,7 @@
     {
      "category": "expression-cassette",
      "bg_color": null,
-     "label": "co-trigger RNA k*n",
+     "label": "co-trigger RNA pn",
      "reversed": false,
      "sublabel": "[Sal]",
      "subscript": "",

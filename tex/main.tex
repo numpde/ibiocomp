@@ -112,11 +112,11 @@
 \newcommand{\starlink}[1]{\textsuperscript{\makebox[0pt]{\href{#1}{\color{white}$\star$}}}}
 
 \newcommand{\hh}[1]{{\color{Purple}#1}}
-\newcommand{\ra}[1]{{\color{Blue}#1}}
+\newcommand{\ra}[1]{{\color{Blue}#1}\marginnote{\TODO{review}}}
 
 
 \title{The game of 15 sticks in \emph{E.~coli}}
-\author{RA \& HH}
+\author{R.~Andreev \& H.~Hu}
 \date{\today}
 \newcommand{\linktodoc}{http://bit.ly/15sticks}
 
@@ -137,12 +137,11 @@
 		\MyTitle, \MyAuthor, \MyDate,
 		\href{\linktodoc}{{\texttt{\linktodoc}}}.
 		%
-		See the link 
-		for the Matlab/SymBiology files
-		and 
-		for the PDF file with sharp figures.
+		See the link for the codes
+		and the PDF file with sharp figures.
 		%
-		%Acknowledgements:
+		Thanks to:
+		Y.~Benenson and M.~Chen.
 	}}{}%
 }
 
@@ -609,7 +608,7 @@ dedicated sensor cells
 that report on signaling molecules 
 in order to 
 monitor the communication channels;
-c) \ra{
+c) 
 cells that emit 
 \signal{s_3}/\signal{s_2}/\signal{s_1}/\signal{s_0}
 upon one signal, 
@@ -617,7 +616,7 @@ e.g.~%
 tetracycline%
 \starlink{https://en.wikipedia.org/wiki/Tetracycline},
 in order to reboot the game.
-}
+
 
 %
 
@@ -801,10 +800,10 @@ AmtR sits on the DNA as a dimer
 %\cite{BuchingerETAL2009}
 
 
-\ra{
+
 Further, we use the transcription repressors BetI and HlyIIR,
 see \cite{NielsenETAL2016}.
-}
+
 
 % Player: BetI, HlyIIR, \ce{cI^a}, \ce{P_{c}}
 % \href{https://i.ibb.co/N2kdwJL/Screenshot-from-2021-01-21-12-06-59.png}{Figure}
@@ -841,7 +840,10 @@ the {translation} level
 An additional hairpin helps expose the RBS
 \cite{LouETAL2012, CarrierKeasling1997}.
 %
-\hh{It is suggested that insulators reduce downstream DNA expression dependence in bacterial promoters, particularly the use of non-constitutive promoters such as \promoter{BAD} and \promoter{Tet} \cite{Carr2017}.}
+Insulating sequences can also be placed
+upstream of promoters (including \promoter{BAD})
+to reduce order dependence
+\cite{Carr2017}.
 
 %
 %
@@ -993,7 +995,7 @@ produced by some Gram-negative
 \starlink{https://en.wikipedia.org/wiki/Pseudomonas_fluorescens}.
 %
 %
-\ra{
+
 \citet{BangeraThomashow1999}
 identified the phlABCD operon
 (in strain \href{https://www.uniprot.org/proteomes/UP000007289}{Q2-87})
@@ -1034,15 +1036,15 @@ to specifically degrade DAPG to MAPG
 %Another TetR-analog PhlH 
 %already found by \citet[p.1219]{SchniderkeelETAL2000}
 %was shown by \citet{YanETAL2017} to repress phlG.
-}
 
-\ra{
+
+
 We use PhlF as the transcription factor repressed by DAPG.
 %
 \citet[Fig.~2a]{DuETAL2020}
 use the gene cluster PhlABCD
 for the synthesis of DAPG.
-}
+
 
 
 
@@ -1554,11 +1556,7 @@ shows the corresponding genetic circuits:
     Therefore, the output is expressed when all 3 signals are present.
 \end{itemize}
 
-%
-%
-\hh{Of note, insulators are placed between the junction downstream of the non-constitutive promoter and the switch RBS to reduce the interference. See \S\ref{ss:insulation_RBS}
-for details. }
-%
+
 
 \subsection{Shelving} \label{ss:shelf}
 
@@ -1669,7 +1667,7 @@ which we can express as
 In steady state, we have the Hill equation
 \[
 	\promoter{AmtR}_\text{active}
-	& =
+	=
 	\left(
 		1 + 
 		(\protein{AmtR} / \text{EC50})^n
@@ -1684,7 +1682,7 @@ In case of an activator we use, for example,
 	\label{e:Sal}
 	%
 	\promoter{Sal}_\text{active}
-	\ce{=}
+	=
 	\left(
 		1 +
 		(\text{EC50} / \signal{Sal})^n
@@ -1747,6 +1745,7 @@ that are too fast to be realistic
 
 We implemented
 the response \ce{r_0} and \ce{r_1} of Player A 
+in SymBiology
 as sketched out in \S\ref{ss:cello}.
 %
 The steady-state response is shown in Fig.~\ref{f:player_response}.
@@ -1761,12 +1760,13 @@ The steady-state response is shown in Fig.~\ref{f:player_response}.
 
 
 We implemented \ce{c_2}
+in SymBiology
 as indicated in \S\ref{ss:cello}.
 %
 Recall that \ce{c_2} is emitted immediately,
 bypassing the memory unit.
 %
-The steady-state response is shown in Fig.~\ref{f:sub_response}.
+Fig.~\ref{f:sub_response} shows the steady-state response.
 %
 %We used cross-inhibition from \S\ref{ss:xinh}
 %as the last gate.
@@ -1776,11 +1776,12 @@ The steady-state response is shown in Fig.~\ref{f:sub_response}.
 
 
 We implemented \ce{d_1}
+in SymBiology
 as in \S\ref{ss:3xor}
 with 
-the buffer/shelving mechanism from \S\ref{ss:shelf}
+the buffer/shelving mechanism (\S\ref{ss:shelf})
 and
-the recombinase memory unit from \S\ref{ss:memory}.
+the recombinase memory unit (\S\ref{ss:memory}).
 %
 %
 Fig.~\ref{f:sub_response}
@@ -1919,15 +1920,21 @@ robustness against mistiming of signaling.
 
 %
 
-\begin{figure}
+\begin{figure}[!p]
     \centering
-    \includegraphics[width = \linewidth]{xor_ribocomputing/logic_gate_3xor}
-    \caption{
-    \hh{
-    Logic gates for the 3-\XOR . Signal conduction downstream of pC-HSL is highlighed in blue for illustration. The \NOT gate is constructed by producing trigger RNA that switch OFF the RBS. The co-trigger RNA \AND gate is constructed by the trimer that switch ON the RBS. See \S\ref{ss:3xor} and Fig.~\ref{f:switch_RBS}.
+    % don't add path: it's set globally
+    \includegraphics[height=(\textheight-3\baselineskip)]{images/xor_ribocomputing/xor_circuit_plot.pdf}
+    \caption{%
+        Genetic circuits for the 3-\XOR DNF \eqref{e:3xor-dnf}
+        from \S\ref{ss:3xor}.
+        Cf.~Fig.~\ref{f:logic_3xor}.
+        %
+        Ribozyme insulators are placed 
+        just upstream of the switch RBS
+        for non-constitutive promoters,
+        see \S\ref{ss:insulation_RBS}.
     }
-    }
-    \label{f:logical_gates_3xor}
+    \label{f:p_construct_xor}
 \end{figure}
 
 %
@@ -1935,21 +1942,24 @@ robustness against mistiming of signaling.
 \begin{figure}[!p]
     \centering
     \includegraphics[height=(\textheight-10\baselineskip)]{circuits/Logical-3xor.svg.pdf}
-    \caption{
-    \ra{--}
+    \caption{%
+        One-to-one
+        logic gate representation
+        of the genetic implementation
+        of the 3-\XOR DNF \eqref{e:3xor-dnf}
+        from \S\ref{ss:3xor}.
+        %
+        To avoid clutter
+        the wiring is indicated by the arrows.
+        %
+        \ce{Y} indicates active output mRNA translation.
+        %
+        Cf.~Fig.~\ref{f:p_construct_xor}.
     }
+    
+    \vspace{1\baselineskip}
+    
     \label{f:logic_3xor}
-    \TODO{caption}
-\end{figure}
-
-%
-
-\begin{figure}[!p]
-    \centering
-    % don't add path: it's set globally
-    \includegraphics[height=(\textheight-2\baselineskip)]{images/xor_ribocomputing/plot-5.pdf}
-    \caption{Genetic circuits for the 3-input \XOR gate. See \S\ref{ss:3xor}.}
-    \label{f:p_construct_xor}
 \end{figure}
 
 % % %
@@ -2154,7 +2164,7 @@ The 3-\XOR gate
 is shown (in {\color{DarkBlue}blue})
 as two cascading \XOR gates
 but we implement the DNF~\eqref{e:3xor-dnf},
-see Fig.~\ref{f:logical_gates_3xor}.
+see Fig.~\ref{f:logic_3xor}.
 }
 \label{f:logical-subtractor01}
 \end{figure}
@@ -2175,37 +2185,14 @@ see Fig.~\ref{f:logical_gates_3xor}.
 
 
 
-\clearpage
+%\clearpage
 
-
-
-
-
-\clearpage
-
-\SHOWTODOS
-
-Also:
-
-\TODO{spacing of act and rep}
-
-\TODO{check that Table \ref{t:signals} is correct}
-
-\TODO{stars}
-
-\TODO{acknowledgements}
-
-\TODO{review the references section}
-
-\TODO{do we need Figure \ref{f:switch_on_RBS}}
-
-\TODO{no Insulator in co-trigger RNA AND gate?}
+%\SHOWTODOS
+%\TODO{are the stars correct?}
+%\TODO{acknowledgements, first footnote}
+%\TODO{review the references section}
+%\TODO{check name spelling (authors and footnote)}
 
 
 \leavevmode\vfill{\tiny\color{lightgray}\hfill{\DTMnow}}
 \end{document}
-
-
-
-
-
