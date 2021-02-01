@@ -22,5 +22,5 @@ that play the following game:
 
 R. Andreev & H. Hu,
 The game of 15 sticks in E. coli,
-2020-02-10,
+2021,
 [http://bit.ly/15sticks](http://bit.ly/15sticks)
